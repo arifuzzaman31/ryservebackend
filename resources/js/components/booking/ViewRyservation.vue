@@ -1,32 +1,28 @@
 <script>
 import axios from 'axios';
-import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import Mixin from '../../mixer'
 export default {
     mixins:[Mixin],
-    components:{
-        Bootstrap4Pagination
-    },
 
     data(){
         return {
-            assetes: [],
+            bookings: [],
             url: baseUrl,
             validation_error: {},
         }
     },
     methods:{
-        async getAssetByassetId(){
+        async getBooking(){
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                await axios.get(`http://localhost:3000/api/backendapi/asset`,{
+                await axios.get(`http://localhost:3000/api/backendapi/booking`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }
                 })
                 .then(response => {
-                    this.assetes = response.data
+                    this.bookings = response.data
                     console.log(response.data)
                 }).catch(error => {
                     console.log(error)
@@ -40,7 +36,7 @@ export default {
     computed: {
     },
     mounted(){
-        this.getAssetByassetId()
+        this.getBooking()
     }
 }
 </script>
@@ -52,12 +48,7 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Asset</h4>
-                <a href="create/asset"
-                    class="btn btn-primary mb-2 mr-3"
-                >
-                    Create Asset
-        </a>
+                            <h4>Ryservation</h4>
                         </div>
                     </div>
                 </div>
@@ -67,27 +58,26 @@ export default {
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Asset Name</th>
-                            <th>Asset Type</th>
-                            <th>City</th>
-                            <th>Total Booking</th>
+                            <th>Property Name</th>
+                            <th>Customer Name</th>
+                            <th>Phone</th>
+                            <th>Date</th>
+                            <th>Time</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-for="(asset,index) in assetes" :key="asset.id">
+                        <template v-for="(ryserve,index) in bookings" :key="ryserve.id">
                             <tr>
                                 <td>{{ index+1 }}</td>
-                                <td>{{ asset.propertyName }}</td>
-                                <td>{{ asset.assetType }}</td>
-                                <td>{{ asset.city }}</td>
-                                <td>{{ asset.bookingCount }}</td>
+                                <td>{{ ryserve.subAssetComponent.listingName }}</td>
+                                <td>{{ ryserve.customerName }}</td>
+                                <td>{{ ryserve.phoneNumber }}</td>
+                                <td>{{ dateToString(ryserve.startDate) }}</td>
+                                <td>{{ ryserve.slot }}</td>
                                 <td class="text-center">
-                                    <label class="switch s-success  mb-4 mx-5">
-                                        <input type="checkbox" :checked="asset.status == 1 ? true : false" disabled>
-                                        <span class="slider round"></span>
-                                    </label>
+                                   {{ryserve.status}}
                                 </td>
                                 <td>
                                 <ul class="table-controls d-flex justify-content-around">
@@ -112,8 +102,3 @@ export default {
     </div>
 
 </template>
-
-
-<style scoped>
-
-</style>

@@ -1,19 +1,7 @@
 <template>
     <div class="layout-px-spacing">
-        <div class="row">
-            <div
-                class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-            >
-                <h4>Business</h4>
-                <a href="business"
-                    class="btn btn-primary mb-2 mr-3"
-                >
-                    Create Business
-        </a>
-            </div>
-        </div>
         <div class="row mt-3" style="display: flex; row-gap: 20px">
-            <div class="col-md-3 rounded">
+            <div class="col-md-4 rounded">
                 <div class="card" style="border-radius: 8px">
                     <div
                         class="card-body d-flex align-items-center"
@@ -59,10 +47,10 @@
                             </span>
                         </div>
                         <div class="icons-content">
-                            <h6 class="mb-1 card-title">Total Order</h6>
+                            <h6 class="mb-1 card-title">Total Customer</h6>
                             <span>678</span> <br />
                             <span class="text-sm">
-                                Shipping fees are not included
+                                Count Total Customer
                             </span>
                         </div>
 
@@ -70,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 rounded">
+            <div class="col-md-4 rounded">
                 <div class="card" style="border-radius: 8px">
                     <!-- <img class="card-img-top" src="" alt="Card image cap" /> -->
                     <div
@@ -117,10 +105,10 @@
                             </span>
                         </div>
                         <div class="icons-content">
-                            <h6 class="mb-1 card-title">Pending Order</h6>
-                            <span>6785</span> <br />
+                            <h6 class="mb-1 card-title">Total Ryserve</h6>
+                            <span>85</span> <br />
                             <span class="text-sm">
-                                Shipping fees are not included
+                                demo text
                             </span>
                         </div>
 
@@ -128,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 rounded">
+            <div class="col-md-4 rounded">
                 <div class="card" style="border-radius: 8px">
                     <div
                         class="card-body d-flex align-items-center"
@@ -174,10 +162,10 @@
                             </span>
                         </div>
                         <div class="icons-content">
-                            <h6 class="mb-1 card-title">On Delivery</h6>
-                            <span>846</span> <br />
+                            <h6 class="mb-1 card-title">Last 7days Booking</h6>
+                            <span>42</span> <br />
                             <span class="text-sm">
-                                Shipping fees are not included
+                                Count Last 7days Booking
                             </span>
                         </div>
 
@@ -185,68 +173,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 rounded">
-                <div class="card" style="border-radius: 8px">
-                    <!-- <img class="card-img-top" src="" alt="Card image cap" /> -->
-                    <div
-                        class="card-body d-flex align-items-center"
-                        style="
-                            height: 100vh;
-                            max-height: 143px;
-                            column-gap: 20px;
-                        "
-                    >
-                        <div>
-                            <span
-                                class="rounded-circle"
-                                style="
-                                    padding: 1rem 0.69rem !important;
-                                    background-color: rgba(8, 129, 120, 0.2);
-                                "
-                            >
-                                <i
-                                    class="icons icon icon-sm rounded-circle"
-                                    style="
-                                        background-color: rgb(8 129 120 / 65%);
-                                        color: #fff;
-                                        padding: 4px;
-                                    "
-                                >
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        stroke-width="1.5"
-                                        stroke="currentColor"
-                                        class="w-6 h-6"
-                                        width="20"
-                                        height="20"
-                                    >
-                                        <path
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3"
-                                        />
-                                    </svg>
-                                </i>
-                            </span>
-                        </div>
-                        <div class="icons-content">
-                            <h6 class="mb-1 card-title text-bold">
-                                Total Delivered
-                            </h6>
-                            <span>9456</span> <br />
-                            <span class="text-sm">
-                                Shipping fees are not included
-                            </span>
-                        </div>
 
-                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
+
+
 </template>
 
 <script>
