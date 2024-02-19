@@ -22,7 +22,7 @@ export default {
             try {
                 axios
                     .post(
-                        "http://localhost:3000/api/auth/signin?for=login-request",
+                        `${apiUrl}/auth/signin?for=login-request`,
                         this.form
                     )
                     .then((response) => {
@@ -51,7 +51,7 @@ export default {
             try {
                 axios
                     .post(
-                        "http://localhost:3000/api/auth/signin?for=register-request",
+                        apiUrl+"/auth/signin?for=register-request",
                         this.form
                     )
                     .then((response) => {

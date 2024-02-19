@@ -37,7 +37,7 @@ export default {
         createBusiness(){
             const tok = localStorage.getItem('authuser')
             const token = JSON.parse(tok)
-            axios.post('http://localhost:3000/api/backendapi/business', this.business, {
+            axios.post(`${apiUrl}backendapi/business`, this.business, {
                 headers: {
                     'Authorization': `Bearer ${token.token}`
                 }

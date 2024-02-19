@@ -33,7 +33,7 @@ export default {
         createAsset(){
             const tok = localStorage.getItem('authuser')
             const token = JSON.parse(tok)
-            axios.post('http://localhost:3000/api/backendapi/asset', this.assets, {
+            axios.post(`${apiUrl}backendapi/asset`, this.assets, {
                 headers: {
                     'Authorization': `Bearer ${token.token}`
                 }
@@ -49,7 +49,7 @@ export default {
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                 axios.get(`http://localhost:3000/api/backendapi/business`,{
+                 axios.get(`${apiUrl}/backendapi/business`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }

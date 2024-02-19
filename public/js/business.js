@@ -20145,7 +20145,7 @@ __webpack_require__.r(__webpack_exports__);
     createAsset: function createAsset() {
       var tok = localStorage.getItem('authuser');
       var token = JSON.parse(tok);
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:3000/api/backendapi/asset', this.assets, {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("".concat(apiUrl, "backendapi/asset"), this.assets, {
         headers: {
           'Authorization': "Bearer ".concat(token.token)
         }
@@ -20160,7 +20160,7 @@ __webpack_require__.r(__webpack_exports__);
       try {
         var tok = localStorage.getItem('authuser');
         var token = JSON.parse(tok);
-        axios__WEBPACK_IMPORTED_MODULE_2___default().get("http://localhost:3000/api/backendapi/business", {
+        axios__WEBPACK_IMPORTED_MODULE_2___default().get("".concat(apiUrl, "/backendapi/business"), {
           headers: {
             'Authorization': "Bearer ".concat(token.token)
           }
@@ -20248,7 +20248,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               tok = localStorage.getItem('authuser');
               token = JSON.parse(tok);
               _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:3000/api/backendapi/asset", {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/asset"), {
                 headers: {
                   'Authorization': "Bearer ".concat(token.token)
                 }
@@ -20322,7 +20322,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               tok = localStorage.getItem('authuser');
               token = JSON.parse(tok);
               _context.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("http://localhost:3000/api/backendapi/booking", {
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/booking"), {
                 headers: {
                   'Authorization': "Bearer ".concat(token.token)
                 }
@@ -20407,7 +20407,7 @@ __webpack_require__.r(__webpack_exports__);
     createBusiness: function createBusiness() {
       var tok = localStorage.getItem('authuser');
       var token = JSON.parse(tok);
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('http://localhost:3000/api/backendapi/business', this.business, {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("".concat(apiUrl, "backendapi/business"), this.business, {
         headers: {
           'Authorization': "Bearer ".concat(token.token)
         }
@@ -20480,7 +20480,7 @@ __webpack_require__.r(__webpack_exports__);
       try {
         var tok = localStorage.getItem('authuser');
         var token = JSON.parse(tok);
-        axios__WEBPACK_IMPORTED_MODULE_0___default().get('http://localhost:3000/api/backendapi/business', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/business"), {
           headers: {
             'Authorization': "Bearer ".concat(token.token)
           }
@@ -20506,9 +20506,9 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](baseUrl + "campaign/".concat(id)).then(function (response) {
+          axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](apiUrl + "business?id=".concat(id)).then(function (response) {
             _this2.successMessage(response.data);
-            _this2.getCampaign();
+            // this.getCampaign()
             //   console.log(response.data)
           })["catch"](function (error) {
             console.log(error);

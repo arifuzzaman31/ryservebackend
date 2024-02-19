@@ -9,7 +9,7 @@
 <script src="https://media-library.cloudinary.com/global/all.js"></script>
 <script>
     var baseUrl = "{{url('/')}}"+'/admin/';
-    var apiUrl = "http://localhost:3000/api/backendapi/";
+    var apiUrl = "http://165.22.63.108/api/";
     var clName = "diyc1dizi";
     var clPreset = "467722864351132";
     $(document).ready(function() {

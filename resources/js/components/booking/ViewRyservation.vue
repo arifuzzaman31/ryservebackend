@@ -16,7 +16,7 @@ export default {
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                await axios.get(`http://localhost:3000/api/backendapi/booking`,{
+                await axios.get(`${apiUrl}backendapi/booking`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }

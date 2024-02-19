@@ -20,7 +20,7 @@ export default {
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                axios.get('http://localhost:3000/api/backendapi/business',{
+                axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }
@@ -47,10 +47,10 @@ export default {
               confirmButtonText: 'Yes, delete it!'
               }).then((result) => {
               if (result.isConfirmed) {
-                  axios.delete(baseUrl+`campaign/${id}`).then(
+                  axios.delete(apiUrl+`business?id=${id}`).then(
                       response => {
                           this.successMessage(response.data)
-                        this.getCampaign()
+                        // this.getCampaign()
                         //   console.log(response.data)
                       }
                   ). catch(error => {
