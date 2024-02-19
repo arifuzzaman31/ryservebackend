@@ -33,7 +33,7 @@ export default {
                                 "Authorization"
                             ] = `Bearer ${response.data.token}`;
                             this.formReset();
-                            // window.location.href = baseUrl+'role'
+                            window.location.href = baseUrl+'dashboard'
                         }
                     })
                     .catch((e) => {

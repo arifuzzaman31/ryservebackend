@@ -19822,7 +19822,7 @@ __webpack_require__.r(__webpack_exports__);
             localStorage.setItem("authuser", user);
             window.axios.defaults.headers["Authorization"] = "Bearer ".concat(response.data.token);
             _this.formReset();
-            // window.location.href = baseUrl+'role'
+            window.location.href = baseUrl + 'dashboard';
           }
         })["catch"](function (e) {
           if (e.response.status == 422) {

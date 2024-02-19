@@ -43,7 +43,9 @@ export default {
                 }
             })
                 .then((result) => {
-                    console.log(result.data)
+                    // console.log(result.data)
+                    this.successMessage({status:'success',message:'New Business Created Successful'})
+                    window.location.href = baseUrl+'business'
                 })
                 .catch((errors) => {
                     console.log(errors);
@@ -82,6 +84,11 @@ export default {
 <template>
     <form class="needs-validation" method="post" @submit.prevent="createBusiness()" id="add-product-form">
         <div class="row">
+
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                <h4>Create New Business</h4>
+            </div>
+
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
                 <div class="statbox widget box ">
                     <div class="widget-content ">

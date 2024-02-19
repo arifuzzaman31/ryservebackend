@@ -39,7 +39,11 @@ export default {
                 }
             })
                 .then((result) => {
-                    console.log(result.data)
+                    // console.log(result.data)
+                    if(result.status == 201){
+                        this.successMessage({status:'success',message:'New Asset Created Successful'})
+                        window.location.href = baseUrl+'asset'
+                    }
                 })
                 .catch((errors) => {
                     console.log(errors);
@@ -49,7 +53,7 @@ export default {
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                 axios.get(`${apiUrl}/backendapi/business`,{
+                 axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }
@@ -94,6 +98,13 @@ export default {
 }
 </script>
 <template>
+     <div class="widget-header">
+        <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                <h4>Create New Asset</h4>
+            </div>
+        </div>
+
     <form class="needs-validation" method="post" @submit.prevent="createAsset()" id="add-product-form">
         <div class="row">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
@@ -235,6 +246,7 @@ export default {
 
         <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
     </form>
+</div>
 </template>
 <style scoped>
 
