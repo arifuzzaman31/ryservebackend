@@ -21,7 +21,7 @@ export default {
             try {
                 axios
                     .post(
-                        `${apiUrl}/auth/signin?for=register-request`,
+                        `${apiUrl}auth/signin?for=register-request`,
                         this.form
                     )
                     .then(response => {
