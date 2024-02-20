@@ -12,7 +12,7 @@ export default {
                 status: ''
             },
             currentPage : 1,
-            perPage : 30,
+            perPage : 15,
             lastPage : 0,
             url: baseUrl,
             validation_error: {},
