@@ -19816,11 +19816,14 @@ __webpack_require__.r(__webpack_exports__);
     attemptLogin: function attemptLogin() {
       var _this = this;
       try {
-        axios.post("".concat(apiUrl, "/auth/signin?for=login-request"), this.form).then(function (response) {
+        axios.post("".concat(apiUrl, "auth/signin?for=login-request"), this.form).then(function (response) {
+          console.log(response);
           if (response.status == 200) {
             var user = JSON.stringify(response.data);
             localStorage.setItem("authuser", user);
-            window.axios.defaults.headers["Authorization"] = "Bearer ".concat(response.data.token);
+            // window.axios.defaults.headers[
+            //     "Authorization"
+            // ] = `Bearer ${response.data.token}`;
             _this.formReset();
             window.location.href = baseUrl + 'dashboard';
           }
@@ -19840,7 +19843,7 @@ __webpack_require__.r(__webpack_exports__);
     attemptSignin: function attemptSignin() {
       var _this2 = this;
       try {
-        axios.post(apiUrl + "/auth/signin?for=register-request", this.form).then(function (response) {
+        axios.post(apiUrl + "auth/signin?for=register-request", this.form).then(function (response) {
           if (response.status == 200) {
             var user = JSON.stringify(response.data);
             localStorage.setItem("authuser", user);

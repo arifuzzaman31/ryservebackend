@@ -11,22 +11,37 @@ export default {
                 booking_id: '',
                 status: ''
             },
+            currentPage : 1,
+            perPage : 30,
+            lastPage : 0,
             url: baseUrl,
             validation_error: {},
         }
     },
     methods:{
+        async prevData(){
+            if(this.currentPage == 1) return ;
+            this.currentPage -= this.perPage
+            this.getBooking()
+        },
+        async nextData(){
+            if((Math.ceil(this.currentPage/this.perPage)) >= this.lastPage) return ;
+
+            this.currentPage += this.perPage
+            this.getBooking()
+        },
         async getBooking(){
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                await axios.get(`${apiUrl}backendapi/booking`,{
+                await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&per_page=${this.perPage}`,{
                     headers: {
                         'Authorization': `Bearer ${token.token}`
                     }
                 })
                 .then(response => {
-                    this.bookings = response.data
+                    this.bookings = response.data.data
+                    this.lastPage = response.data.pagination.total
                     // console.log(response.data)
                 }).catch(error => {
                     console.log(error)
@@ -143,7 +158,12 @@ export default {
                     </tbody>
                 </table>
                     </div>
-
+                    <div class="paginating-container pagination-solid">
+                        <ul class="pagination">
+                            <li class="prev"><a href="javascript:void(0);" type="button" @click="prevData()">Prev</a></li>
+                            <li class="next"><a href="javascript:void(0);" type="button" @click="nextData()">Next</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -188,3 +208,50 @@ export default {
     </div>
 
 </template>
+<style scoped>
+.paginating-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0; }
+  .paginating-container .prev svg, .paginating-container .next svg {
+    width: 18px;
+    height: 18px;
+    vertical-align: text-bottom; }
+  .paginating-container .pagination {
+    margin-bottom: 0; }
+  .paginating-container li {
+    padding: 10px 0;
+    font-weight: 600;
+    color: #3b3f5c;
+    border-radius: 4px; }
+    .paginating-container li a {
+      padding: 10px 15px;
+      font-weight: 600;
+      color: #3b3f5c; }
+    .paginating-container li:not(:last-child) {
+      margin-right: 4px; }
+      .pagination-solid li {
+  background-color: #e0e6ed; }
+  .pagination-solid li:hover a {
+    color: #1b55e2; }
+  .pagination-solid li.active {
+    background-color: #1b55e2 !important;
+    color: #fff; }
+  .pagination-solid li a.active:hover, .pagination-solid li.active a {
+    color: #fff; }
+
+.pagination-solid .prev {
+  background-color: #e0e6ed; }
+  .pagination-solid .prev:hover {
+    background-color: #1b55e2; }
+    .pagination-solid .prev:hover a, .pagination-solid .prev:hover svg {
+      color: #fff; }
+
+.pagination-solid .next {
+  background-color: #e0e6ed; }
+  .pagination-solid .next:hover {
+    background-color: #1b55e2; }
+    .pagination-solid .next:hover a, .pagination-solid .next:hover svg {
+      color: #fff; }
+
+</style>
