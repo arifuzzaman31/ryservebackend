@@ -9,8 +9,8 @@
 <script src="https://media-library.cloudinary.com/global/all.js"></script>
 <script>
     var baseUrl = "{{url('/')}}"+'/admin/';
-    // var apiUrl = "https://ryserved-api.vercel.app/api/";
-    var apiUrl = "http://localhost:3000/api/";
+    var apiUrl = "https://ryserved-api.vercel.app/api/";
+    // var apiUrl = "http://localhost:3000/api/";
     var clName = "diyc1dizi";
     var clPreset = "467722864351132";
     $(document).ready(function() {
