@@ -7,6 +7,10 @@ export default {
     data(){
         return {
             bookings: [],
+            modify: {
+                booking_id: '',
+                status: ''
+            },
             url: baseUrl,
             validation_error: {},
         }
@@ -32,8 +36,47 @@ export default {
             }
         },
 
-    },
-    computed: {
+        async updateStatus(ryserve){
+            this.modify.booking_id = ryserve.id
+            this.modify.status = ryserve.status
+            $("#updateBooking").modal('show');
+        },
+        async updateBookingStatus(){
+            try{
+                const tok = localStorage.getItem('authuser')
+                const token = JSON.parse(tok)
+                axios.put(`${apiUrl}backendapi/booking?id=${this.modify.booking_id}`,{status: this.modify.status},{
+                    headers: {
+                        'Authorization': `Bearer ${token.token}`
+                    }
+                }).then(
+                    response => {
+                        console.log(response.data)
+                        if(response.status == 200){
+                            this.successMessage({status:'success',message:'Booking Status Updated'})
+                            $("#updateBooking").modal('hide');
+                            this.getBooking()
+                        }
+                        this.clearForm()
+                    }
+                ). catch(e => {
+                    if(e.response.status == 422){
+                        this.validation_error = e.response.data.errors;
+                        this.validationError();
+                    }
+                })
+            }catch(e){
+                console.log(e.response)
+            }
+        },
+        async clearForm() {
+            this.modify = {
+                booking_id: '',
+                status: ''
+            }
+
+        },
+
     },
     mounted(){
         this.getBooking()
@@ -79,17 +122,20 @@ export default {
                                 <td>{{ dateToString(ryserve.startDate) }}</td>
                                 <td>{{ ryserve.slot }}</td>
                                 <td class="text-center">
-                                   {{ryserve.status}}
+                                   <span v-if="ryserve.status == 'CONFIRMED'" class="badge badge-success">Confirmed</span>
+                                    <span v-if="ryserve.status == 'DEACTIVE'" class="badge badge-warning">Deactive</span>
+                                    <span v-if="ryserve.status == 'ON_HOLD'" class="badge badge-light">On Hold</span>
+                                    <span v-if="ryserve.status == 'CANCELED'" class="badge badge-danger">Canceled</span>
                                 </td>
                                 <td>
                                 <ul class="table-controls d-flex justify-content-around">
-                                    <!-- <li><a href="javascript:void(0);" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
-                                    <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
+                                    <li><a href="javascript:void(0);" @click="updateStatus(ryserve)" type="button" title="Update Status"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                    <!-- <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
                                                         </a></li>
                                     <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li> -->
-                                    <li><a href="asset" title="Asset">
+                                    <!-- <li><a href="asset" title="Asset">
                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                    </a></li>
+                                    </a></li> -->
                                 </ul>
                             </td>
                             </tr>
@@ -98,6 +144,44 @@ export default {
                 </table>
                     </div>
 
+                </div>
+            </div>
+        </div>
+        <!-- for Edit -->
+        <div id="updateBooking" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"> Update Booking Status</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="formReset">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="widget-content widget-content-area">
+                            <form @submit.prevent="updateBookingStatus()">
+                                <div class="form-row">
+                                <div class="col-12">
+                                <label for="siz-status">Status</label>
+                                    <select id="status" class="form-control" v-model="modify.status">
+                                        <option value="CONFIRMED">CONFIRMED</option>
+                                        <option value="DEACTIVE">DEACTIVE</option>
+                                        <option value="ON_HOLD">ON_HOLD</option>
+                                        <option value="CANCELED">CANCELED</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                                <div class="modal-footer md-button">
+                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="formReset"></i> Discard</button>
+
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

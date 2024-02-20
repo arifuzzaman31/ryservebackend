@@ -1,11 +1,9 @@
 <script>
 import axios from 'axios';
-import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 import Mixin from '../../mixer'
 export default {
     mixins:[Mixin],
     components:{
-        Bootstrap4Pagination
     },
 
     data(){
@@ -16,7 +14,7 @@ export default {
         }
     },
     methods:{
-        async getAssetByassetId(){
+        async getAsset(){
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
@@ -27,7 +25,7 @@ export default {
                 })
                 .then(response => {
                     this.assetes = response.data
-                    console.log(response.data)
+                    // console.log(response.data)
                 }).catch(error => {
                     console.log(error)
                 })
@@ -40,7 +38,7 @@ export default {
     computed: {
     },
     mounted(){
-        this.getAssetByassetId()
+        this.getAsset()
     }
 }
 </script>
@@ -72,7 +70,7 @@ export default {
                             <th>City</th>
                             <th>Total Booking</th>
                             <th class="text-center">Status</th>
-                            <th class="text-center">Action</th>
+                            <!-- <th class="text-center">Action</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -89,17 +87,17 @@ export default {
                                         <span class="slider round"></span>
                                     </label>
                                 </td>
-                                <td>
+                                <!-- <td>
                                 <ul class="table-controls d-flex justify-content-around">
-                                    <!-- <li><a href="javascript:void(0);" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                    <li><a href="javascript:void(0);" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
                                     <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
                                                         </a></li>
-                                    <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li> -->
+                                    <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
                                     <li><a href="asset" title="Asset">
                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                     </a></li>
                                 </ul>
-                            </td>
+                            </td> -->
                             </tr>
                         </template>
                     </tbody>
