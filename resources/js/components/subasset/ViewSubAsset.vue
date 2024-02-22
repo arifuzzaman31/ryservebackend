@@ -87,10 +87,7 @@ export default {
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <label class="switch s-success  mb-4 mx-5">
-                                        <input type="checkbox" :checked="subasset.status == 1 ? true : false" disabled>
-                                        <span class="slider round"></span>
-                                    </label>
+                                    <span>{{ subasset.status == 1 ? 'Active' : 'Deactive' }}</span>
                                 </td>
                                 <!-- <td>
                                 <ul class="table-controls d-flex justify-content-around">

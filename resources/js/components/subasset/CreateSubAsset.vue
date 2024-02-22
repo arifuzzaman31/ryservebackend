@@ -1,13 +1,10 @@
 <script>
-import { QuillEditor } from '@vueup/vue-quill'
-import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import axios from 'axios';
 import Mixin from '../../mixer'
 
 export default {
     mixins:[Mixin],
     components: {
-        QuillEditor
     },
 
     data(){
@@ -17,7 +14,80 @@ export default {
                 assetId: '',
                 sqft: '',
                 floor: '',
-                amenities: {},
+                amenities: [
+                    {
+                        "name": "Ac Room",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Reception",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Swimming Pool",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 120,
+                        "status": true
+                    },
+                    {
+                        "name": "Laundry Service",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 150,
+                        "status": true
+                    },
+                    {
+                        "name": "Airport Shuttle",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 180,
+                        "status": true
+                    },
+                    {
+                        "name": "Gym",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Parking",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Kitchen",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Smoking",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Pets",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 190,
+                        "status": true
+                    },
+                    {
+                        "name": "CCTV",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": true
+                    },
+                    {
+                        "name": "Wifi",
+                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                        "price": 0,
+                        "status": false
+                    }
+                ],
                 address: '',
                 status: true
             },
@@ -30,13 +100,13 @@ export default {
         createSubAsset(){
             const tok = localStorage.getItem('authuser')
             const token = JSON.parse(tok)
-            axios.post(`${apiUrl}backendapi/asset`, this.subasset, {
+            axios.post(`${apiUrl}backendapi/sub-asset`, this.subasset, {
                 headers: {
                     'Authorization': `Bearer ${token.token}`
                 }
             })
                 .then((result) => {
-                    // console.log(result.data)
+                    console.log(result.data)
                     if(result.status == 201){
                         this.successMessage({status:'success',message:'New Sub Asset Created Successful'})
                         window.location.href = baseUrl+'sub-asset'
@@ -207,7 +277,7 @@ export default {
             </div>
         </div>
 
-        <button class="btn btn-success mt-1 btn-lg" type="submit" disabled>Save</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
     </form>
 </div>
 </template>

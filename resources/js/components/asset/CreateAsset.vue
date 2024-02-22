@@ -39,7 +39,6 @@ export default {
                 }
             })
                 .then((result) => {
-                    // console.log(result.data)
                     if(result.status == 201){
                         this.successMessage({status:'success',message:'New Asset Created Successful'})
                         window.location.href = baseUrl+'asset'

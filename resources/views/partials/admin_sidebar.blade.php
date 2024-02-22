@@ -113,6 +113,15 @@
                 </a>
             </li>
 
+            <li class="menu @if(request()->is('admin/sub-asset-component')) active @endif" id="productMenu">
+                <a href="{{ route('sub-asset-component') }}" aria-expanded="false" class="dropdown-toggle">
+                    <div class="">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-zap"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        <span>Sub Asset Component</span>
+                    </div>
+                </a>
+            </li>
+
             <li class="menu @if(request()->is('admin/ryservation')) active @endif" id="productMenu">
                 <a href="{{ route('ryservation') }}" aria-expanded="false" class="dropdown-toggle">
                     <div class="">
@@ -121,6 +130,7 @@
                     </div>
                 </a>
             </li>
+            <user-menu />
         </ul>
 
     </nav>

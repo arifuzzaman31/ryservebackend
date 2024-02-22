@@ -46,6 +46,8 @@ Route::view('asset', 'pages.asset.asset')->name('asset');
 Route::view('create/asset', 'pages.asset.create_asset')->name('create/asset');
 Route::view('sub-asset', 'pages.subasset.subasset')->name('sub-asset');
 Route::view('create/subasset', 'pages.subasset.create_subasset')->name('create/subasset');
+Route::view('sub-asset-component', 'pages.subassetcomp.subassetcomp')->name('sub-asset-component');
+Route::view('create/sub-asset-component', 'pages.subassetcomp.create_subassetcomp')->name('create/sub-asset-component');
 Route::view('ryservation', 'pages.ryservation.booking')->name('ryservation');
 
 // Route::view('business', 'pages.business.business');

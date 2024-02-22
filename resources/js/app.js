@@ -15,4 +15,5 @@ app.component('create-role', CreateRole)
 app.component('view-employee', VeiwEmployee)
 app.component('view-dashboard', Dashboard)
 
+
 app.mount('#app')

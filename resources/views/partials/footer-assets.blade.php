@@ -8,9 +8,10 @@
 <!-- <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script> -->
 <script src="https://media-library.cloudinary.com/global/all.js"></script>
 <script>
-    var baseUrl = "{{url('/')}}"+'/admin/';
-    var apiUrl = "https://ryserved-api.vercel.app/api/";
-    // var apiUrl = "http://localhost:3000/api/";
+    var rootUrl = "{{url('/')}}"+'/';
+    var baseUrl = rootUrl+'/admin/';
+    // var apiUrl = "https://ryserved-api.vercel.app/api/";
+    var apiUrl = "http://localhost:3000/api/";
     var clName = "diyc1dizi";
     var clPreset = "467722864351132";
     $(document).ready(function() {
@@ -18,7 +19,7 @@
     });
 </script>
 <script src="{{ asset('admin-assets/assets/js/custom.js')}}"></script>
-
+<script src="{{ asset('js/order.js') }}"></script>
 <!-- BEGIN PAGE LEVEL PLUGINS/CUSTOM SCRIPTS -->
 <script src="{{ asset('admin-assets/assets/js/scrollspyNav.js')}}"></script>
     <script>

@@ -74,7 +74,7 @@
             $(".active").parents(".menu-categories").children("a").attr('data-active',true);
             $(".active").parents().addClass('show');
         });
-        window.authuser = localStorage.getItem("authuser") ?? [];
+        // window.authuser = localStorage.getItem("authuser") ?? [];
     </script>
 
     @stack('script')
