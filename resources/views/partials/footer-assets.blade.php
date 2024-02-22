@@ -10,8 +10,8 @@
 <script>
     var rootUrl = "{{url('/')}}"+'/';
     var baseUrl = rootUrl+'/admin/';
-    // var apiUrl = "https://ryserved-api.vercel.app/api/";
-    var apiUrl = "http://localhost:3000/api/";
+    var apiUrl = "https://ryserved-api.vercel.app/api/";
+    // var apiUrl = "http://localhost:3000/api/";
     var clName = "diyc1dizi";
     var clPreset = "467722864351132";
     $(document).ready(function() {
