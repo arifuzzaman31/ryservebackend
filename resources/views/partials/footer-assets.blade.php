@@ -9,7 +9,7 @@
 <script src="https://media-library.cloudinary.com/global/all.js"></script>
 <script>
     var rootUrl = "{{url('/')}}"+'/';
-    var baseUrl = rootUrl+'/admin/';
+    var baseUrl = rootUrl+'admin/';
     var apiUrl = "https://ryserved-api.vercel.app/api/";
     // var apiUrl = "http://localhost:3000/api/";
     var clName = "diyc1dizi";
