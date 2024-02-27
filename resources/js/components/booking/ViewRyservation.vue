@@ -203,10 +203,6 @@ export default {
                                     <label for="Guest">Guest</label>
                                     <input type="number"  class="form-control form-control-sm" id="Guest" v-model="modify.guestNumber" placeholder="Guest Number" required>
                                 </div>
-                                <div class="col-12">
-                                    <label for="Amount">Amount</label>
-                                    <input type="number"  class="form-control form-control-sm" id="Amount" v-model="modify.amount" placeholder="Amount" required>
-                                </div>
                                 <div class="col-12 mt-2">
                                 <label for="status">Status</label>
                                     <select id="status" class="form-control" v-model="modify.status">
@@ -216,6 +212,10 @@ export default {
                                         <option value="DEACTIVE">DEACTIVE</option>
                                         <option value="CANCELED">CANCELED</option>
                                     </select>
+                                </div>
+                                <div class="col-12" v-show="modify.status == 'COMPLETED'">
+                                    <label for="Amount">Amount</label>
+                                    <input type="number"  class="form-control form-control-sm" id="Amount" v-model="modify.amount" placeholder="Amount" required>
                                 </div>
                                 <div class="col-12  mt-2">
                                     <label for="Comment">Comment</label>

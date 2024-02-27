@@ -22043,23 +22043,23 @@ var _hoisted_35 = /*#__PURE__*/_withScopeId(function () {
   }, "Guest", -1 /* HOISTED */);
 });
 var _hoisted_36 = {
-  "class": "col-12"
-};
-var _hoisted_37 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-    "for": "Amount"
-  }, "Amount", -1 /* HOISTED */);
-});
-var _hoisted_38 = {
   "class": "col-12 mt-2"
 };
-var _hoisted_39 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_37 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "status"
   }, "Status", -1 /* HOISTED */);
 });
-var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"CONFIRMED\" data-v-06e1ecfc>CONFIRMED</option><option value=\"ON_HOLD\" data-v-06e1ecfc>ON_HOLD</option><option value=\"COMPLETED\" data-v-06e1ecfc>COMPLETED</option><option value=\"DEACTIVE\" data-v-06e1ecfc>DEACTIVE</option><option value=\"CANCELED\" data-v-06e1ecfc>CANCELED</option>", 5);
-var _hoisted_45 = [_hoisted_40];
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"CONFIRMED\" data-v-06e1ecfc>CONFIRMED</option><option value=\"ON_HOLD\" data-v-06e1ecfc>ON_HOLD</option><option value=\"COMPLETED\" data-v-06e1ecfc>COMPLETED</option><option value=\"DEACTIVE\" data-v-06e1ecfc>DEACTIVE</option><option value=\"CANCELED\" data-v-06e1ecfc>CANCELED</option>", 5);
+var _hoisted_43 = [_hoisted_38];
+var _hoisted_44 = {
+  "class": "col-12"
+};
+var _hoisted_45 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "for": "Amount"
+  }, "Amount", -1 /* HOISTED */);
+});
 var _hoisted_46 = {
   "class": "col-12 mt-2"
 };
@@ -22127,22 +22127,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     placeholder: "Guest Number",
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.modify.guestNumber]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.modify.guestNumber]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    id: "status",
+    "class": "form-control",
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+      return $data.modify.status = $event;
+    })
+  }, _hoisted_43, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.modify.status]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [_hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "number",
     "class": "form-control form-control-sm",
     id: "Amount",
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.modify.amount = $event;
     }),
     placeholder: "Amount",
     required: ""
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.modify.amount]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_38, [_hoisted_39, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    id: "status",
-    "class": "form-control",
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-      return $data.modify.status = $event;
-    })
-  }, _hoisted_45, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.modify.status]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.modify.amount]])], 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $data.modify.status == 'COMPLETED']]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("textarea", {
     id: "Comment",
     "class": "form-control form-control-sm",
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
