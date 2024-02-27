@@ -23,7 +23,7 @@ export default {
                 no_of_room: '',
                 logo: '',
                 about: '',
-                status: true
+                status: 'true'
             },
             businesses: [],
             validation_error: {},
@@ -85,7 +85,7 @@ export default {
                 trade_licence: '',
                 tin: '',
                 bin: '',
-                status: true
+                status: 'true'
             }
             this.validation_error = {}
 

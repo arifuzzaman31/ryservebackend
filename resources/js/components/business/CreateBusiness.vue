@@ -28,7 +28,7 @@ export default {
                 trade_licence: '',
                 tin: '',
                 bin: '',
-                status: true
+                status: 'true'
             },
             validation_error: {},
         }
@@ -71,7 +71,7 @@ export default {
                 trade_licence: '',
                 tin: '',
                 bin: '',
-                status: true
+                status: 'true'
             }
             this.validation_error = {}
 

@@ -14,7 +14,9 @@ export default {
                 type: '',
                 position: '',
                 size: '',
-                status: true,
+                splitable: 'true',
+                ryservable: 'true',
+                status: 'true'
             },
             subassetescomp: [],
             url: baseUrl,
@@ -52,6 +54,7 @@ export default {
                     if(result.status == 201){
                         this.successMessage({status:'success',message:'Table Created Successful'})
                         // window.location.href = baseUrl+'sub-asset-component'
+                        $("#tableModal").modal('hide');
                     }
                 })
                 .catch((errors) => {
@@ -69,7 +72,9 @@ export default {
                 type: '',
                 position: '',
                 size: '',
-                status: true,
+                splitable: 'true',
+                ryservable: 'true',
+                status: 'true'
             }
         }
     },
@@ -122,7 +127,11 @@ export default {
                                 </td>
                                 <td>
                                 <ul class="table-controls d-flex justify-content-around">
-                                    <li><a href="javascript:void(0);" type="button" title="Add Table" @click="addATable(subassetcom)"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                    <li><a href="javascript:void(0);" type="button" title="Add Table" @click="addATable(subassetcom)">
+                                        <div class="icon-container">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span class="icon-name"></span>
+                                        </div>
+                                    </a></li>
                                     <!-- <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
                                                         </a></li>
                                     <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
@@ -183,6 +192,20 @@ export default {
                                 <div class="col-12 mt-1">
                                     <label for="size">Size</label>
                                     <input type="text" class="form-control form-control-sm" id="size" placeholder="Ex: 50cm x 88cm" v-model="table.size" >
+                                </div>
+                                <div class="col-12 mt-1">
+                                <label for="Splitable">Splitable</label>
+                                    <select id="Splitable" class="form-control" v-model="table.splitable">
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                                <div class="col-12 mt-1">
+                                <label for="ryservable">Ryservable</label>
+                                    <select id="ryservable" class="form-control" v-model="table.ryservable">
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
                                 </div>
                                 <div class="col-12 mt-1">
                                 <label for="siz-status">Status</label>

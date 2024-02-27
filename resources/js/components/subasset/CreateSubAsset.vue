@@ -14,82 +14,83 @@ export default {
                 assetId: '',
                 sqft: '',
                 floor: '',
-                amenities: [
-                    {
-                        "name": "Ac Room",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Reception",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Swimming Pool",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 120,
-                        "status": true
-                    },
-                    {
-                        "name": "Laundry Service",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 150,
-                        "status": true
-                    },
-                    {
-                        "name": "Airport Shuttle",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 180,
-                        "status": true
-                    },
-                    {
-                        "name": "Gym",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Parking",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Kitchen",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Smoking",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Pets",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 190,
-                        "status": true
-                    },
-                    {
-                        "name": "CCTV",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": true
-                    },
-                    {
-                        "name": "Wifi",
-                        "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                        "price": 0,
-                        "status": false
-                    }
-                ],
+                // amenities: [
+                //     {
+                //         "name": "Ac Room",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Reception",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Swimming Pool",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 120,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Laundry Service",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 150,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Airport Shuttle",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 180,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Gym",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Parking",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Kitchen",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Smoking",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Pets",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 190,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "CCTV",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": true
+                //     },
+                //     {
+                //         "name": "Wifi",
+                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
+                //         "price": 0,
+                //         "status": false
+                //     }
+                // ],
                 address: '',
-                status: true
+                amenities: [{name:'',icon:'',price:0,status:true}],
+                status: 'true'
             },
             businesses: [],
             assets: [],
@@ -153,7 +154,13 @@ export default {
                 console.log(e)
             }
         },
-
+        removeCatChild(index) {
+            if(index == 0) return ;
+            this.subasset.amenities.splice(index, 1);
+        },
+        addMore(){
+            this.subasset.amenities.push({name:'',icon:'',price:0,status:true})
+        },
 
         clearForm() {
             this.subasset = {
@@ -161,9 +168,9 @@ export default {
                 assetId: '',
                 sqft: '',
                 floor: '',
-                amenities: {},
+                amenities: [{name:'',icon:'',price:0,status:true}],
                 address: '',
-                status: true
+                status: 'true'
             }
             this.validation_error = {}
 
@@ -232,7 +239,60 @@ export default {
             </div>
         </div>
 
-        <div class="row">
+        <div class="statbox widget box box-shadow">
+            <h5>Amenities</h5>
+                <div class="widget-content ">
+                    <div class="row text-center">
+                        <div class="col-3 text-success">
+                            <b>Name</b>
+                        </div>
+                        <div class="col-3  text-success">
+                           <b>Icon</b>
+                        </div>
+                        <div class="col-2  text-success">
+                            <b>Price</b>
+                        </div>
+                        <div class="text-success col-2">
+                            <b>Status</b>
+                        </div>
+                        <div class="col-1  text-danger">
+                            <b>Remove</b>
+                        </div>
+                    </div>
+                    <div class="row" v-for="(ameni,index) in subasset.amenities" :key="index">
+                        <div class="form-group col-3">
+                            <input type="text"  class="form-control form-control-sm" id="name" v-model="ameni.name" placeholder="Name" required>
+                        </div>
+                        <div class="form-group col-3">
+                            <input type="text"  class="form-control form-control-sm" id="name" v-model="ameni.icon" placeholder="Icon Link" required>
+                        </div>
+                        <div class="form-group col-2">
+                            <input type="number"  class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
+                        </div>
+                        <div class="form-group col-2">
+                            <select id="product-category" class="form-control form-control-sm" v-model="ameni.status">
+                                <option value="true">Active</option>
+                                <option value="false">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="form-group form-control-sm col-md-1 text-center">
+                            <a
+                              href="javascript:void(0)"
+                              @click.prevent="removeCatChild(index)"
+                              class="mt-5"
+                              ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                        </div>
+                    </div>
+                </div>
+                <a
+                        href="javascript:void(0)"
+                        @click.prevent="addMore()"
+                        class="btn btn-warning"
+                    >Add More
+                    </a>
+            </div>
+
+        <div class="row mt-4">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
                 <div class="statbox widget box ">
                     <div class="widget-content ">
