@@ -2,7 +2,7 @@
 import axios from 'axios';
 import Mixin from '../../mixer'
 import Multiselect from '@vueform/multiselect'
-
+import '@vueform/multiselect/themes/default.css';
 export default {
     mixins:[Mixin],
     components: {
