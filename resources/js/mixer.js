@@ -7,6 +7,16 @@ export default {
     //     audio.play();
     //   },
 
+    async getUserToken(){
+        let token = null
+        const tok = await localStorage.getItem('authuser')
+        if(tok){
+            let tkn = JSON.parse(tok)
+            token = tkn.token
+        }
+        return token;
+    },
+
     successMessage(data) {
 
         // if (data.status === 'success') {

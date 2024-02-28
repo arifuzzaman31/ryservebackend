@@ -60,7 +60,7 @@ export default {
                             const user = JSON.stringify(response.data);
                             localStorage.setItem("authuser", user);
                             this.formReset();
-                            // window.location.href = baseUrl+'role'
+                            window.location.href = baseUrl+'dashboard'
                         }
                     })
                     .catch((e) => {

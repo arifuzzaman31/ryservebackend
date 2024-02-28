@@ -24,7 +24,7 @@ export default {
         }
     },
     methods:{
-        async getSubAsset(){
+        async getSubAssetComp(){
             try{
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
@@ -79,7 +79,7 @@ export default {
         }
     },
     mounted(){
-        this.getSubAsset()
+        this.getSubAssetComp()
     }
 }
 </script>

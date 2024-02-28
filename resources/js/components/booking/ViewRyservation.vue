@@ -1,15 +1,19 @@
 <script>
 import axios from 'axios';
 import Mixin from '../../mixer'
+
 export default {
     mixins: [Mixin],
+    components:{
 
+    },
     data() {
         return {
             bookings: [],
             modify: {
                 id: '',
-                guestNumber: '',
+                guestNumber: 0,
+                tableId: '',
                 amount: 0,
                 vat: 0,
                 discount: 0,
@@ -17,6 +21,24 @@ export default {
                 comment: '',
                 status: ''
             },
+            tables:[],
+            subassetescomponent: [],
+            bookingData: {
+                user: {
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    havingBusiness: false,
+                    userType: 'CUSTOMER'
+                },
+                subAssetCompId: '',
+                startDate: '',
+                endDate: '',
+                slot: '',
+                guestNumber: 1
+            },
+            slotten: null,
+            pickslot: null,
             currentPage: 1,
             perPage: 15,
             lastPage: 0,
@@ -38,11 +60,10 @@ export default {
         },
         async getBooking() {
             try {
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                const token = await this.getUserToken()
                 await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&per_page=${this.perPage}`, {
                         headers: {
-                            'Authorization': `Bearer ${token.token}`
+                            'Authorization': `Bearer ${token}`
                         }
                     })
                     .then(response => {
@@ -56,27 +77,41 @@ export default {
                 console.log(e)
             }
         },
-
+        async getTable(subAssetCompId){
+            this.tables = []
+            const token = await this.getUserToken()
+            await axios.get(`${apiUrl}backendapi/table?subAssetCompId=${subAssetCompId}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(
+                    response => {
+                        if (response.status == 200) {
+                            this.tables = response.data
+                        }
+                    }
+                )
+        },
         async updateStatus(ryserve) {
+            this.getTable(ryserve.subAssetCompId)
             this.modify.id = ryserve.id
             this.modify.comment = ryserve.comment
             this.modify.guestNumber = ryserve.guestNumber
+            this.modify.tableId = ryserve.tableId ?? ''
             this.modify.amount = ryserve.amount
             this.modify.status = ryserve.status
             $("#updateBooking").modal('show');
         },
         async updateBookingStatus() {
             try {
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                const token = await this.getUserToken()
                 this.modify.grandTotal = Number(this.modify.amount+this.modify.vat-this.modify.discount)
-                axios.put(`${apiUrl}backendapi/booking?id=${this.modify.id}`,this.modify, {
+                await axios.put(`${apiUrl}backendapi/booking?id=${this.modify.id}`,this.modify, {
                     headers: {
-                        'Authorization': `Bearer ${token.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }).then(
                     response => {
-                        console.log(response.data)
                         if (response.status == 200) {
                             this.successMessage({ status: 'success', message: 'Booking Status Updated' })
                             $("#updateBooking").modal('hide');
@@ -94,10 +129,77 @@ export default {
                 console.log(e.response)
             }
         },
+        async getSubAssetComp(){
+            try{
+                const token = await this.getUserToken()
+                // console.log(token)
+                await axios.get(`${apiUrl}backendapi/sub-asset-component`,{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    this.subassetescomponent = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            }catch(e){
+                console.log(e)
+            }
+        },
+        async createBooking(){
+            try {
+                const token = await this.getUserToken()
+                this.bookingData.endDate = this.bookingData.startDate
+                await axios.post(`${apiUrl}backendapi/booking`,this.bookingData, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                }).then(
+                    response => {
+                        console.log(response.data)
+                        if (response.status == 201) {
+                            this.successMessage({ status: 'success', message: 'Booking Created Successful' })
+                            $("#createBookingModal").modal('hide');
+                            this.getBooking()
+                        }
+                        this.clearForm()
+                    }
+                ).catch(e => {
+                    if (e.response.status == 422) {
+                        this.validation_error = e.response.data.errors;
+                        this.validationError();
+                    }
+                })
+            } catch (e) {
+                console.log(e.response)
+            }
+        },
+        async setData(){
+            let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(this.bookingData.startDate).getDay()]
+            this.bookingData.subAssetCompId = this.slotten.id
+            const foundData = this.slotten.slot.find(dayData => dayData[day]);
+            this.pickslot = foundData[day];
+        },
         async clearForm() {
+            this.bookingData = {
+                user: {
+                    firstName: '',
+                    lastName: '',
+                    phoneNumber: '',
+                    havingBusiness: false,
+                    userType: 'CUSTOMER'
+                },
+                subAssetCompId: '',
+                startDate: '',
+                endDate: '',
+                slot: '',
+                guestNumber: 1
+            }
             this.modify = {
                 id: '',
-                guestNumber: '',
+                guestNumber: 0,
+                tableId: '',
                 amount: 0,
                 vat: 0,
                 discount: 0,
@@ -111,6 +213,7 @@ export default {
     },
     mounted() {
         this.getBooking()
+        this.getSubAssetComp()
     }
 }
 </script>
@@ -122,7 +225,8 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Ryservation</h4>
+                            <h4>Reservation</h4>
+                            <button class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#createBookingModal">Add New</button>
                         </div>
                     </div>
                 </div>
@@ -171,7 +275,7 @@ export default {
                                     </ul>
                                 </td>
                                 </tr>
-</template>
+                            </template>
                     </tbody>
                 </table>
                     </div>
@@ -213,6 +317,13 @@ export default {
                                         <option value="CANCELED">CANCELED</option>
                                     </select>
                                 </div>
+                                <div class="col-12 mt-2">
+                                <label for="table">Assign Table</label>
+                                    <select id="table" class="form-control" v-model="modify.tableId">
+                                        <option value="">Choose Table</option>
+                                        <option v-for="value in tables" :value="value.id" :key="value.id">Capacity: {{ value.capacity }}-{{ value.position }}-{{ value.type }}</option>
+                                    </select>
+                                </div>
                                 <div class="col-12" v-show="modify.status == 'COMPLETED'">
                                     <label for="Amount">Amount</label>
                                     <input type="number"  class="form-control form-control-sm" id="Amount" v-model="modify.amount" placeholder="Amount" required>
@@ -235,6 +346,69 @@ export default {
                 </div>
             </div>
         </div>
+        <!-- for create a booking -->
+        <div id="createBookingModal" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+        <div class="modal-dialog modal-xl">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">New Booking</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="widget-content-area">
+                        <form @submit.prevent="createBooking()">
+                            <div class="form-row">
+                            <div class="col-6">
+                                <label for="firstName">First Name</label>
+                                <input type="text" class="form-control form-control-sm" id="firstName" v-model="bookingData.user.firstName" placeholder="Enter First Name" required>
+                            </div>
+                            <div class="col-6">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" class="form-control form-control-sm" id="lastName" v-model="bookingData.user.lastName" placeholder="Enter Last Name" required>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="phoneNumber">Phone</label>
+                                <input type="text" class="form-control form-control-sm" id="phoneNumber" v-model="bookingData.user.phoneNumber" placeholder="Customer Phone Number" required>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="date">Date</label>
+                                <input type="date" class="form-control form-control-sm" id="date" v-model="bookingData.startDate" placeholder="Select Date" required>
+                            </div>
+                            <div class="col-6 mt-3">
+                            <label for="rastaurant">Select Restaurant</label>
+                                <select id="rastaurant" class="form-control" v-model="slotten" @change="setData()">
+                                    <option value="">Choose Table</option>
+                                    <option v-for="value in subassetescomponent" :value="value" :key="value.id">{{ value.listingName }}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                            <label for="slottime">Slot</label>
+                                <select id="slottime" class="form-control" v-model="bookingData.slot">
+                                    <option value="">Choose Table</option>
+                                    <option v-for="value in pickslot" :value="value.slottime" :key="value.slottime">{{ value.slottime }}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                                <label for="GuestNumber">Guest</label>
+                                <input type="number"  class="form-control form-control-sm" id="GuestNumber" v-model="bookingData.guestNumber" placeholder="Guest Number" required>
+                            </div>
+                        </div>
+
+                            <div class="modal-footer md-button mt-2">
+                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="formReset"></i> Discard</button>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 
 </template>
