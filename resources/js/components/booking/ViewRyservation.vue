@@ -32,17 +32,21 @@ export default {
                     userType: 'CUSTOMER'
                 },
                 subAssetCompId: '',
+                tableId: '',
                 startDate: '',
                 endDate: '',
                 slot: '',
+                status: 'CONFIRMED',
                 guestNumber: 1
             },
-            slotten: null,
-            pickslot: null,
+            slotten: {},
+            pickslot: [],
             currentPage: 1,
-            perPage: 15,
+            perPage: 8,
             lastPage: 0,
             url: baseUrl,
+            isLoading: false,
+            isSubmiting: false,
             validation_error: {},
         }
     },
@@ -60,6 +64,7 @@ export default {
         },
         async getBooking() {
             try {
+                this.isLoading = true
                 const token = await this.getUserToken()
                 await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&per_page=${this.perPage}`, {
                         headers: {
@@ -73,6 +78,7 @@ export default {
                     }).catch(error => {
                         console.log(error)
                     })
+                    this.isLoading = false
             } catch (e) {
                 console.log(e)
             }
@@ -93,7 +99,10 @@ export default {
                 )
         },
         async updateStatus(ryserve) {
-            this.getTable(ryserve.subAssetCompId)
+            this.tables = []
+            let tbl = await this.subassetescomponent.find(dt => dt.id == ryserve.subAssetCompId);
+            // console.log(tbl)
+            this.tables = tbl.tables ?? []
             this.modify.id = ryserve.id
             this.modify.comment = ryserve.comment
             this.modify.guestNumber = ryserve.guestNumber
@@ -104,6 +113,7 @@ export default {
         },
         async updateBookingStatus() {
             try {
+                this.isSubmiting = true
                 const token = await this.getUserToken()
                 this.modify.grandTotal = Number(this.modify.amount+this.modify.vat-this.modify.discount)
                 await axios.put(`${apiUrl}backendapi/booking?id=${this.modify.id}`,this.modify, {
@@ -125,6 +135,7 @@ export default {
                         this.validationError();
                     }
                 })
+                this.isSubmiting = false
             } catch (e) {
                 console.log(e.response)
             }
@@ -149,6 +160,7 @@ export default {
         },
         async createBooking(){
             try {
+                this.isSubmiting = true
                 const token = await this.getUserToken()
                 this.bookingData.endDate = this.bookingData.startDate
                 await axios.post(`${apiUrl}backendapi/booking`,this.bookingData, {
@@ -157,7 +169,7 @@ export default {
                     }
                 }).then(
                     response => {
-                        console.log(response.data)
+                        // console.log(response.data)
                         if (response.status == 201) {
                             this.successMessage({ status: 'success', message: 'Booking Created Successful' })
                             $("#createBookingModal").modal('hide');
@@ -166,20 +178,28 @@ export default {
                         this.clearForm()
                     }
                 ).catch(e => {
-                    if (e.response.status == 422) {
-                        this.validation_error = e.response.data.errors;
-                        this.validationError();
+                    // console.log(e.response.data)
+                    if (e.response.status == 400) {
+                        this.validation_error = e.response.data;
+                        this.validationError(e.response.data);
                     }
                 })
+                this.isSubmiting = false
             } catch (e) {
                 console.log(e.response)
             }
         },
         async setData(){
+            this.pickslot = []
+            this.tables = []
+            this.bookingData.tableId = ''
             let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(this.bookingData.startDate).getDay()]
+            if(!this.slotten?.id) return ;
+            let tbl = await this.subassetescomponent.find(dt => dt.id == this.slotten.id);
+            this.tables = tbl.tables
             this.bookingData.subAssetCompId = this.slotten.id
             const foundData = this.slotten.slot.find(dayData => dayData[day]);
-            this.pickslot = foundData[day];
+            this.pickslot = [...foundData[day]];
         },
         async clearForm() {
             this.bookingData = {
@@ -191,9 +211,11 @@ export default {
                     userType: 'CUSTOMER'
                 },
                 subAssetCompId: '',
+                tableId: '',
                 startDate: '',
                 endDate: '',
                 slot: '',
+                status: 'CONFIRMED',
                 guestNumber: 1
             }
             this.modify = {
@@ -206,8 +228,11 @@ export default {
                 grandTotal: 0,
                 comment: '',
                 status: ''
-            }
-
+            },
+            this.slotten = {}
+            this.pickslot = [],
+            this.isLoading = false
+            this.isSubmiting = false
         },
 
     },
@@ -230,7 +255,10 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center" v-if="isLoading">
+                    <div class="spinner-border text-success align-self-center loader-xl"></div>
+                </div>
+                <div class="widget-content widget-content-area" v-else>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
                             <thead>
@@ -295,7 +323,7 @@ export default {
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title"> Update Booking Status</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="formReset">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="clearForm">
                             <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                         </button>
                     </div>
@@ -318,7 +346,7 @@ export default {
                                     </select>
                                 </div>
                                 <div class="col-12 mt-2">
-                                <label for="table">Assign Table</label>
+                                    <label for="table">Assign Table</label>
                                     <select id="table" class="form-control" v-model="modify.tableId">
                                         <option value="">Choose Table</option>
                                         <option v-for="value in tables" :value="value.id" :key="value.id">Capacity: {{ value.capacity }}-{{ value.position }}-{{ value.type }}</option>
@@ -335,9 +363,11 @@ export default {
                             </div>
 
                                 <div class="modal-footer md-button">
-                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="formReset"></i> Discard</button>
-
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="clearForm"></i> Discard</button>
+                                    <button  type="submit" class="btn btn-primary">
+                                        <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>
+                                        Submit</button>
+                                    <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
                                 </div>
                             </form>
@@ -375,19 +405,26 @@ export default {
                             </div>
                             <div class="col-6 mt-3">
                                 <label for="date">Date</label>
-                                <input type="date" class="form-control form-control-sm" id="date" v-model="bookingData.startDate" placeholder="Select Date" required>
+                                <input type="date" @input="setData()" class="form-control form-control-sm" id="date" v-model="bookingData.startDate" placeholder="Select Date" required>
                             </div>
                             <div class="col-6 mt-3">
-                            <label for="rastaurant">Select Restaurant</label>
+                                <label for="rastaurant">Select Restaurant</label>
                                 <select id="rastaurant" class="form-control" v-model="slotten" @change="setData()">
                                     <option value="">Choose Table</option>
                                     <option v-for="value in subassetescomponent" :value="value" :key="value.id">{{ value.listingName }}</option>
                                 </select>
                             </div>
                             <div class="col-6 mt-3">
-                            <label for="slottime">Slot</label>
-                                <select id="slottime" class="form-control" v-model="bookingData.slot">
+                                <label for="table-rest">Select Table</label>
+                                <select id="table-rest" class="form-control" v-model="bookingData.tableId">
                                     <option value="">Choose Table</option>
+                                    <option v-for="value in tables" :value="value.id" :key="value.id">Capacity: {{ value.capacity }}-{{ value.position }}-{{ value.type }}</option>
+                                </select>
+                            </div>
+                            <div class="col-6 mt-3">
+                            <label for="slottime">Slot</label>
+                                <select id="slottime" class="form-control form-control-sm" v-model="bookingData.slot">
+                                    <option value="">Choose Slot</option>
                                     <option v-for="value in pickslot" :value="value.slottime" :key="value.slottime">{{ value.slottime }}</option>
                                 </select>
                             </div>
@@ -395,12 +432,15 @@ export default {
                                 <label for="GuestNumber">Guest</label>
                                 <input type="number"  class="form-control form-control-sm" id="GuestNumber" v-model="bookingData.guestNumber" placeholder="Guest Number" required>
                             </div>
+
                         </div>
 
                             <div class="modal-footer md-button mt-2">
-                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="formReset"></i> Discard</button>
-
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="clearForm"></i> Discard</button>
+                                <button  type="submit" class="btn btn-primary">
+                                        <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>
+                                        Submit</button>
+                                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
 
                             </div>
                         </form>
@@ -451,11 +491,9 @@ export default {
 .pagination-solid li {
     background-color: #e0e6ed;
 }
-
 .pagination-solid li:hover a {
     color: #1b55e2;
 }
-
 .pagination-solid li.active {
     background-color: #1b55e2 !important;
     color: #fff;
@@ -465,30 +503,32 @@ export default {
 .pagination-solid li.active a {
     color: #fff;
 }
-
 .pagination-solid .prev {
     background-color: #e0e6ed;
 }
-
 .pagination-solid .prev:hover {
     background-color: #1b55e2;
 }
-
 .pagination-solid .prev:hover a,
 .pagination-solid .prev:hover svg {
     color: #fff;
 }
-
 .pagination-solid .next {
     background-color: #e0e6ed;
 }
-
 .pagination-solid .next:hover {
     background-color: #1b55e2;
 }
-
 .pagination-solid .next:hover a,
 .pagination-solid .next:hover svg {
     color: #fff;
 }
+.loader-btn {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-width: 0.6em; }
+  .loader-xl {
+    width: 5rem; /* adjust the width as needed */
+    height: 5rem; /* adjust the height as needed */
+  }
 </style>
