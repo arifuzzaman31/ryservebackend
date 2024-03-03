@@ -1,46 +1,45 @@
 <script>
-import axios from 'axios';
-import Mixin from '../../mixer'
+import axios from "axios";
+import Mixin from "../../mixer";
 export default {
-    mixins:[Mixin],
-    components:{
-    },
+    mixins: [Mixin],
+    components: {},
 
-    data(){
+    data() {
         return {
             assetes: [],
             url: baseUrl,
             validation_error: {},
-        }
+        };
     },
-    methods:{
-        async getAsset(){
-            try{
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
-                await axios.get(`${apiUrl}backendapi/asset`,{
-                    headers: {
-                        'Authorization': `Bearer ${token.token}`
-                    }
-                })
-                .then(response => {
-                    this.assetes = response.data
-                    // console.log(response.data)
-                }).catch(error => {
-                    console.log(error)
-                })
-            }catch(e){
-                console.log(e)
+    methods: {
+        async getAsset() {
+            try {
+                const tok = localStorage.getItem("authuser");
+                const token = JSON.parse(tok);
+                await axios
+                    .get(`${apiUrl}backendapi/asset`, {
+                        headers: {
+                            Authorization: `Bearer ${token.token}`,
+                        },
+                    })
+                    .then((response) => {
+                        this.assetes = response.data;
+                        // console.log(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } catch (e) {
+                console.log(e);
             }
         },
-
     },
-    computed: {
+    computed: {},
+    mounted() {
+        this.getAsset();
     },
-    mounted(){
-        this.getAsset()
-    }
-}
+};
 </script>
 
 <template>
@@ -49,45 +48,63 @@ export default {
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
                     <div class="row">
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
+                        <div
+                            class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
+                        >
                             <h4>Asset</h4>
-                <a href="create/asset"
-                    class="btn btn-primary mb-2 mr-3"
-                >
-                    Create Asset
-        </a>
+                            <a
+                                href="create/asset"
+                                class="btn btn-primary mb-2 mr-3"
+                            >
+                                Create Asset
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="widget-content widget-content-area">
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
-                    <thead>
-                        <tr>
-                            <th>SL</th>
-                            <th>Asset Name</th>
-                            <th>Asset Type</th>
-                            <th>City</th>
-                            <th>Total Booking</th>
-                            <th class="text-center">Status</th>
-                            <!-- <th class="text-center">Action</th> -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template v-for="(asset,index) in assetes" :key="asset.id">
-                            <tr>
-                                <td>{{ index+1 }}</td>
-                                <td>{{ asset.propertyName }}</td>
-                                <td>{{ asset.assetType }}</td>
-                                <td>{{ asset.city }}</td>
-                                <td>{{ asset.bookingCount }}</td>
-                                <td class="text-center">
-                                    <label class="switch s-success  mb-4 mx-5">
-                                        <input type="checkbox" :checked="asset.status == 1 ? true : false" disabled>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </td>
-                                <!-- <td>
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Asset Name</th>
+                                    <th>Asset Type</th>
+                                    <th>City</th>
+                                    <th>Total Booking</th>
+                                    <th class="text-center">Status</th>
+                                    <!-- <th class="text-center">Action</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template
+                                    v-for="(asset, index) in assetes"
+                                    :key="asset.id"
+                                >
+                                    <tr>
+                                        <td>{{ index + 1 }}</td>
+                                        <td>{{ asset.propertyName }}</td>
+                                        <td>{{ asset.assetType }}</td>
+                                        <td>{{ asset.city }}</td>
+                                        <td>{{ asset.bookingCount }}</td>
+                                        <td class="text-center">
+                                            <label
+                                                class="switch s-success mb-4 mx-5"
+                                            >
+                                                <input
+                                                    type="checkbox"
+                                                    :checked="
+                                                        asset.status == 1
+                                                            ? true
+                                                            : false
+                                                    "
+                                                    disabled
+                                                />
+                                                <span
+                                                    class="slider round"
+                                                ></span>
+                                            </label>
+                                        </td>
+                                        <!-- <td>
                                 <ul class="table-controls d-flex justify-content-around">
                                     <li><a href="javascript:void(0);" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
                                     <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
@@ -98,20 +115,15 @@ export default {
                                     </a></li>
                                 </ul>
                             </td> -->
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>

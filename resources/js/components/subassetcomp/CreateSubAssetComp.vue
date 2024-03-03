@@ -3,57 +3,59 @@ import axios from 'axios';
 import Mixin from '../../mixer'
 import Multiselect from '@vueform/multiselect'
 export default {
-    mixins:[Mixin],
+    mixins: [Mixin],
     components: {
         Multiselect
     },
 
-    data(){
+    data() {
         return {
-            subassetcomp : {
+            subassetcomp: {
                 assetId: '',
                 subAssetId: '',
                 listingName: '',
                 type: '',
                 slot: [],
-                offday: [{dayname: '',from:'',to:''}],
+                offday: [{ dayname: '', from: '', to: '' }],
+                pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'}],
                 description: '',
                 reservationCategory: '',
                 image: '',
                 status: "true",
-                table: [{capacity: 1,type: '',position: '',size: '',ryservable:"true",splitable:"true",status: "true"}]
+                table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
             },
             assets: [],
             subassets: [],
-            slotdev: [{dayname: '',sl:[]}],
-            makeSlot: [{slottime:'7 AM',value:'7 AM',status:true},{slottime:'8 AM',value:'8 AM',status:true},{slottime: '9 AM',value:'9 AM',status:true},
-            {slottime: '10 AM',value:'10 AM', status:true},{slottime: '11 AM',value:'11 AM', status:true},{slottime: '12 PM',value:'12 PM', status:true},
-            {slottime: '1 PM',value:'1 PM', status:true},{slottime: '2 PM',value:'2 PM', status:true},{slottime: '3 PM',value:'3 PM', status:true},
-            {slottime: '4 PM',value:'4 PM', status:true},{slottime: '5 PM',value:'5 PM', status:true},{slottime: '6 PM',value:'6 PM', status:true},
-            {slottime: '7 PM',value:'7 PM', status:true},{slottime: '8 PM',value:'8 PM', status:true},{slottime: '9 PM',value:'9 PM', status:true},
-            {slottime: '10 PM',value:'10 PM', status:true},{slottime: '11 PM',value:'11 PM', status:true}],
+            slotdev: [{ dayname: '', sl: [] }],
+            makeSlot: [{ slottime: '7 AM', value: '7 AM', status: true }, { slottime: '8 AM', value: '8 AM', status: true }, { slottime: '9 AM', value: '9 AM', status: true },
+                { slottime: '10 AM', value: '10 AM', status: true }, { slottime: '11 AM', value: '11 AM', status: true }, { slottime: '12 PM', value: '12 PM', status: true },
+                { slottime: '1 PM', value: '1 PM', status: true }, { slottime: '2 PM', value: '2 PM', status: true }, { slottime: '3 PM', value: '3 PM', status: true },
+                { slottime: '4 PM', value: '4 PM', status: true }, { slottime: '5 PM', value: '5 PM', status: true }, { slottime: '6 PM', value: '6 PM', status: true },
+                { slottime: '7 PM', value: '7 PM', status: true }, { slottime: '8 PM', value: '8 PM', status: true }, { slottime: '9 PM', value: '9 PM', status: true },
+                { slottime: '10 PM', value: '10 PM', status: true }, { slottime: '11 PM', value: '11 PM', status: true }
+            ],
             days: [
-                {dayname : 'satarday',value:'Satarday'},
-                {dayname : 'sunday',value:'Sunday'},
-                {dayname : 'monday',value:'Monday'},
-                {dayname : 'tuesday',value:'Tuesday'},
-                {dayname : 'wednesday',value:'Wednesday'},
-                {dayname : 'thursday',value:'Thursday'},
-                {dayname : 'friday',value:'Friday'}
+                { dayname: 'satarday', value: 'Satarday' },
+                { dayname: 'sunday', value: 'Sunday' },
+                { dayname: 'monday', value: 'Monday' },
+                { dayname: 'tuesday', value: 'Tuesday' },
+                { dayname: 'wednesday', value: 'Wednesday' },
+                { dayname: 'thursday', value: 'Thursday' },
+                { dayname: 'friday', value: 'Friday' }
             ],
             validation_error: {},
         }
     },
     methods: {
-        async prepareData(){
+        async prepareData() {
             const transformedData = this.slotdev.map(day => {
                 const dayName = day.dayname;
                 const slots = [];
-                for(let i = 0; i < day.sl.length; i++) {
+                for (let i = 0; i < day.sl.length; i++) {
                     const slotTime = day.sl[i];
                     slots.push({
-                            slottime: slotTime,
-                            status: true
+                        slottime: slotTime,
+                        status: true
                     });
                 }
                 return {
@@ -62,82 +64,82 @@ export default {
             });
             this.subassetcomp.slot = [...transformedData]
         },
-        async createSubAssetComp(){
+        async createSubAssetComp() {
             const tok = localStorage.getItem('authuser')
             const token = JSON.parse(tok)
             this.prepareData()
             await axios.post(`${apiUrl}backendapi/sub-asset-component`, this.subassetcomp, {
-                headers: {
-                    'Authorization': `Bearer ${token.token}`
-                }
-            })
+                    headers: {
+                        'Authorization': `Bearer ${token.token}`
+                    }
+                })
                 .then((result) => {
-                    if(result.status == 201){
-                        this.successMessage({status:'success',message:'Sub Asset Component Created Successful'})
-                        window.location.href = baseUrl+'sub-asset-component'
+                    if (result.status == 201) {
+                        this.successMessage({ status: 'success', message: 'Sub Asset Component Created Successful' })
+                        window.location.href = baseUrl + 'sub-asset-component'
                     }
                 })
                 .catch((errors) => {
                     console.log(errors);
                 });
         },
-        getUserAsset(){
-            try{
+        getUserAsset() {
+            try {
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
-                 axios.get(`${apiUrl}backendapi/asset`,{
-                    headers: {
-                        'Authorization': `Bearer ${token.token}`
-                    }
-                })
-                .then(response => {
-                    this.assets = response.data
-                }).catch(error => {
-                    console.log(error)
-                })
-            }catch(e){
+                axios.get(`${apiUrl}backendapi/asset`, {
+                        headers: {
+                            'Authorization': `Bearer ${token.token}`
+                        }
+                    })
+                    .then(response => {
+                        this.assets = response.data
+                    }).catch(error => {
+                        console.log(error)
+                    })
+            } catch (e) {
                 console.log(e)
             }
         },
 
-        getSubAssetByAsset(){
-            try{
+        getSubAssetByAsset() {
+            try {
                 const tok = localStorage.getItem('authuser')
                 const token = JSON.parse(tok)
                 this.subassets = []
-                 axios.get(`${apiUrl}backendapi/sub-asset?assetId=${this.subassetcomp.assetId}`,{
-                    headers: {
-                        'Authorization': `Bearer ${token.token}`
-                    }
-                })
-                .then(response => {
-                    this.subassets = response.data
-                }).catch(error => {
-                    console.log(error)
-                })
-            }catch(e){
+                axios.get(`${apiUrl}backendapi/sub-asset?assetId=${this.subassetcomp.assetId}`, {
+                        headers: {
+                            'Authorization': `Bearer ${token.token}`
+                        }
+                    })
+                    .then(response => {
+                        this.subassets = response.data
+                    }).catch(error => {
+                        console.log(error)
+                    })
+            } catch (e) {
                 console.log(e)
             }
         },
-        addMoreSlot(){
-            this.slotdev.push({dayname:'',sl:[]})
+        addMoreSlot() {
+            this.slotdev.push({ dayname: '', sl: [] })
         },
         removeSlotChild(index) {
-            if(index == 0) return ;
+            if (index == 0) return;
             this.slotdev.splice(index, 1);
         },
-        addMoreOffday(){
-            this.subassetcomp.offday.push({dayname: '',from:'',to:''})
+        addMoreOffday() {
+            this.subassetcomp.offday.push({ dayname: '', from: '', to: '' })
         },
         removeOffdayChild(index) {
-            if(index == 0) return ;
+            if (index == 0) return;
             this.subassetcomp.offday.splice(index, 1);
         },
-        addMoreTable(){
-            this.subassetcomp.table.push({capacity: 1,type: '',position: '',size: '',ryservable:"true",splitable:"true",status: "true"})
+        addMoreTable() {
+            this.subassetcomp.table.push({ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" })
         },
         removeTableChild(index) {
-            if(index == 0) return ;
+            if (index == 0) return;
             this.subassetcomp.table.splice(index, 1);
         },
         clearForm() {
@@ -147,129 +149,118 @@ export default {
                 listingName: '',
                 type: '',
                 slot: [],
-                offday: [],
+                offday: [{ dayname: '', from: '', to: '' }],
+                pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm',
+                weight: '250 gm', price:0,description:'Here is demo description.'}],
                 description: '',
                 reservationCategory: '',
                 image: '',
-                status: true
+                status: "true",
+                table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
             }
             this.validation_error = {}
 
         },
     },
-    mounted(){
+    mounted() {
         this.getUserAsset()
     }
 }
 </script>
-<style src="@vueform/multiselect/themes/default.css"></style>
+
+<style src="@vueform/multiselect/themes/default.css">
+
+</style>
+
 <template>
-     <div class="widget-header">
+    <div class="widget-header">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                 <h4>Create New Sub Asset Component</h4>
             </div>
         </div>
 
-    <form class="needs-validation" method="post" @submit.prevent="createSubAssetComp()" id="add-SubAssetComp-form">
-        <div class="row">
-            <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
-                <div class="statbox widget box">
-                    <div class="widget-content">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="service_type">Type</label>
-                                <select id="service_type" class="form-control" v-model="subassetcomp.type">
-                                    <option value="">Choose Asset Type...</option>
-                                    <option value="HOTEL">HOTEL</option>
-                                    <option value="RESTAURANT">RESTAURANT</option>
-                                    <option value="SERVICE_APARTMENT">SERVICE_APARTMENT</option>
-                                    <option value="MOVIE_THEATER">MOVIE_THEATER</option>
-                                    <option value="SPA">SPA</option>
-                                    <option value="OTHERS">OTHERS</option>
-                                </select>
-                                <div
-                                    v-if="validation_error.hasOwnProperty('type')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.type[0] }}
+        <form class="needs-validation" method="post" @submit.prevent="createSubAssetComp()" id="add-SubAssetComp-form">
+            <div class="row">
+                <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                    <div class="statbox widget box">
+                        <div class="widget-content">
+                            <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label for="service_type">Type</label>
+                                    <select id="service_type" class="form-control" v-model="subassetcomp.type">
+                                        <option value="">Choose Asset Type...</option>
+                                        <option value="HOTEL">HOTEL</option>
+                                        <option value="RESTAURANT">RESTAURANT</option>
+                                        <option value="SERVICE_APARTMENT">SERVICE_APARTMENT</option>
+                                        <option value="MOVIE_THEATER">MOVIE_THEATER</option>
+                                        <option value="SPA">SPA</option>
+                                        <option value="OTHERS">OTHERS</option>
+                                    </select>
+                                    <div v-if="validation_error.hasOwnProperty('type')" class="text-danger font-weight-bold">
+                                        {{ validation_error.type[0] }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="service_type">Category</label>
-                                <select id="service_type" class="form-control" v-model="subassetcomp.reservationCategory">
-                                    <option value="">Choose Asset Type...</option>
-                                    <option value="ROOM">ROOM</option>
-                                    <option value="TABLE">TABLE</option>
-                                    <option value="TICKET">TICKET</option>
-                                    <option value="APPOINTMENT">APPOINTMENT</option>
-                                </select>
-                                <div
-                                    v-if="validation_error.hasOwnProperty('reservationCategory')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.reservationCategory[0] }}
+                                <div class="form-group col-md-4">
+                                    <label for="service_type">Category</label>
+                                    <select id="service_type" class="form-control" v-model="subassetcomp.reservationCategory">
+                                        <option value="">Choose Asset Type...</option>
+                                        <option value="ROOM">ROOM</option>
+                                        <option value="TABLE">TABLE</option>
+                                        <option value="TICKET">TICKET</option>
+                                        <option value="APPOINTMENT">APPOINTMENT</option>
+                                    </select>
+                                    <div v-if="validation_error.hasOwnProperty('reservationCategory')" class="text-danger font-weight-bold">
+                                        {{ validation_error.reservationCategory[0] }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="name">Restaurant Name</label>
-                                <input type="text" class="form-control form-control-sm" id="name" placeholder="Restaurant Name" v-model="subassetcomp.listingName" >
-                                <div
-                                    v-if="validation_error.hasOwnProperty('listingName')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.listingName[0] }}
+                                <div class="form-group col-md-4">
+                                    <label for="name">Restaurant Name</label>
+                                    <input type="text" class="form-control form-control-sm" id="name" placeholder="Restaurant Name" v-model="subassetcomp.listingName">
+                                    <div v-if="validation_error.hasOwnProperty('listingName')" class="text-danger font-weight-bold">
+                                        {{ validation_error.listingName[0] }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="business_type">Select Asset</label>
-                                <select id="business_type" class="form-control" v-model="subassetcomp.assetId" @change="getSubAssetByAsset()">
-                                    <option value="">Choose Asset...</option>
-                                    <option v-for="(asset,ind) in assets" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
-                                </select>
-                                <div
-                                    v-if="validation_error.hasOwnProperty('assetId')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.assetId[0] }}
+                                <div class="form-group col-md-4">
+                                    <label for="business_type">Select Asset</label>
+                                    <select id="business_type" class="form-control" v-model="subassetcomp.assetId" @change="getSubAssetByAsset()">
+                                        <option value="">Choose Asset...</option>
+                                        <option v-for="(asset,ind) in assets" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
+                                    </select>
+                                    <div v-if="validation_error.hasOwnProperty('assetId')" class="text-danger font-weight-bold">
+                                        {{ validation_error.assetId[0] }}
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-4">
-                                <label for="business_type">Select Sub Asset</label>
-                                <select id="business_type" class="form-control" v-model="subassetcomp.subAssetId">
-                                    <option value="">Choose Sub Asset Id...</option>
-                                    <option v-for="(subasset,ind) in subassets" :key="ind" :value="subasset.id">floor:{{subasset.floor}},sqft:{{subasset.sqft}},{{ subasset.address }}</option>
-                                </select>
-                                <div
-                                    v-if="validation_error.hasOwnProperty('subAssetId')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.subAssetId[0] }}
+                                <div class="form-group col-md-4">
+                                    <label for="business_type">Select Sub Asset</label>
+                                    <select id="business_type" class="form-control" v-model="subassetcomp.subAssetId">
+                                        <option value="">Choose Sub Asset Id...</option>
+                                        <option v-for="(subasset,ind) in subassets" :key="ind" :value="subasset.id">floor:{{subasset.floor}},sqft:{{subasset.sqft}},{{ subasset.address }}</option>
+                                    </select>
+                                    <div v-if="validation_error.hasOwnProperty('subAssetId')" class="text-danger font-weight-bold">
+                                        {{ validation_error.subAssetId[0] }}
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="form-group col-md-4">
-                                <label for="image">Banner Image Link</label>
-                                <input type="text" class="form-control form-control-sm" id="image" placeholder="Banner Image" v-model="subassetcomp.image" >
-                                <div
-                                    v-if="validation_error.hasOwnProperty('image')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.image[0] }}
+                                <div class="form-group col-md-4">
+                                    <label for="image">Banner Image Link</label>
+                                    <input type="text" class="form-control form-control-sm" id="image" placeholder="Banner Image" v-model="subassetcomp.image">
+                                    <div v-if="validation_error.hasOwnProperty('image')" class="text-danger font-weight-bold">
+                                        {{ validation_error.image[0] }}
+                                    </div>
                                 </div>
-                            </div>
 
                             </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row">
-            <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
-                <div class="statbox widget box ">
-                    <h5>Create Schedule</h5>
-                    <div class="widget-content ">
-                        <div class="row text-center my-1">
+            <div class="row">
+                <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                    <div class="statbox widget box ">
+                        <h5>Create Schedule</h5>
+                        <div class="widget-content ">
+                            <div class="row text-center my-1">
                                 <div class="col-2 col-sm-2 text-success">
                                     <b>Day</b>
                                 </div>
@@ -282,43 +273,33 @@ export default {
                                     <b>Remove</b>
                                 </div>
                             </div>
-                        <div class="row" v-for="(sched,ind) in slotdev" :key="ind">
-                            <div class="form-group col-md-2 col-sm-2">
-                                <select id="product-category" class="form-control form-control-sm" v-model="sched.dayname">
-                                    <option value="">Choose Day...</option>
-                                    <option v-for="value in days" :value="value.dayname" :key="value.dayname"><p style="text-transform: capitalize;">{{ value.value }}</p></option>
-                                </select>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <Multiselect
-                                v-model="sched.sl"
-                                mode="tags"
-                                placeholder="Select Slot"
-                                track-by="slottime"
-                                label="slottime"
-                                :close-on-select="false"
-                                :search="true"
-                                :options="makeSlot"
-                                :searchable="true"
-                                >
-                                <template v-slot:tag="{ option, handleTagRemove, disabled }">
-                                <div
-                                    class="multiselect-tag is-user"
-                                    :class="{
-                                    'is-disabled': disabled
-                                    }"
-                                >
-                                    {{ option.slottime }}
-                                    <span
-                                    v-if="!disabled"
-                                    class="multiselect-tag-remove"
-                                    @mousedown.prevent="handleTagRemove(option, $event)"
-                                    >
-                                    <span class="multiselect-tag-remove-icon"></span>
-                                    </span>
+                            <div class="row" v-for="(sched,ind) in slotdev" :key="ind">
+                                <div class="form-group col-md-2 col-sm-2">
+                                    <select id="product-category" class="form-control form-control-sm" v-model="sched.dayname">
+                                        <option value="">Choose Day...</option>
+                                        <option v-for="value in days" :value="value.dayname" :key="value.dayname"><p style="text-transform: capitalize;">{{ value.value }}</p></option>
+                                    </select>
                                 </div>
-                                </template>
-                            </Multiselect>
+                                <div class="form-group col-md-8">
+                                    <Multiselect v-model="sched.sl" mode="tags" placeholder="Select Slot" track-by="slottime" label="slottime" :close-on-select="false" :search="true" :options="makeSlot" :searchable="true">
+                                        <template v-slot:tag="{ option, handleTagRemove, disabled }">
+                                        <div
+                                            class="multiselect-tag is-user"
+                                            :class="{
+                                            'is-disabled': disabled
+                                            }"
+                                        >
+                                            {{ option.slottime }}
+                                            <span
+                                            v-if="!disabled"
+                                            class="multiselect-tag-remove"
+                                            @mousedown.prevent="handleTagRemove(option, $event)"
+                                            >
+                                            <span class="multiselect-tag-remove-icon"></span>
+                                            </span>
+                                        </div>
+                                        </template>
+                                    </Multiselect>
                             </div>
                             <div class="form-group form-control-sm col-md-2 text-center">
                                     <a
@@ -396,8 +377,9 @@ export default {
                     <div class="widget-content ">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label for="about">About</label>
-                                <input type="text" class="form-control form-control-sm" id="about" placeholder="About Restaurant" v-model="subassetcomp.description" >
+                                <h5 class="mb-2">About</h5>
+                                <!-- <input type="text" class="form-control form-control-sm" id="about" placeholder="About Restaurant" v-model="subassetcomp.description" > -->
+                                <textarea class="form-control form-control-sm" id="about" placeholder="About Restaurant" v-model="subassetcomp.description" rows="3"></textarea>
                                 <div
                                     v-if="validation_error.hasOwnProperty('description')"
                                     class="text-danger font-weight-bold"
@@ -419,6 +401,27 @@ export default {
                                     {{ validation_error.status[0] }}
                                 </div>
                             </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                <div class="statbox widget box ">
+                    <div class="widget-content ">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <h5 class="mb-2">Pricing Link</h5>
+                                <input type="text" class="form-control form-control-sm" id="Pricing-Link" placeholder="Add Pricing Link" v-model="subassetcomp.pricing[0].image" >
+                                <div
+                                    v-if="validation_error.hasOwnProperty('pricing')"
+                                    class="text-danger font-weight-bold"
+                                >
+                                    {{ validation_error.pricing[0] }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -232,8 +232,7 @@ export default {
                                     {{ validation_error.address[0] }}
                                 </div>
                             </div>
-
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -290,7 +289,7 @@ export default {
                         class="btn btn-warning"
                     >Add More
                     </a>
-            </div>
+        </div>
 
         <div class="row mt-4">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">

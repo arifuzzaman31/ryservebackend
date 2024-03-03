@@ -16,6 +16,7 @@ export default {
                 tableId: '',
                 amount: 0,
                 vat: 0,
+                slot: '',
                 discount: 0,
                 grandTotal: 0,
                 comment: '',
@@ -39,7 +40,7 @@ export default {
                 status: 'CONFIRMED',
                 guestNumber: 1
             },
-            slotten: {},
+            slotten: '',
             pickslot: [],
             currentPage: 1,
             perPage: 8,
@@ -99,12 +100,17 @@ export default {
                 )
         },
         async updateStatus(ryserve) {
+            this.pickslot = []
             this.tables = []
+            let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(ryserve.startDate).getDay()]
+            // console.log(ryserve)
             let tbl = await this.subassetescomponent.find(dt => dt.id == ryserve.subAssetCompId);
-            // console.log(tbl)
+            const foundData = tbl.slot.find(dayData => dayData[day]);
+            this.pickslot = [...foundData[day]];
             this.tables = tbl.tables ?? []
             this.modify.id = ryserve.id
             this.modify.comment = ryserve.comment
+            this.modify.slot = ryserve.slot
             this.modify.guestNumber = ryserve.guestNumber
             this.modify.tableId = ryserve.tableId ?? ''
             this.modify.amount = ryserve.amount
@@ -133,6 +139,10 @@ export default {
                     if (e.response.status == 422) {
                         this.validation_error = e.response.data.errors;
                         this.validationError();
+                    }
+                    if (e.response.status == 400) {
+                        this.validation_error = e.response.data;
+                        this.validationError(e.response.data);
                     }
                 })
                 this.isSubmiting = false
@@ -229,7 +239,7 @@ export default {
                 comment: '',
                 status: ''
             },
-            this.slotten = {}
+            this.slotten = ''
             this.pickslot = [],
             this.isLoading = false
             this.isSubmiting = false
@@ -352,6 +362,13 @@ export default {
                                         <option v-for="value in tables" :value="value.id" :key="value.id">Capacity: {{ value.capacity }}-{{ value.position }}-{{ value.type }}</option>
                                     </select>
                                 </div>
+                                <div class="col-12 mt-3">
+                                    <label for="upslottime">Slot</label>
+                                    <select id="upslottime" class="form-control form-control-sm" v-model="modify.slot">
+                                        <option value="">Choose Slot</option>
+                                        <option v-for="value in pickslot" :value="value.slottime" :key="value.slottime">{{ value.slottime }}</option>
+                                    </select>
+                                </div>
                                 <div class="col-12" v-show="modify.status == 'COMPLETED'">
                                     <label for="Amount">Amount</label>
                                     <input type="number"  class="form-control form-control-sm" id="Amount" v-model="modify.amount" placeholder="Amount" required>
@@ -410,7 +427,7 @@ export default {
                             <div class="col-6 mt-3">
                                 <label for="rastaurant">Select Restaurant</label>
                                 <select id="rastaurant" class="form-control" v-model="slotten" @change="setData()">
-                                    <option value="">Choose Table</option>
+                                    <option value="">Choose Restaurant</option>
                                     <option v-for="value in subassetescomponent" :value="value" :key="value.id">{{ value.listingName }}</option>
                                 </select>
                             </div>
