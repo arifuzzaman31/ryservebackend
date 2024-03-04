@@ -43,7 +43,7 @@ export default {
             slotten: '',
             pickslot: [],
             currentPage: 1,
-            perPage: 8,
+            perPage: 10,
             lastPage: 0,
             url: baseUrl,
             isLoading: false,
@@ -103,10 +103,12 @@ export default {
             this.pickslot = []
             this.tables = []
             let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(ryserve.startDate).getDay()]
-            // console.log(ryserve)
+            console.log(day)
             let tbl = await this.subassetescomponent.find(dt => dt.id == ryserve.subAssetCompId);
             const foundData = tbl.slot.find(dayData => dayData[day]);
-            this.pickslot = [...foundData[day]];
+            if(foundData){
+                this.pickslot = [...foundData[day]];
+            }
             this.tables = tbl.tables ?? []
             this.modify.id = ryserve.id
             this.modify.comment = ryserve.comment

@@ -20349,7 +20349,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       slotten: '',
       pickslot: [],
       currentPage: 1,
-      perPage: 8,
+      perPage: 10,
       lastPage: 0,
       url: baseUrl,
       isLoading: false,
@@ -20479,17 +20479,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this5.pickslot = [];
               _this5.tables = [];
-              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()]; // console.log(ryserve)
-              _context5.next = 5;
+              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()];
+              console.log(day);
+              _context5.next = 6;
               return _this5.subassetescomponent.find(function (dt) {
                 return dt.id == ryserve.subAssetCompId;
               });
-            case 5:
+            case 6:
               tbl = _context5.sent;
               foundData = tbl.slot.find(function (dayData) {
                 return dayData[day];
               });
-              _this5.pickslot = _toConsumableArray(foundData[day]);
+              if (foundData) {
+                _this5.pickslot = _toConsumableArray(foundData[day]);
+              }
               _this5.tables = (_tbl$tables = tbl.tables) !== null && _tbl$tables !== void 0 ? _tbl$tables : [];
               _this5.modify.id = ryserve.id;
               _this5.modify.comment = ryserve.comment;
@@ -20499,7 +20502,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this5.modify.amount = ryserve.amount;
               _this5.modify.status = ryserve.status;
               $("#updateBooking").modal('show');
-            case 17:
+            case 18:
             case "end":
               return _context5.stop();
           }
