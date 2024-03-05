@@ -205,7 +205,6 @@ export default {
 
         <div class="statbox widget box box-shadow">
             <h5>Amenities</h5>
-            {{ subasset.amenities }}
                 <div class="widget-content ">
                     <div class="row text-center">
                         <div class="col-8 text-success">
