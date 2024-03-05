@@ -1,10 +1,11 @@
 <script>
 import axios from 'axios';
 import Mixin from '../../mixer'
-
+import Multiselect from '@vueform/multiselect'
 export default {
     mixins:[Mixin],
     components: {
+        Multiselect
     },
 
     data(){
@@ -14,84 +15,12 @@ export default {
                 assetId: '',
                 sqft: '',
                 floor: '',
-                // amenities: [
-                //     {
-                //         "name": "Ac Room",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Reception",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Swimming Pool",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 120,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Laundry Service",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 150,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Airport Shuttle",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 180,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Gym",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Parking",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Kitchen",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Smoking",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Pets",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 190,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "CCTV",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": true
-                //     },
-                //     {
-                //         "name": "Wifi",
-                //         "icon": "https://cdn4.iconfinder.com/data/icons/vecico-connectivity/288/wifi_Symbol-512.png",
-                //         "price": 0,
-                //         "status": false
-                //     }
-                // ],
                 address: '',
+                // amini:[],
                 amenities: [{name:'',icon:'',price:0,status:true}],
                 status: 'true'
             },
+            amenities: [],
             businesses: [],
             assets: [],
             validation_error: {},
@@ -154,12 +83,47 @@ export default {
                 console.log(e)
             }
         },
+        getAmenities(){
+            try{
+                const tok = localStorage.getItem('authuser')
+                const token = JSON.parse(tok)
+                this.assets = []
+                 axios.get(`${apiUrl}backendapi/amenities?status=yes`,{
+                    headers: {
+                        'Authorization': `Bearer ${token.token}`
+                    }
+                })
+                .then(response => {
+                    this.amenities = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            }catch(e){
+                console.log(e)
+            }
+        },
         removeCatChild(index) {
             if(index == 0) return ;
             this.subasset.amenities.splice(index, 1);
         },
         addMore(){
             this.subasset.amenities.push({name:'',icon:'',price:0,status:true})
+        },
+
+        async setItem(data){
+
+            const index = this.amenities.findIndex((selectedOption) => selectedOption.name == data);
+            if (index !== -1) {
+                // this.selectedAmenities.splice(index, 1);
+                const ami = this.amenities[index]
+                const ind = this.subasset.amenities.findIndex((selectedOption) => selectedOption.name == data);
+                if (ind !== -1) {
+                    this.subasset.amenities[ind] = { ...this.subasset.amenities[ind], icon: ami.icon };
+                } else {
+                    this.subasset.amenities.push({ name: data, icon: ami.icon });
+                }
+            }
+            this.subasset.amenities = await this.subasset.amenities.filter(item => item.icon !== '');
         },
 
         clearForm() {
@@ -178,6 +142,7 @@ export default {
     },
     mounted(){
         this.getUserBusiness()
+        this.getAmenities()
     }
 }
 </script>
@@ -240,39 +205,60 @@ export default {
 
         <div class="statbox widget box box-shadow">
             <h5>Amenities</h5>
+            {{ subasset.amenities }}
                 <div class="widget-content ">
                     <div class="row text-center">
-                        <div class="col-3 text-success">
+                        <div class="col-8 text-success">
                             <b>Name</b>
                         </div>
-                        <div class="col-3  text-success">
+                        <!-- <div class="col-3  text-success">
                            <b>Icon</b>
-                        </div>
+                        </div> -->
                         <div class="col-2  text-success">
                             <b>Price</b>
                         </div>
-                        <div class="text-success col-2">
+                        <!-- <div class="text-success col-2">
                             <b>Status</b>
-                        </div>
+                        </div> -->
                         <div class="col-1  text-danger">
                             <b>Remove</b>
                         </div>
                     </div>
                     <div class="row" v-for="(ameni,index) in subasset.amenities" :key="index">
-                        <div class="form-group col-3">
-                            <input type="text"  class="form-control form-control-sm" id="name" v-model="ameni.name" placeholder="Name" required>
-                        </div>
-                        <div class="form-group col-3">
-                            <input type="text"  class="form-control form-control-sm" id="name" v-model="ameni.icon" placeholder="Icon Link" required>
+                        <div class="form-group col-md-8">
+                            <Multiselect v-model="ameni.name" placeholder="Select Amenities" track-by="name"
+                            label="name" :close-on-select="true" :search="true" :options="amenities"
+                            :searchable="true" @select="setItem">
+                                <template v-slot:tag="{ option, handleTagRemove, disabled }">
+                                <div
+                                    class="multiselect-tag is-user"
+                                    :class="{
+                                    'is-disabled': disabled
+                                    }"
+                                >
+                                    {{ option.name }}
+                                    <span
+                                    v-if="!disabled"
+                                    class="multiselect-tag-remove"
+                                    @mousedown.prevent="handleTagRemove(option, $event)"
+                                    >
+                                    <span class="multiselect-tag-remove-icon"></span>
+                                    </span>
+                                </div>
+                                </template>
+                                <template v-slot:option="{ option, select, selected }">
+                                    <div @click="select(option)" class="custom-option">
+                                    <img :src="option.icon" alt="Amenity Icon" class="option-image" />
+                                    <span>{{ option.name }}</span>
+                                    <span v-if="selected" class="multiselect-option__select">
+                                        &#x2713;
+                                    </span>
+                                    </div>
+                                </template>
+                            </Multiselect>
                         </div>
                         <div class="form-group col-2">
                             <input type="number"  class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
-                        </div>
-                        <div class="form-group col-2">
-                            <select id="product-category" class="form-control form-control-sm" v-model="ameni.status">
-                                <option value="true">Active</option>
-                                <option value="false">Inactive</option>
-                            </select>
                         </div>
                         <div class="form-group form-control-sm col-md-1 text-center">
                             <a
@@ -348,15 +334,14 @@ export default {
     padding-right: 0px;
     padding-left: 15px;
 }
-
-.image-close {
-  position: absolute;
-  font-size: 1.9rem;
-  z-index: 2;
+.option-image {
+  width: 20px; /* Adjust the size as needed */
+  height: 20px;
+  margin-right: 5px;
 }
 
-.image-close:hover:before {
-  opacity: 1;
-  transition: all 200ms ease;
+.multiselect-option__select {
+  color: green;
+  font-size: 18px;
 }
 </style>
