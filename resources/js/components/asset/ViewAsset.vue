@@ -1,14 +1,31 @@
 <script>
 import axios from "axios";
 import Mixin from "../../mixer";
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css';
 export default {
     mixins: [Mixin],
-    components: {},
-
+    components: {QuillEditor},
     data() {
         return {
+            updateAsset : {
+                id: '',
+                businessId: '',
+                assetType: '',
+                propertyName: '',
+                country: '',
+                city: '',
+                locationPoint: '',
+                geoTag: '',
+                noOfRoom: '',
+                logo: '',
+                about: '',
+                status: 'true'
+            },
             assetes: [],
+            businesses: [],
             url: baseUrl,
+            isSubmiting: false,
             validation_error: {},
         };
     },
@@ -33,6 +50,89 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+        },
+        async setupData(assetData){
+                this.updateAsset.id = assetData.id
+                this.updateAsset.businessId = assetData.businessId
+                this.updateAsset.assetType = assetData.assetType
+                this.updateAsset.propertyName = assetData.propertyName
+                this.updateAsset.country = assetData.country
+                this.updateAsset.city = assetData.city
+                this.updateAsset.locationPoint = assetData.locationPoint
+                this.updateAsset.geoTag = assetData.geoTag
+                this.updateAsset.noOfRoom = assetData.noOfRoom
+                this.updateAsset.logo = assetData.logo
+                this.updateAsset.about = assetData.about
+                this.updateAsset.status = assetData.status
+        },
+        async editAsset(asset){
+            this.getBusiness();
+            await this.setupData(asset)
+            $("#updateAssetModal").modal('show');
+        },
+        async updateAssetData(){
+            try{
+                this.isSubmiting = true
+                    const token = await this.getUserToken()
+                    await axios.put(`${apiUrl}backendapi/asset?id=${this.updateAsset.id}`,this.updateAsset, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }).then(
+                        response => {
+                            if (response.status == 200) {
+                                this.successMessage({ status: 'success', message: 'Asset Updated Successful' })
+                                $("#updateAssetModal").modal('hide');
+                                this.getAsset()
+                            }
+                            this.clearForm()
+                        }
+                    ).catch(e => {
+                        if (e.response.status == 422) {
+                            this.validation_error = e.response.data.errors;
+                            this.validationError();
+                        }else{
+                            this.validationError();
+                        }
+                    })
+                    this.isSubmiting = false
+            }catch(e){
+                console.log(e.response)
+            }
+        },
+        async getBusiness(){
+            try{
+                const token = await this.getUserToken()
+                 axios.get(`${apiUrl}backendapi/business`,{
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    this.businesses = response.data
+                }).catch(error => {
+                    console.log(error)
+                })
+            }catch(e){
+                console.log(e)
+            }
+        },
+        clearForm(){
+            this.updateAsset = {
+                id: '',
+                businessId: '',
+                asset_type: '',
+                property_name: '',
+                country: '',
+                city: '',
+                location_point: '',
+                geo_tag: '',
+                no_of_room: '',
+                logo: '',
+                about: '',
+                status: 'true'
+            },
+            this.validation_error = {}
         },
     },
     computed: {},
@@ -72,7 +172,7 @@ export default {
                                     <th>City</th>
                                     <th>Total Booking</th>
                                     <th class="text-center">Status</th>
-                                    <!-- <th class="text-center">Action</th> -->
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,34 +187,19 @@ export default {
                                         <td>{{ asset.city }}</td>
                                         <td>{{ asset.bookingCount }}</td>
                                         <td class="text-center">
-                                            <label
-                                                class="switch s-success mb-4 mx-5"
-                                            >
-                                                <input
-                                                    type="checkbox"
-                                                    :checked="
-                                                        asset.status == 1
-                                                            ? true
-                                                            : false
-                                                    "
-                                                    disabled
-                                                />
-                                                <span
-                                                    class="slider round"
-                                                ></span>
-                                            </label>
+                                            {{ asset.status == true ? 'Active' : 'Deactive' }}
                                         </td>
-                                        <!-- <td>
+                                        <td>
                                 <ul class="table-controls d-flex justify-content-around">
-                                    <li><a href="javascript:void(0);" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
-                                    <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
-                                                        </a></li>
+                                    <li><a href="javascript:void(0);" @click="editAsset(asset)" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                    <!-- <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
+                                                        </a></li> -->
                                     <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li>
-                                    <li><a href="asset" title="Asset">
+                                    <!-- <li><a href="asset" title="Asset">
                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                                    </a></li>
+                                    </a></li> -->
                                 </ul>
-                            </td> -->
+                            </td>
                                     </tr>
                                 </template>
                             </tbody>
@@ -123,7 +208,169 @@ export default {
                 </div>
             </div>
         </div>
+        <div id="updateAssetModal" class="modal animated fadeInUp custo-fadeInUp" role="dialog" v-if="updateAsset.id">
+            <div class="modal-dialog modal-xl">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Update {{ updateAsset.propertyName }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="needs-validation" method="post" @submit.prevent="updateAssetData()" id="add-asset-form">
+                            <div class="row">
+                                <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                                    <div class="statbox widget box ">
+                                        <div class="widget-content ">
+                                            <div class="form-row">
+                                                <div class="col-md-4">
+                                                    <label for="propertyName">Property Name</label>
+                                                    <input type="text" class="form-control" :class="validation_error.hasOwnProperty('propertyName') ? 'is-invalid' : ''" id="propertyName" placeholder="Property name" v-model="updateAsset.propertyName" >
+                                                        <div
+                                                            v-if="validation_error.hasOwnProperty('propertyName')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.propertyName[0] }}
+                                                        </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="business_type">Select Business</label>
+                                                    <select id="business_type" class="form-control" v-model="updateAsset.businessId">
+                                                        <option value="">Choose Business Type...</option>
+                                                        <option v-for="(business,ind) in businesses" :key="ind" :value="business.id">{{business.businessName}}</option>
+                                                    </select>
+                                                    <div
+                                                        v-if="validation_error.hasOwnProperty('businessId')"
+                                                        class="text-danger font-weight-bold"
+                                                    >
+                                                        {{ validation_error.businessId[0] }}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="assetType">Asset Type</label>
+                                                    <select id="assetType" class="form-control" v-model="updateAsset.assetType">
+                                                        <option value="">Choose Asset Type...</option>
+                                                        <option value="APARTMENT_BUILDING">APARTMENT_BUILDING</option>
+                                                        <option value="SHARED_BUILDING">SHARED_BUILDING</option>
+                                                        <option value="SHARED_FLOOR">SHARED_FLOOR</option>
+                                                        <option value="OTHERS">OTHERS</option>
+                                                    </select>
+                                                    <div
+                                                        v-if="validation_error.hasOwnProperty('assetType')"
+                                                        class="text-danger font-weight-bold"
+                                                    >
+                                                        {{ validation_error.assetType[0] }}
+                                                    </div>
+                                                </div>
+
+                                                </div>
+                                                <div class="form-row mt-1">
+                                                    <div id="tooltips" class="col-lg-12 col-md-12">
+                                                        <div class="widget-content ">
+                                                            <label for="editor-container">About</label>
+                                                            <QuillEditor theme="snow" v-model:content="updateAsset.about" contentType="html" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                                    <div class="statbox widget box ">
+                                        <div class="widget-content ">
+                                            <div class="form-row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="country">Country</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('country') ? 'is-invalid' : ''" id="country" placeholder="Country" v-model="updateAsset.country">
+                                                    <div
+                                                            v-if="validation_error.hasOwnProperty('country')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.country[0] }}
+                                                        </div>
+                                                </div>
+
+                                                <div class="form-group col-md-4 mb-3">
+                                                    <label for="city">City</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('city') ? 'is-invalid' : ''" id="ity" placeholder="City" v-model="updateAsset.city" >
+                                                        <div
+                                                            v-if="validation_error.hasOwnProperty('city')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.city[0] }}
+                                                        </div>
+                                                </div>
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="locationPoint">Location Point</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('locationPoint') ? 'is-invalid' : ''" id="locationPoint" placeholder="google Location Link" v-model="updateAsset.locationPoint" >
+                                                    <div
+                                                            v-if="validation_error.hasOwnProperty('locationPoint')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.locationPoint[0] }}
+                                                        </div>
+                                                </div>
+                                                <div class="col-md-12 mb-3">
+                                                    <label for="logo">Logo Link</label>
+                                                    <input type="text" class="form-control form-control-sm" id="logo" placeholder="Logo" v-model="updateAsset.logo" />
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="geoTag">Geo Tag</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('geoTag') ? 'is-invalid' : ''" id="geoTag" placeholder="google geo tag" v-model="updateAsset.geoTag" >
+                                                    <div
+                                                            v-if="validation_error.hasOwnProperty('geoTag')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.geoTag[0] }}
+                                                        </div>
+                                                </div>
+
+
+                                                <div class="col-md-4 mb-3">
+                                                    <label for="no_of_room">Number Of Room</label>
+                                                    <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Room" v-model="updateAsset.noOfRoom" />
+                                                </div>
+
+                                                <div class="form-group col-md-4">
+                                                    <label for="status">Status</label>
+                                                    <select id="status" class="form-control" v-model="updateAsset.status">
+                                                        <option value="true">Active</option>
+                                                        <option value="false">Deactive</option>
+                                                    </select>
+                                                    <div
+                                                        v-if="validation_error.hasOwnProperty('status')"
+                                                        class="text-danger font-weight-bold"
+                                                    >
+                                                        {{ validation_error.status[0] }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-success mt-1 btn-lg" type="submit">
+                                <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>
+                                Update</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal-xl{
+    max-width: 86% !important;
+}
+</style>
