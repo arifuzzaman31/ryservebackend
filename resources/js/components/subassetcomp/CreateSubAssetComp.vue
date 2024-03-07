@@ -15,19 +15,27 @@ export default {
                 subAssetId: '',
                 listingName: '',
                 type: '',
+                isEvent: false,
+                event: {
+                    expireDate: '',
+                    eventName:'',
+                    eventIcon:'',
+                    slot:''
+                },
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
                 pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'}],
                 description: '',
+                terms: '',
                 reservationCategory: '',
-                image: '',
+                image: [{link:'',precedence:0}],
                 status: "true",
                 table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
             },
             assets: [],
             subassets: [],
             slotdev: [{ dayname: '', sl: [] }],
-            makeSlot: [{ slottime: '7 AM', value: '7 AM', status: true }, { slottime: '8 AM', value: '8 AM', status: true }, { slottime: '9 AM', value: '9 AM', status: true },
+            makeSlot: [{ slottime: '6 AM', value: '6 AM', status: true },{ slottime: '7 AM', value: '7 AM', status: true }, { slottime: '8 AM', value: '8 AM', status: true }, { slottime: '9 AM', value: '9 AM', status: true },
                 { slottime: '10 AM', value: '10 AM', status: true }, { slottime: '11 AM', value: '11 AM', status: true }, { slottime: '12 PM', value: '12 PM', status: true },
                 { slottime: '1 PM', value: '1 PM', status: true }, { slottime: '2 PM', value: '2 PM', status: true }, { slottime: '3 PM', value: '3 PM', status: true },
                 { slottime: '4 PM', value: '4 PM', status: true }, { slottime: '5 PM', value: '5 PM', status: true }, { slottime: '6 PM', value: '6 PM', status: true },
@@ -83,13 +91,12 @@ export default {
                     console.log(errors);
                 });
         },
-        getUserAsset() {
+        async getUserAsset() {
             try {
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                const token = await this.getUserToken()
                 axios.get(`${apiUrl}backendapi/asset`, {
                         headers: {
-                            'Authorization': `Bearer ${token.token}`
+                            'Authorization': `Bearer ${token}`
                         }
                     })
                     .then(response => {
@@ -121,7 +128,15 @@ export default {
                 console.log(e)
             }
         },
+        addMoreImage() {
+            this.subassetcomp.image.push({link:'',precedence:this.subassetcomp.image.length})
+        },
+        removeImageChild(index) {
+            if (index == 0) return;
+            this.subassetcomp.image.splice(index, 1);
+        },
         addMoreSlot() {
+            if(this.slotdev.length == 7) return ;
             this.slotdev.push({ dayname: '', sl: [] })
         },
         removeSlotChild(index) {
@@ -143,18 +158,25 @@ export default {
             this.subassetcomp.table.splice(index, 1);
         },
         clearForm() {
-            this.subasset = {
+            this.subassetcomp = {
                 assetId: '',
                 subAssetId: '',
                 listingName: '',
                 type: '',
+                isEvent: false,
+                event: {
+                    expireDate: '',
+                    eventName:'',
+                    eventIcon:'',
+                    slot:''
+                },
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
                 pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm',
                 weight: '250 gm', price:0,description:'Here is demo description.'}],
                 description: '',
                 reservationCategory: '',
-                image: '',
+                image: [{link:'',precedence:0}],
                 status: "true",
                 table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
             }
@@ -167,10 +189,6 @@ export default {
     }
 }
 </script>
-
-<style src="@vueform/multiselect/themes/default.css">
-
-</style>
 
 <template>
     <div class="widget-header">
@@ -221,7 +239,7 @@ export default {
                                         {{ validation_error.listingName[0] }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="business_type">Select Asset</label>
                                     <select id="business_type" class="form-control" v-model="subassetcomp.assetId" @change="getSubAssetByAsset()">
                                         <option value="">Choose Asset...</option>
@@ -231,7 +249,7 @@ export default {
                                         {{ validation_error.assetId[0] }}
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="business_type">Select Sub Asset</label>
                                     <select id="business_type" class="form-control" v-model="subassetcomp.subAssetId">
                                         <option value="">Choose Sub Asset Id...</option>
@@ -242,19 +260,109 @@ export default {
                                     </div>
                                 </div>
 
-                                <div class="form-group col-md-4">
+                                <!-- <div class="form-group col-md-4">
                                     <label for="image">Banner Image Link</label>
                                     <input type="text" class="form-control form-control-sm" id="image" placeholder="Banner Image" v-model="subassetcomp.image">
                                     <div v-if="validation_error.hasOwnProperty('image')" class="text-danger font-weight-bold">
                                         {{ validation_error.image[0] }}
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="statbox widget box box-shadow">
+                <div class="widget-header">
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex">
+                            <h5>Event</h5>
+                            <div class="d-flex mx-2">
+                                <div class="billing-cycle-radios">
+                                    <div class="radio billed-yearly-radio">
+                                        <div class="d-flex justify-content-center">
+                                            <!-- <span class="txt-monthly mr-2">Has Event?</span> -->
+                                            <label class="switch s-icons s-outline  s-outline-primary">
+                                                <input v-model="subassetcomp.isEvent" :checked="subassetcomp.isEvent"  type="checkbox" id="Event">
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <div class="row" v-if="subassetcomp.isEvent">
+                            <div class="form-group col-md-4">
+                                <label for="expireDate">Expire Date</label>
+                                <input type="date" class="form-control form-control-sm" id="expireDate" placeholder="Expire Date" v-model="subassetcomp.event.expireDate" required>
+                                <div v-if="validation_error.hasOwnProperty('expireDate')" class="text-danger font-weight-bold">
+                                    {{ validation_error.expireDate[0] }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="eventName">Event Name</label>
+                                <input type="text" class="form-control form-control-sm" id="eventName" placeholder="Event Name" v-model="subassetcomp.event.eventName" required>
+                                <div v-if="validation_error.hasOwnProperty('eventName')" class="text-danger font-weight-bold">
+                                    {{ validation_error.eventName[0] }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="eventIcon">Event Icon</label>
+                                <input type="text" class="form-control form-control-sm" id="eventIcon" placeholder="Event Name" v-model="subassetcomp.event.eventIcon" required>
+                                <div v-if="validation_error.hasOwnProperty('eventIcon')" class="text-danger font-weight-bold">
+                                    {{ validation_error.eventIcon[0] }}
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <select id="event-slot" class="form-control form-control-sm" v-model="subassetcomp.event.slot" required>
+                                    <option value="">Choose Slot...</option>
+                                    <option v-for="(value,ind) in makeSlot" :value="value.value" :key="ind">{{ value.value }}</option>
+                                </select>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                    <div class="statbox widget box ">
+                        <h5>Banner Images</h5>
+                        <div class="widget-content ">
+                            <div class="row text-center my-1">
+                                <div class="col-10  text-success">
+                                    <b>Image Link</b>
+                                </div>
+
+                                <div class="col-2  text-danger">
+                                    <b>Remove</b>
+                                </div>
+                            </div>
+                            <div class="row" v-for="(img,ind) in subassetcomp.image" :key="ind">
+                                <div class="form-group col-md-10">
+                                    <input type="text" class="form-control form-control-sm" :id="ind" v-model="img.link" placeholder="Banner Image" required>
+                                </div>
+                            <div class="form-group form-control-sm col-md-2 text-center">
+                                    <a
+                                    href="javascript:void(0)"
+                                    @click.prevent="removeImageChild(ind)"
+                                    class="mt-5"
+                                    ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                                </div>
+                        </div>
+                    <a
+                    href="javascript:void(0)"
+                    @click.prevent="addMoreImage()"
+                    class="btn btn-warning"
+                >Add More
+                </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
             <div class="row">
                 <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
                     <div class="statbox widget box ">
@@ -378,7 +486,6 @@ export default {
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <h5 class="mb-2">About</h5>
-                                <!-- <input type="text" class="form-control form-control-sm" id="about" placeholder="About Restaurant" v-model="subassetcomp.description" > -->
                                 <textarea class="form-control form-control-sm" id="about" placeholder="About Restaurant" v-model="subassetcomp.description" rows="3"></textarea>
                                 <div
                                     v-if="validation_error.hasOwnProperty('description')"
@@ -387,20 +494,16 @@ export default {
                                     {{ validation_error.description[0] }}
                                 </div>
                             </div>
-
-                            <!-- <div class="form-group col-md-4">
-                                <label for="status">Status</label>
-                                <select id="status" class="form-control" v-model="subassetcomp.status">
-                                    <option value="true">Active</option>
-                                    <option value="false">Deactive</option>
-                                </select>
+                            <div class="form-group col-md-12 mt-2">
+                                <h5 class="mb-2">Terms & Conditions</h5>
+                                <textarea class="form-control form-control-sm" id="terms" placeholder="Write Terms & Conditions" v-model="subassetcomp.terms" rows="4"></textarea>
                                 <div
-                                    v-if="validation_error.hasOwnProperty('status')"
+                                    v-if="validation_error.hasOwnProperty('terms')"
                                     class="text-danger font-weight-bold"
                                 >
-                                    {{ validation_error.status[0] }}
+                                    {{ validation_error.terms[0] }}
                                 </div>
-                            </div> -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -413,8 +516,8 @@ export default {
                     <div class="widget-content ">
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <h5 class="mb-2">Pricing Link</h5>
-                                <input type="text" class="form-control form-control-sm" id="Pricing-Link" placeholder="Add Pricing Link" v-model="subassetcomp.pricing[0].image" >
+                                <h5 class="mb-2">Menu Link</h5>
+                                <input type="text" class="form-control form-control-sm" id="Menu-Link" placeholder="Add Menu Link" v-model="subassetcomp.pricing[0].image" >
                                 <div
                                     v-if="validation_error.hasOwnProperty('pricing')"
                                     class="text-danger font-weight-bold"
