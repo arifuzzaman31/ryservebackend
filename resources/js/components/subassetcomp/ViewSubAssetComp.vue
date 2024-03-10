@@ -440,14 +440,14 @@ export default {
                                     <input type="text" class="form-control form-control-sm" id="size" placeholder="Ex: 50cm x 88cm" v-model="table.size" >
                                 </div>
                                 <div class="col-12 mt-1">
-                                <label for="Splitable">Splitable</label>
+                                <label for="Splitable">Splittable</label>
                                     <select id="Splitable" class="form-control" v-model="table.splitable">
                                         <option value="true">Yes</option>
                                         <option value="false">No</option>
                                     </select>
                                 </div>
                                 <div class="col-12 mt-1">
-                                <label for="ryservable">Ryservable</label>
+                                <label for="ryservable">Reservable</label>
                                     <select id="ryservable" class="form-control" v-model="table.ryservable">
                                         <option value="true">Yes</option>
                                         <option value="false">No</option>
@@ -837,10 +837,10 @@ export default {
                                     <b>Size</b>
                                 </div>
                                 <div class="col-1  text-success">
-                                    <b>Splitable</b>
+                                    <b>Splittable</b>
                                 </div>
                                 <div class="col-1  text-success">
-                                    <b>Ryservable</b>
+                                    <b>Reservable</b>
                                 </div>
                                 <div class="col-1  text-danger">
                                     <b>Remove</b>

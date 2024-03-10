@@ -551,10 +551,10 @@ export default {
                                     <b>Size</b>
                                 </div>
                                 <div class="col-1  text-success">
-                                    <b>Splitable</b>
+                                    <b>Splittable</b>
                                 </div>
                                 <div class="col-1  text-success">
-                                    <b>Ryservable</b>
+                                    <b>Reservable</b>
                                 </div>
                                 <div class="col-1  text-danger">
                                     <b>Remove</b>

@@ -194,7 +194,7 @@ export default {
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label for="location_point">Location Point</label>
+                                <label for="location_point">Location- Location link from Google Map</label>
                                 <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="assets.location_point" >
                                 <div
                                         v-if="validation_error.hasOwnProperty('location_point')"
@@ -220,8 +220,8 @@ export default {
 
 
                             <div class="col-md-4 mb-3">
-                                <label for="no_of_room">Number Of Room</label>
-                                <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Room" v-model="assets.no_of_room" />
+                                <label for="no_of_room">Number Of Rooms</label>
+                                <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="assets.no_of_room" />
                             </div>
 
                             <div class="form-group col-md-4">

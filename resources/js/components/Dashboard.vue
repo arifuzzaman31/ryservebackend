@@ -105,7 +105,7 @@
                             </span>
                         </div>
                         <div class="icons-content">
-                            <h6 class="mb-1 card-title">Total Ryserve</h6>
+                            <h6 class="mb-1 card-title">Total Reservation</h6>
                             <span>85</span> <br />
                             <span class="text-sm">
                                 demo text

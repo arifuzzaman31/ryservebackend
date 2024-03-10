@@ -213,7 +213,7 @@ export default {
                             <th>Floor</th>
                             <th>SQFT</th>
                             <th>Address</th>
-                            <th>Aminities</th>
+                            <th>Amenities</th>
                             <th class="text-center">Status</th>
                             <th class="text-center">Action</th>
                         </tr>

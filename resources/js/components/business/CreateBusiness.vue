@@ -203,7 +203,7 @@ export default {
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label for="location_point">Location Point</label>
+                                <label for="location_point">Location- Location link from Google Map.</label>
                                 <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="business.location_point" >
                                 <div
                                         v-if="validation_error.hasOwnProperty('location_point')"
@@ -221,21 +221,21 @@ export default {
                                 <input type="text" class="form-control form-control-sm" id="business_manager" placeholder="Business Manager: name, phone, address" v-model="business.business_manager" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="tin">Tin</label>
+                                <label for="tin">TIN</label>
                                 <input type="text" class="form-control form-control-sm" id="tin" placeholder="TIN Number" v-model="business.tin" />
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="bin">Bin</label>
+                                <label for="bin">BIN</label>
                                 <input type="text" class="form-control form-control-sm" id="bin" placeholder="BIN Number" v-model="business.bin" />
                             </div>
                             <div class="col-md-4 mb-3">
-                                <label for="number_of_employee">Number Of Employee</label>
-                                <input type="number" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employee" v-model="business.number_of_employee" />
+                                <label for="number_of_employee">Number Of Employees</label>
+                                <input type="number" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employees" v-model="business.number_of_employee" />
                             </div>
 
                             <div class="col-md-4 mb-3">
-                                <label for="trade_licence">Trade Licence</label>
-                                <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence" v-model="business.trade_licence" />
+                                <label for="trade_licence">Trade Licence Number</label>
+                                <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence Number" v-model="business.trade_licence" />
                             </div>
 
                             <div class="form-group col-md-4">

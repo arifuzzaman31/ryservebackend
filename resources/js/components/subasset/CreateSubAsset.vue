@@ -36,7 +36,7 @@ export default {
                 }
             })
                 .then((result) => {
-                    console.log(result.data)
+                    // console.log(result.data)
                     if(result.status == 201){
                         this.successMessage({status:'success',message:'New Sub Asset Created Successful'})
                         window.location.href = baseUrl+'sub-asset'
