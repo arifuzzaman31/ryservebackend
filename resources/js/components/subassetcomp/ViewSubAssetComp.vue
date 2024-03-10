@@ -35,13 +35,14 @@ export default {
                 },
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
-                pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'}],
+                pricing: [{ id:'', itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm',
+                price:0,description:'Here is demo description.'}],
                 description: '',
                 terms: '',
                 reservationCategory: '',
                 image: [{link:'',precedence:0}],
                 status: "true",
-                table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
+                table: [{ id:'',capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
             },
             subassetescomp: [],
             assets: [],
@@ -64,6 +65,7 @@ export default {
                 { dayname: 'friday', value: 'Friday' }
             ],
             url: baseUrl,
+            isSubmiting: false,
             validation_error: {},
         }
     },
@@ -192,9 +194,13 @@ export default {
                         link: item.link, precedence: item.precedence
                     }
             })
+            this.updateComponent.pricing = compdata.prices[0].pricing.map(item => {
+                return {id:compdata.prices[0].id, itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
+                price:0,description:'Here is demo description.'}
+            })
             this.updateComponent.table = compdata.tables.map(item => {
                 return {
-                    capacity: item.capacity, type: item.type, position: item.position, size: item.size,
+                    id:item.id,capacity: item.capacity, type: item.type, position: item.position, size: item.size,
                     ryservable: item.ryservable.toString(),splitable: item.splitable.toString(), status: item.status.toString()
                 }
             })
@@ -212,8 +218,27 @@ export default {
             $("#updateSubAssetCompModal").modal('show');
         },
         async updateSubAssetComp(){
-            alert('Under Development')
-            return false
+            const token = await this.getUserToken()
+            this.isSubmiting = true
+            // return ;
+            await this.prepareSlotData()
+            // delete this.updatesubasset['businessId'];
+            axios.put(`${apiUrl}backendapi/sub-asset-component?id=${this.updateComponent.id}`, this.updateComponent, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then((result) => {
+                    if(result.status == 200){
+                        this.isSubmiting = false
+                        $("#updateSubAssetCompModal").modal('hide');
+                        this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
+                        this.getSubAssetComp()
+                    }
+                })
+                .catch((errors) => {
+                    console.log(errors);
+                });
         },
         async addATable(compo) {
             this.table.subAssetCompId = compo.id
@@ -242,7 +267,7 @@ export default {
             this.updateComponent.offday.splice(index, 1);
         },
         addMoreTable() {
-            this.updateComponent.table.push({ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" })
+            this.updateComponent.table.push({id:'', capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" })
         },
         removeTableChild(index) {
             if (index == 0) return;
@@ -274,13 +299,25 @@ export default {
                 },
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
-                pricing: [{ itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'}],
+                pricing: [{ id:'', itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'}],
                 description: '',
                 terms: '',
                 reservationCategory: '',
                 image: [{link:'',precedence:0}],
                 status: "true",
-                table: [{ capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
+                table: [{id: '',capacity: 1, type: '', position: '', size: '', ryservable: "true", splitable: "true", status: "true" }]
+            }
+        }
+    },
+    watch: {
+        'updateComponent.isEvent': function (newIsEvent) {
+            if (!newIsEvent) {
+                this.updateComponent.event = {
+                expireDate: '',
+                eventName: '',
+                eventIcon: '',
+                slot: ''
+                };
             }
         }
     },
@@ -861,8 +898,9 @@ export default {
                 </div>
             </div>
         </div>
-
-        <button class="btn btn-success mt-1 btn-lg" type="submit">Update</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">
+            <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>
+                                        Update</button>
     </form>
                     </div>
                 </div>

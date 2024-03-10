@@ -282,6 +282,7 @@ export default {
                                     <th>Guest</th>
                                     <th>Date</th>
                                     <th>Time</th>
+                                    <th>Type</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -296,6 +297,7 @@ export default {
                                     <td class="text-center">{{ ryserve.guestNumber }}</td>
                                     <td>{{ dateToString(ryserve.startDate) }}</td>
                                     <td>{{ ryserve.slot }}</td>
+                                    <td>{{ ryserve.bookingType }}</td>
                                     <td class="text-center">
                                        <span v-if="ryserve.status == 'CONFIRMED'" class="badge badge-success">Confirmed</span>
                                         <span v-if="ryserve.status == 'DEACTIVE'" class="badge badge-warning">Deactive</span>
