@@ -198,6 +198,7 @@ export default {
                 return {id:compdata.prices[0].id, itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
                 price:0,description:'Here is demo description.'}
             })
+
             this.updateComponent.table = compdata.tables.map(item => {
                 return {
                     id:item.id,capacity: item.capacity, type: item.type, position: item.position, size: item.size,
