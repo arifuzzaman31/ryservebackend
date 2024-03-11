@@ -45,6 +45,14 @@ export default {
             currentPage: 1,
             perPage: 10,
             lastPage: 0,
+            filterdata : {
+                startDate: '',
+                endDate: '',
+                slot: '',
+                status: '',
+                isEvent: '',
+                search: ''
+            },
             url: baseUrl,
             isLoading: false,
             isSubmiting: false,
@@ -59,7 +67,6 @@ export default {
         },
         async nextData() {
             if ((Math.ceil(this.currentPage / this.perPage)) >= this.lastPage) return;
-
             this.currentPage += this.perPage
             this.getBooking()
         },
@@ -67,7 +74,7 @@ export default {
             try {
                 this.isLoading = true
                 const token = await this.getUserToken()
-                await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&per_page=${this.perPage}`, {
+                await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&status=${this.filterdata.status}&event=${this.filterdata.isEvent}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}&per_page=${this.perPage}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
@@ -213,6 +220,22 @@ export default {
             const foundData = this.slotten.slot.find(dayData => dayData[day]);
             this.pickslot = [...foundData[day]];
         },
+        async filterClear(){
+            this.filterdata = {
+                startDate: '',
+                endDate: '',
+                slot: '',
+                status: '',
+                isEvent: '',
+                search: ''
+            }
+            this.getBooking()
+        },
+        async filterSubmit(){
+            this.currentPage = 1,
+            this.perPage = 10,
+            await this.getBooking()
+        },
         async clearForm() {
             this.bookingData = {
                 user: {
@@ -245,6 +268,14 @@ export default {
             this.pickslot = [],
             this.isLoading = false
             this.isSubmiting = false
+            this.filterdata = {
+                startDate: '',
+                endDate: '',
+                slot: '',
+                status: '',
+                isEvent: '',
+                search: ''
+            }
         },
 
     },
@@ -271,6 +302,39 @@ export default {
                     <div class="spinner-border text-success align-self-center loader-xl"></div>
                 </div>
                 <div class="widget-content widget-content-area" v-else>
+                    <div class="row mb-2">
+                        <div class="col-md-2 col-lg-2 col-12">
+                            <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.status">
+                                <option selected="" value="">Choose...</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="DEACTIVE">Deactive</option>
+                                <option value="ON_HOLD">On Hold</option>
+                                <option value="CANCELED">Canceled</option>
+                                <option value="COMPLETED">Completed</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 col-lg-2 col-12">
+                            <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.isEvent">
+                                <option selected="" value="">All</option>
+                                <option value="Regular">Regular</option>
+                                <option value="event">Event</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-3 col-lg-3 col-12">
+                            <input type="text" onfocus="(this.type='date')" v-model="filterdata.startDate" class="form-control form-control-sm" placeholder="Start Date">
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-12">
+                            <input type="text" onfocus="(this.type='date')" v-model="filterdata.endDate" class="form-control form-control-sm" placeholder="End Date">
+                        </div>
+
+                        <div class="col-md-2 col-lg-1 col-12">
+                            <button type="button" class="btn btn-info" @click.prevent="filterSubmit()">Filter</button>
+                        </div>
+                        <div class="col-md-2 col-lg-1 col-12">
+                            <button type="button" class="btn btn-danger" @click.prevent="filterClear()">CLEAR</button>
+                        </div>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
                             <thead>

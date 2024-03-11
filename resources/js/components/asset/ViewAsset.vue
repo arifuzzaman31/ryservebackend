@@ -15,6 +15,7 @@ export default {
                 propertyName: '',
                 country: '',
                 city: '',
+                area: '',
                 locationPoint: '',
                 geoTag: '',
                 noOfRoom: '',
@@ -58,6 +59,7 @@ export default {
                 this.updateAsset.propertyName = assetData.propertyName
                 this.updateAsset.country = assetData.country
                 this.updateAsset.city = assetData.city
+                this.updateAsset.area = assetData.area
                 this.updateAsset.locationPoint = assetData.locationPoint
                 this.updateAsset.geoTag = assetData.geoTag
                 this.updateAsset.noOfRoom = assetData.noOfRoom
@@ -125,6 +127,7 @@ export default {
                 property_name: '',
                 country: '',
                 city: '',
+                area: '',
                 location_point: '',
                 geo_tag: '',
                 no_of_room: '',
@@ -170,6 +173,7 @@ export default {
                                     <th>Asset Name</th>
                                     <th>Asset Type</th>
                                     <th>City</th>
+                                    <th>Area</th>
                                     <th>Total Booking</th>
                                     <th class="text-center">Status</th>
                                     <th class="text-center">Action</th>
@@ -185,6 +189,7 @@ export default {
                                         <td>{{ asset.propertyName }}</td>
                                         <td>{{ asset.assetType }}</td>
                                         <td>{{ asset.city }}</td>
+                                        <td>{{ asset.area }}</td>
                                         <td>{{ asset.bookingCount }}</td>
                                         <td class="text-center">
                                             {{ asset.status == true ? 'Active' : 'Deactive' }}
@@ -239,7 +244,7 @@ export default {
                                                 <div class="form-group col-md-4">
                                                     <label for="business_type">Select Business</label>
                                                     <select id="business_type" class="form-control" v-model="updateAsset.businessId">
-                                                        <option value="">Choose Business Type...</option>
+                                                        <option value="">Choose Business...</option>
                                                         <option v-for="(business,ind) in businesses" :key="ind" :value="business.id">{{business.businessName}}</option>
                                                     </select>
                                                     <div
@@ -307,9 +312,19 @@ export default {
                                                             {{ validation_error.city[0] }}
                                                         </div>
                                                 </div>
+                                                <div class="form-group col-md-4 mb-3">
+                                                    <label for="area">Area</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('area') ? 'is-invalid' : ''" id="area" placeholder="Area Name" v-model="updateAsset.area" >
+                                                        <div
+                                                            v-if="validation_error.hasOwnProperty('area')"
+                                                            class="invalid-feedback"
+                                                        >
+                                                            {{ validation_error.area[0] }}
+                                                        </div>
+                                                </div>
 
-                                                <div class="col-md-4 mb-3">
-                                                    <label for="locationPoint">Location Point</label>
+                                                <div class="col-md-6 mb-3">
+                                                    <label for="locationPoint">Location- Location link from Google Map</label>
                                                     <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('locationPoint') ? 'is-invalid' : ''" id="locationPoint" placeholder="google Location Link" v-model="updateAsset.locationPoint" >
                                                     <div
                                                             v-if="validation_error.hasOwnProperty('locationPoint')"
@@ -318,7 +333,7 @@ export default {
                                                             {{ validation_error.locationPoint[0] }}
                                                         </div>
                                                 </div>
-                                                <div class="col-md-12 mb-3">
+                                                <div class="col-md-6 mb-3">
                                                     <label for="logo">Logo Link</label>
                                                     <input type="text" class="form-control form-control-sm" id="logo" placeholder="Logo" v-model="updateAsset.logo" />
                                                 </div>

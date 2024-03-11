@@ -18,6 +18,7 @@ export default {
                 property_name: '',
                 country: '',
                 city: '',
+                area:'',
                 location_point: '',
                 geo_tag: '',
                 no_of_room: '',
@@ -78,6 +79,7 @@ export default {
                 business_category: '',
                 country: '',
                 city: '',
+                area:'',
                 location_point: '',
                 business_owner: '',
                 business_manager: '',
@@ -192,8 +194,18 @@ export default {
                                         {{ validation_error.city[0] }}
                                     </div>
                             </div>
+                            <div class="form-group col-md-4 mb-3">
+                                <label for="area">Area</label>
+                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('area') ? 'is-invalid' : ''" id="area" placeholder="Area" v-model="assets.area" >
+                                    <div
+                                        v-if="validation_error.hasOwnProperty('area')"
+                                        class="invalid-feedback"
+                                    >
+                                        {{ validation_error.area[0] }}
+                                    </div>
+                            </div>
 
-                            <div class="col-md-4 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="location_point">Location- Location link from Google Map</label>
                                 <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="assets.location_point" >
                                 <div
@@ -203,7 +215,7 @@ export default {
                                         {{ validation_error.location_point[0] }}
                                     </div>
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <label for="logo">Logo Link</label>
                                 <input type="text" class="form-control form-control-sm" id="logo" placeholder="Logo" v-model="assets.logo" />
                             </div>
