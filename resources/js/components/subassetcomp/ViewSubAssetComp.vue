@@ -335,11 +335,11 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Sub Asset Component</h4>
+                            <h4>Listing Type</h4>
                 <a href="create/sub-asset-component"
                     class="btn btn-primary mb-2 mr-3"
                 >
-                    Create SubAssetComponent
+                    Create Listing Type
         </a>
                         </div>
                     </div>
@@ -537,9 +537,9 @@ export default {
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="business_type">Select Sub Asset</label>
+                                    <label for="business_type">Select Listing</label>
                                     <select id="business_type" class="form-control" v-model="updateComponent.subAssetId">
-                                        <option value="">Choose Sub Asset Id...</option>
+                                        <option value="">Choose Listing...</option>
                                         <option v-for="(subasset,ind) in subassets" :key="ind" :value="subasset.id">floor:{{subasset.floor}},sqft:{{subasset.sqft}},{{ subasset.address }}</option>
                                     </select>
                                     <div v-if="validation_error.hasOwnProperty('subAssetId')" class="text-danger font-weight-bold">

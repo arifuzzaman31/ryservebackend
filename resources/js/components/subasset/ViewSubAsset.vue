@@ -194,11 +194,11 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Sub Asset</h4>
+                            <h4>Listing</h4>
                 <a href="create/subasset"
                     class="btn btn-primary mb-2 mr-3"
                 >
-                    Create SubAsset
+                    Create Listing
         </a>
                         </div>
                     </div>
@@ -209,7 +209,7 @@ export default {
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Sub Asset ID</th>
+                            <th>Listing ID</th>
                             <th>Floor</th>
                             <th>SQFT</th>
                             <th>Address</th>
@@ -272,7 +272,7 @@ export default {
                                                 <div class="form-group col-md-4">
                                                     <label for="business_type">Select Business</label>
                                                     <select id="business_type" class="form-control" v-model="updatesubasset.businessId" @change="getAssetByBusiness()">
-                                                        <option value="">Choose Business Type...</option>
+                                                        <option value="">Choose Business...</option>
                                                         <option v-for="(business,ind) in businesses" :key="ind" :value="business.id">{{business.businessName}}</option>
                                                     </select>
                                                     <div
@@ -283,9 +283,9 @@ export default {
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-4">
-                                                    <label for="business_type">Select Asset</label>
+                                                    <label for="business_type">Select Branch</label>
                                                     <select id="business_type" class="form-control" v-model="updatesubasset.assetId">
-                                                        <option value="">Choose Asset...</option>
+                                                        <option value="">Choose a Branch...</option>
                                                         <option v-for="(asset,ind) in assets" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
                                                     </select>
                                                     <div

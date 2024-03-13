@@ -123,14 +123,14 @@ export default {
             this.updateAsset = {
                 id: '',
                 businessId: '',
-                asset_type: '',
-                property_name: '',
+                assetType: '',
+                propertyName: '',
                 country: '',
                 city: '',
                 area: '',
-                location_point: '',
-                geo_tag: '',
-                no_of_room: '',
+                locationPoint: '',
+                geoTag: '',
+                noOfRoom: '',
                 logo: '',
                 about: '',
                 status: 'true'
@@ -154,12 +154,12 @@ export default {
                         <div
                             class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
                         >
-                            <h4>Asset</h4>
+                            <h4>Branch</h4>
                             <a
                                 href="create/asset"
                                 class="btn btn-primary mb-2 mr-3"
                             >
-                                Create Asset
+                                Create Branch
                             </a>
                         </div>
                     </div>
@@ -170,7 +170,7 @@ export default {
                             <thead>
                                 <tr>
                                     <th>SL</th>
-                                    <th>Asset Name</th>
+                                    <th>Branch Name</th>
                                     <th>Asset Type</th>
                                     <th>City</th>
                                     <th>Area</th>
@@ -231,8 +231,8 @@ export default {
                                         <div class="widget-content ">
                                             <div class="form-row">
                                                 <div class="col-md-4">
-                                                    <label for="propertyName">Property Name</label>
-                                                    <input type="text" class="form-control" :class="validation_error.hasOwnProperty('propertyName') ? 'is-invalid' : ''" id="propertyName" placeholder="Property name" v-model="updateAsset.propertyName" >
+                                                    <label for="propertyName">Branch Name</label>
+                                                    <input type="text" class="form-control" :class="validation_error.hasOwnProperty('propertyName') ? 'is-invalid' : ''" id="propertyName" placeholder="Branch name" v-model="updateAsset.propertyName" >
                                                         <div
                                                             v-if="validation_error.hasOwnProperty('propertyName')"
                                                             class="invalid-feedback"
@@ -350,8 +350,8 @@ export default {
 
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="no_of_room">Number Of Room</label>
-                                                    <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Room" v-model="updateAsset.noOfRoom" />
+                                                    <label for="no_of_room">Number Of Rooms</label>
+                                                    <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="updateAsset.noOfRoom" />
                                                 </div>
 
                                                 <div class="form-group col-md-4">

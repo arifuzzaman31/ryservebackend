@@ -20450,14 +20450,14 @@ __webpack_require__.r(__webpack_exports__);
     return {
       assets: {
         businessId: '',
-        asset_type: '',
-        property_name: '',
+        assetType: '',
+        propertyName: '',
         country: '',
         city: '',
         area: '',
-        location_point: '',
-        geo_tag: '',
-        no_of_room: '',
+        locationPoint: '',
+        geoTag: '',
+        noOfRoom: '',
         logo: '',
         about: '',
         status: 'true'
@@ -20506,23 +20506,18 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     clearForm: function clearForm() {
-      this.business = {
-        business_name: '',
-        short_description: '',
-        long_description: '',
-        business_type: '',
-        service_type: '',
-        business_category: '',
+      this.assets = {
+        businessId: '',
+        assetType: '',
+        propertyName: '',
         country: '',
         city: '',
         area: '',
-        location_point: '',
-        business_owner: '',
-        business_manager: '',
-        number_of_employee: '',
-        trade_licence: '',
-        tin: '',
-        bin: '',
+        locationPoint: '',
+        geoTag: '',
+        noOfRoom: '',
+        logo: '',
+        about: '',
         status: 'true'
       };
       this.validation_error = {};
@@ -20757,14 +20752,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.updateAsset = {
         id: '',
         businessId: '',
-        asset_type: '',
-        property_name: '',
+        assetType: '',
+        propertyName: '',
         country: '',
         city: '',
         area: '',
-        location_point: '',
-        geo_tag: '',
-        no_of_room: '',
+        locationPoint: '',
+        geoTag: '',
+        noOfRoom: '',
         logo: '',
         about: '',
         status: 'true'
@@ -20982,13 +20977,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 0:
               _this5.pickslot = [];
               _this5.tables = [];
-              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()];
-              console.log(day);
-              _context5.next = 6;
+              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()]; // console.log(day)
+              _context5.next = 5;
               return _this5.subassetescomponent.find(function (dt) {
                 return dt.id == ryserve.subAssetCompId;
               });
-            case 6:
+            case 5:
               tbl = _context5.sent;
               foundData = tbl.slot.find(function (dayData) {
                 return dayData[day];
@@ -21005,7 +20999,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this5.modify.amount = ryserve.amount;
               _this5.modify.status = ryserve.status;
               $("#updateBooking").modal('show');
-            case 18:
+            case 17:
             case "end":
               return _context5.stop();
           }
@@ -21317,19 +21311,19 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       business: {
-        business_name: '',
-        short_description: '',
-        long_description: '',
-        business_type: '',
-        service_type: '',
-        business_category: '',
+        businessName: '',
+        shortDescription: '',
+        longDescription: '',
+        businessType: '',
+        serviceType: '',
+        businessCategory: '',
         country: '',
         city: '',
-        location_point: '',
-        business_owner: '',
-        business_manager: '',
-        number_of_employee: '',
-        trade_licence: '',
+        locationPoint: '',
+        businessOwner: '',
+        businessManager: '',
+        numberOfEmployee: '',
+        tradeLicence: '',
         tin: '',
         bin: '',
         status: 'true'
@@ -21359,19 +21353,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearForm: function clearForm() {
       this.business = {
-        business_name: '',
-        short_description: '',
-        long_description: '',
-        business_type: '',
-        service_type: '',
-        business_category: '',
+        businessName: '',
+        shortDescription: '',
+        longDescription: '',
+        businessType: '',
+        serviceType: '',
+        businessCategory: '',
         country: '',
         city: '',
-        location_point: '',
-        business_owner: '',
-        business_manager: '',
-        number_of_employee: '',
-        trade_licence: '',
+        locationPoint: '',
+        businessOwner: '',
+        businessManager: '',
+        numberOfEmployee: '',
+        tradeLicence: '',
         tin: '',
         bin: '',
         status: 'true'
@@ -21417,19 +21411,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       updateData: {
         id: '',
-        business_name: '',
-        short_description: '',
-        long_description: '',
-        business_type: '',
-        service_type: '',
-        business_category: '',
+        businessName: '',
+        shortDescription: '',
+        longDescription: '',
+        businessType: '',
+        serviceType: '',
+        businessCategory: '',
         country: '',
         city: '',
-        location_point: '',
-        business_owner: '',
-        business_manager: '',
-        number_of_employee: '',
-        trade_licence: '',
+        locationPoint: '',
+        businessOwner: '',
+        businessManager: '',
+        numberOfEmployee: '',
+        tradeLicence: '',
         tin: '',
         bin: '',
         status: 'true'
@@ -21520,19 +21514,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     clearForm: function clearForm() {
       this.updateData = {
         id: '',
-        business_name: '',
-        short_description: '',
-        long_description: '',
-        business_type: '',
-        service_type: '',
-        business_category: '',
+        businessName: '',
+        shortDescription: '',
+        longDescription: '',
+        businessType: '',
+        serviceType: '',
+        businessCategory: '',
         country: '',
         city: '',
-        location_point: '',
-        business_owner: '',
-        business_manager: '',
-        number_of_employee: '',
-        trade_licence: '',
+        locationPoint: '',
+        businessOwner: '',
+        businessManager: '',
+        numberOfEmployee: '',
+        tradeLicence: '',
         tin: '',
         bin: '',
         status: 'true'
@@ -21545,19 +21539,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _this4.updateData.id = businessData.id;
-              _this4.updateData.business_name = businessData.businessName;
-              _this4.updateData.short_description = businessData.shortDescription;
-              _this4.updateData.long_description = businessData.longDescription;
-              _this4.updateData.business_type = businessData.businessType;
-              _this4.updateData.service_type = businessData.serviceType;
-              _this4.updateData.business_category = businessData.businessCategory;
+              _this4.updateData.businessName = businessData.businessName;
+              _this4.updateData.shortDescription = businessData.shortDescription;
+              _this4.updateData.longDescription = businessData.longDescription;
+              _this4.updateData.businessType = businessData.businessType;
+              _this4.updateData.serviceType = businessData.serviceType;
+              _this4.updateData.businessCategory = businessData.businessCategory;
               _this4.updateData.country = businessData.country;
               _this4.updateData.city = businessData.city;
-              _this4.updateData.location_point = businessData.locationPoint;
-              _this4.updateData.business_owner = businessData.businessOwner;
-              _this4.updateData.business_manager = businessData.businessManager;
-              _this4.updateData.number_of_employee = businessData.numberOfEmployee;
-              _this4.updateData.trade_licence = businessData.tradeLicence;
+              _this4.updateData.locationPoint = businessData.locationPoint;
+              _this4.updateData.businessOwner = businessData.businessOwner;
+              _this4.updateData.businessManager = businessData.businessManager;
+              _this4.updateData.numberOfEmployee = businessData.numberOfEmployee;
+              _this4.updateData.tradeLicence = businessData.tradeLicence;
               _this4.updateData.tin = businessData.tin;
               _this4.updateData.bin = businessData.bin;
               _this4.updateData.status = businessData.status;
@@ -23569,7 +23563,7 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
     "class": "row"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Asset")])], -1 /* HOISTED */);
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Branch")])], -1 /* HOISTED */);
 });
 var _hoisted_3 = {
   "class": "row"
@@ -23593,7 +23587,7 @@ var _hoisted_8 = {
 var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "property_name"
-  }, "Property Name", -1 /* HOISTED */);
+  }, "Branch Name", -1 /* HOISTED */);
 });
 var _hoisted_10 = {
   key: 0,
@@ -23610,7 +23604,7 @@ var _hoisted_12 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: ""
-  }, "Choose Business Type...", -1 /* HOISTED */);
+  }, "Choose a Business...", -1 /* HOISTED */);
 });
 var _hoisted_14 = ["value"];
 var _hoisted_15 = {
@@ -23776,16 +23770,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onSubmit: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.createAsset();
     }, ["prevent"])),
-    id: "add-product-form"
+    id: "add-asset-form"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", $data.validation_error.hasOwnProperty('property_name') ? 'is-invalid' : '']),
     id: "property_name",
-    placeholder: "Property name",
+    placeholder: "Branch name",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.assets.property_name = $event;
+      return $data.assets.propertyName = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.property_name]]), $data.validation_error.hasOwnProperty('property_name') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.property_name[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.propertyName]]), $data.validation_error.hasOwnProperty('propertyName') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.propertyName[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "business_type",
     "class": "form-control",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
@@ -23800,9 +23794,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "service_type",
     "class": "form-control",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.assets.asset_type = $event;
+      return $data.assets.assetType = $event;
     })
-  }, _hoisted_23, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.assets.asset_type]]), $data.validation_error.hasOwnProperty('asset_type') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.asset_type[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_QuillEditor, {
+  }, _hoisted_23, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.assets.assetType]]), $data.validation_error.hasOwnProperty('assetType') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.assetType[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [_hoisted_28, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_QuillEditor, {
     theme: "snow",
     content: $data.assets.about,
     "onUpdate:content": _cache[3] || (_cache[3] = function ($event) {
@@ -23839,9 +23833,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "location_point",
     placeholder: "google Location Link",
     "onUpdate:modelValue": _cache[7] || (_cache[7] = function ($event) {
-      return $data.assets.location_point = $event;
+      return $data.assets.locationPoint = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.location_point]]), $data.validation_error.hasOwnProperty('location_point') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.location_point[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.locationPoint]]), $data.validation_error.hasOwnProperty('locationPoint') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_45, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.locationPoint[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [_hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control form-control-sm",
     id: "logo",
@@ -23851,21 +23845,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.logo]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [_hoisted_49, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control form-control-sm", $data.validation_error.hasOwnProperty('geo_tag') ? 'is-invalid' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control form-control-sm", $data.validation_error.hasOwnProperty('geoTag') ? 'is-invalid' : '']),
     id: "geo_tag",
-    placeholder: "google geo tag",
+    placeholder: "Latititude,Longitude",
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-      return $data.assets.geo_tag = $event;
+      return $data.assets.geoTag = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.geo_tag]]), $data.validation_error.hasOwnProperty('geo_tag') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.geo_tag[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.geoTag]]), $data.validation_error.hasOwnProperty('geoTag') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.geoTag[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "number",
     "class": "form-control form-control-sm",
     id: "no_of_room",
     placeholder: "Total Rooms",
     "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
-      return $data.assets.no_of_room = $event;
+      return $data.assets.noOfRoom = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.no_of_room]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.assets.noOfRoom]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "status",
     "class": "form-control",
     "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
@@ -23909,10 +23903,10 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
     "class": "row"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Asset"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Branch"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "create/asset",
     "class": "btn btn-primary mb-2 mr-3"
-  }, " Create Asset ")])])], -1 /* HOISTED */);
+  }, " Create Branch ")])])], -1 /* HOISTED */);
 });
 var _hoisted_5 = {
   "class": "widget-content widget-content-area"
@@ -23924,7 +23918,7 @@ var _hoisted_7 = {
   "class": "table table-bordered table-hover mb-4"
 };
 var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SL"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Asset Name"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Asset Type"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "City"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Area"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Total Booking"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SL"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Branch Name"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Asset Type"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "City"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Area"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Total Booking"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
   }, "Status"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
@@ -24027,7 +24021,7 @@ var _hoisted_26 = {
 var _hoisted_27 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "propertyName"
-  }, "Property Name", -1 /* HOISTED */);
+  }, "Branch Name", -1 /* HOISTED */);
 });
 var _hoisted_28 = {
   key: 0,
@@ -24170,7 +24164,7 @@ var _hoisted_69 = {
 var _hoisted_70 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "no_of_room"
-  }, "Number Of Room", -1 /* HOISTED */);
+  }, "Number Of Rooms", -1 /* HOISTED */);
 });
 var _hoisted_71 = {
   "class": "form-group col-md-4"
@@ -24227,7 +24221,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", $data.validation_error.hasOwnProperty('propertyName') ? 'is-invalid' : '']),
     id: "propertyName",
-    placeholder: "Property name",
+    placeholder: "Branch name",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
       return $data.updateAsset.propertyName = $event;
     })
@@ -24307,7 +24301,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "number",
     "class": "form-control form-control-sm",
     id: "no_of_room",
-    placeholder: "Total Room",
+    placeholder: "Total Rooms",
     "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
       return $data.updateAsset.noOfRoom = $event;
     })
@@ -25675,7 +25669,7 @@ var _hoisted_83 = {
 var _hoisted_84 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "location_point"
-  }, "Location Point", -1 /* HOISTED */);
+  }, "Location- Location link from Google Map", -1 /* HOISTED */);
 });
 var _hoisted_85 = {
   key: 0,
@@ -25703,7 +25697,7 @@ var _hoisted_90 = {
 var _hoisted_91 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "tin"
-  }, "Tin", -1 /* HOISTED */);
+  }, "TIN", -1 /* HOISTED */);
 });
 var _hoisted_92 = {
   "class": "col-md-6 mb-3"
@@ -25711,7 +25705,7 @@ var _hoisted_92 = {
 var _hoisted_93 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "bin"
-  }, "Bin", -1 /* HOISTED */);
+  }, "BIN", -1 /* HOISTED */);
 });
 var _hoisted_94 = {
   "class": "col-md-4 mb-3"
@@ -25719,7 +25713,7 @@ var _hoisted_94 = {
 var _hoisted_95 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "number_of_employee"
-  }, "Number Of Employee", -1 /* HOISTED */);
+  }, "Number Of Employees", -1 /* HOISTED */);
 });
 var _hoisted_96 = {
   "class": "col-md-4 mb-3"
@@ -25789,42 +25783,42 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     id: "add-product-form"
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", $data.validation_error.hasOwnProperty('business_name') ? 'is-invalid' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", $data.validation_error.hasOwnProperty('businessName') ? 'is-invalid' : '']),
     id: "Business-name",
     placeholder: "Business name",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.updateData.business_name = $event;
+      return $data.updateData.businessName = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.business_name]]), $data.validation_error.hasOwnProperty('business_name') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.business_name[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.businessName]]), $data.validation_error.hasOwnProperty('businessName') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.businessName[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [_hoisted_37, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "business_type",
     "class": "form-control",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.updateData.business_type = $event;
+      return $data.updateData.businessType = $event;
     })
-  }, _hoisted_43, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.business_type]]), $data.validation_error.hasOwnProperty('business_type') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.business_type[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, _hoisted_43, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.businessType]]), $data.validation_error.hasOwnProperty('businessType') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_44, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.businessType[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "service_type",
     "class": "form-control",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.updateData.service_type = $event;
+      return $data.updateData.serviceType = $event;
     })
-  }, _hoisted_51, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.service_type]]), $data.validation_error.hasOwnProperty('business_type') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.business_type[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, _hoisted_51, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.serviceType]]), $data.validation_error.hasOwnProperty('serviceType') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_52, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.serviceType[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_53, [_hoisted_54, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "business_category",
     "class": "form-control",
     "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.updateData.business_category = $event;
+      return $data.updateData.businessCategory = $event;
     })
-  }, _hoisted_62, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.business_category]]), $data.validation_error.hasOwnProperty('business_type') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.business_type[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [_hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_QuillEditor, {
+  }, _hoisted_62, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.updateData.businessCategory]]), $data.validation_error.hasOwnProperty('businessCategory') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_63, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.businessCategory[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_64, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_65, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_66, [_hoisted_67, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_QuillEditor, {
     theme: "snow",
-    content: $data.updateData.short_description,
+    content: $data.updateData.shortDescription,
     "onUpdate:content": _cache[4] || (_cache[4] = function ($event) {
-      return $data.updateData.short_description = $event;
+      return $data.updateData.shortDescription = $event;
     }),
     contentType: "html"
   }, null, 8 /* PROPS */, ["content"])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_68, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_69, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_70, [_hoisted_71, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_QuillEditor, {
     theme: "snow",
-    content: $data.updateData.long_description,
+    content: $data.updateData.longDescription,
     "onUpdate:content": _cache[5] || (_cache[5] = function ($event) {
-      return $data.updateData.long_description = $event;
+      return $data.updateData.longDescription = $event;
     }),
     contentType: "html"
   }, null, 8 /* PROPS */, ["content"])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_72, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_73, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_74, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_75, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_76, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_77, [_hoisted_78, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
@@ -25847,27 +25841,27 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control form-control-sm", $data.validation_error.hasOwnProperty('location_point') ? 'is-invalid' : '']),
     id: "location_point",
-    placeholder: "google Location Link",
+    placeholder: "Location link from Google Map",
     "onUpdate:modelValue": _cache[8] || (_cache[8] = function ($event) {
-      return $data.updateData.location_point = $event;
+      return $data.updateData.locationPoint = $event;
     })
-  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.location_point]]), $data.validation_error.hasOwnProperty('location_point') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_85, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.location_point[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [_hoisted_87, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 2 /* CLASS */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.locationPoint]]), $data.validation_error.hasOwnProperty('locationPoint') ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_85, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.validation_error.locationPoint[0]), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_86, [_hoisted_87, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control form-control-sm",
     id: "BusinessOwner",
     placeholder: "Business Owner Info: name, phone, address",
     "onUpdate:modelValue": _cache[9] || (_cache[9] = function ($event) {
-      return $data.updateData.business_owner = $event;
+      return $data.updateData.businessOwner = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.business_owner]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.businessOwner]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control form-control-sm",
     id: "business_manager",
     placeholder: "Business Manager: name, phone, address",
     "onUpdate:modelValue": _cache[10] || (_cache[10] = function ($event) {
-      return $data.updateData.business_manager = $event;
+      return $data.updateData.businessManager = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.business_manager]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [_hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.businessManager]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_90, [_hoisted_91, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control form-control-sm",
     id: "tin",
@@ -25887,19 +25881,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     type: "number",
     "class": "form-control form-control-sm",
     id: "number_of_employee",
-    placeholder: "Total Employee",
+    placeholder: "Total Employees",
     "onUpdate:modelValue": _cache[13] || (_cache[13] = function ($event) {
-      return $data.updateData.number_of_employee = $event;
+      return $data.updateData.numberOfEmployee = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.number_of_employee]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, [_hoisted_97, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.numberOfEmployee]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_96, [_hoisted_97, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": "form-control form-control-sm",
     id: "trade_licence",
-    placeholder: "Enter Trade Licence",
+    placeholder: "Enter Trade Licence Number",
     "onUpdate:modelValue": _cache[14] || (_cache[14] = function ($event) {
-      return $data.updateData.trade_licence = $event;
+      return $data.updateData.tradeLicence = $event;
     })
-  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.trade_licence]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_98, [_hoisted_99, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, null, 512 /* NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.updateData.tradeLicence]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_98, [_hoisted_99, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     id: "status",
     "class": "form-control",
     "onUpdate:modelValue": _cache[15] || (_cache[15] = function ($event) {
@@ -26292,10 +26286,10 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
     "class": "row"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Sub Asset"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Listing"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "create/subasset",
     "class": "btn btn-primary mb-2 mr-3"
-  }, " Create SubAsset ")])])], -1 /* HOISTED */);
+  }, " Create Listing ")])])], -1 /* HOISTED */);
 });
 var _hoisted_5 = {
   "class": "widget-content widget-content-area"
@@ -26307,7 +26301,7 @@ var _hoisted_7 = {
   "class": "table table-bordered table-hover mb-4"
 };
 var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SL"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Sub Asset ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Floor"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SQFT"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Address"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Amenities"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SL"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Listing ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Floor"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "SQFT"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Address"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Amenities"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
   }, "Status"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
     "class": "text-center"
@@ -26380,7 +26374,7 @@ var _hoisted_25 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_26 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: ""
-  }, "Choose Business Type...", -1 /* HOISTED */);
+  }, "Choose Business...", -1 /* HOISTED */);
 });
 var _hoisted_27 = ["value"];
 var _hoisted_28 = {
@@ -26393,12 +26387,12 @@ var _hoisted_29 = {
 var _hoisted_30 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "business_type"
-  }, "Select Asset", -1 /* HOISTED */);
+  }, "Select Branch", -1 /* HOISTED */);
 });
 var _hoisted_31 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: ""
-  }, "Choose Asset...", -1 /* HOISTED */);
+  }, "Choose a Branch...", -1 /* HOISTED */);
 });
 var _hoisted_32 = ["value"];
 var _hoisted_33 = {
@@ -26711,7 +26705,7 @@ var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
   "class": "row"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Sub Asset Component")])], -1 /* HOISTED */);
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Listing Type")])], -1 /* HOISTED */);
 var _hoisted_3 = {
   "class": "row"
 };
@@ -26767,10 +26761,10 @@ var _hoisted_31 = {
 };
 var _hoisted_32 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "business_type"
-}, "Select Asset", -1 /* HOISTED */);
+}, "Select Branch", -1 /* HOISTED */);
 var _hoisted_33 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: ""
-}, "Choose Asset...", -1 /* HOISTED */);
+}, "Choose Branch...", -1 /* HOISTED */);
 var _hoisted_34 = ["value"];
 var _hoisted_35 = {
   key: 0,
@@ -26781,10 +26775,10 @@ var _hoisted_36 = {
 };
 var _hoisted_37 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "business_type"
-}, "Select Sub Asset", -1 /* HOISTED */);
+}, "Select Listing", -1 /* HOISTED */);
 var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   value: ""
-}, "Choose Sub Asset Id...", -1 /* HOISTED */);
+}, "Choose Listing...", -1 /* HOISTED */);
 var _hoisted_39 = ["value"];
 var _hoisted_40 = {
   key: 0,
@@ -27466,10 +27460,10 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
     "class": "row"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Sub Asset Component"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Listing Type"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "create/sub-asset-component",
     "class": "btn btn-primary mb-2 mr-3"
-  }, " Create SubAssetComponent ")])])], -1 /* HOISTED */);
+  }, " Create Listing Type ")])])], -1 /* HOISTED */);
 });
 var _hoisted_5 = {
   "class": "widget-content widget-content-area"
@@ -27807,12 +27801,12 @@ var _hoisted_103 = {
 var _hoisted_104 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "business_type"
-  }, "Select Sub Asset", -1 /* HOISTED */);
+  }, "Select Listing", -1 /* HOISTED */);
 });
 var _hoisted_105 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
     value: ""
-  }, "Choose Sub Asset Id...", -1 /* HOISTED */);
+  }, "Choose Listing...", -1 /* HOISTED */);
 });
 var _hoisted_106 = ["value"];
 var _hoisted_107 = {

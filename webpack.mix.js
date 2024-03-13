@@ -19,7 +19,7 @@ mix.js('resources/js/app.js', 'public/js')
     // .js('resources/js/pages.js', 'public/js')
     // .js('resources/js/refund.js', 'public/js')
     // .js('resources/js/category.js', 'public/js')
-    // .js('resources/js/report.js', 'public/js')
+    .js('resources/js/report.js', 'public/js')
     .js('resources/js/business.js', 'public/js')
     .vue()
     .postCss('resources/css/app.css', 'public/css', [

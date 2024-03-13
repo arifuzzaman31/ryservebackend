@@ -14,14 +14,14 @@ export default {
         return {
             assets : {
                 businessId: '',
-                asset_type: '',
-                property_name: '',
+                assetType: '',
+                propertyName: '',
                 country: '',
                 city: '',
                 area:'',
-                location_point: '',
-                geo_tag: '',
-                no_of_room: '',
+                locationPoint: '',
+                geoTag: '',
+                noOfRoom: '',
                 logo: '',
                 about: '',
                 status: 'true'
@@ -70,23 +70,18 @@ export default {
 
 
         clearForm() {
-            this.business = {
-                business_name: '',
-                short_description: '',
-                long_description: '',
-                business_type: '',
-                service_type: '',
-                business_category: '',
+            this.assets = {
+                businessId: '',
+                assetType: '',
+                propertyName: '',
                 country: '',
                 city: '',
                 area:'',
-                location_point: '',
-                business_owner: '',
-                business_manager: '',
-                number_of_employee: '',
-                trade_licence: '',
-                tin: '',
-                bin: '',
+                locationPoint: '',
+                geoTag: '',
+                noOfRoom: '',
+                logo: '',
+                about: '',
                 status: 'true'
             }
             this.validation_error = {}
@@ -102,31 +97,31 @@ export default {
      <div class="widget-header">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                <h4>Create New Asset</h4>
+                <h4>Create New Branch</h4>
             </div>
         </div>
 
-    <form class="needs-validation" method="post" @submit.prevent="createAsset()" id="add-product-form">
+    <form class="needs-validation" method="post" @submit.prevent="createAsset()" id="add-asset-form">
         <div class="row">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
                 <div class="statbox widget box ">
                     <div class="widget-content ">
                         <div class="form-row">
                             <div class="col-md-4">
-                                <label for="property_name">Property Name</label>
-                                <input type="text" class="form-control" :class="validation_error.hasOwnProperty('property_name') ? 'is-invalid' : ''" id="property_name" placeholder="Property name" v-model="assets.property_name" >
+                                <label for="property_name">Branch Name</label>
+                                <input type="text" class="form-control" :class="validation_error.hasOwnProperty('property_name') ? 'is-invalid' : ''" id="property_name" placeholder="Branch name" v-model="assets.propertyName" >
                                     <div
-                                        v-if="validation_error.hasOwnProperty('property_name')"
+                                        v-if="validation_error.hasOwnProperty('propertyName')"
                                         class="invalid-feedback"
                                     >
-                                        {{ validation_error.property_name[0] }}
+                                        {{ validation_error.propertyName[0] }}
                                     </div>
                             </div>
 
                             <div class="form-group col-md-4">
                                 <label for="business_type">Select Business</label>
                                 <select id="business_type" class="form-control" v-model="assets.businessId">
-                                    <option value="">Choose Business Type...</option>
+                                    <option value="">Choose a Business...</option>
                                     <option v-for="(business,ind) in businesses" :key="ind" :value="business.id">{{business.businessName}}</option>
                                 </select>
                                 <div
@@ -139,7 +134,7 @@ export default {
 
                             <div class="form-group col-md-4">
                                 <label for="service_type">Asset Type</label>
-                                <select id="service_type" class="form-control" v-model="assets.asset_type">
+                                <select id="service_type" class="form-control" v-model="assets.assetType">
                                     <option value="">Choose Asset Type...</option>
                                     <option value="APARTMENT_BUILDING">APARTMENT_BUILDING</option>
                                     <option value="SHARED_BUILDING">SHARED_BUILDING</option>
@@ -147,10 +142,10 @@ export default {
                                     <option value="OTHERS">OTHERS</option>
                                 </select>
                                 <div
-                                    v-if="validation_error.hasOwnProperty('asset_type')"
+                                    v-if="validation_error.hasOwnProperty('assetType')"
                                     class="text-danger font-weight-bold"
                                 >
-                                    {{ validation_error.asset_type[0] }}
+                                    {{ validation_error.assetType[0] }}
                                 </div>
                             </div>
 
@@ -207,12 +202,12 @@ export default {
 
                             <div class="col-md-6 mb-3">
                                 <label for="location_point">Location- Location link from Google Map</label>
-                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="assets.location_point" >
+                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="assets.locationPoint" >
                                 <div
-                                        v-if="validation_error.hasOwnProperty('location_point')"
+                                        v-if="validation_error.hasOwnProperty('locationPoint')"
                                         class="invalid-feedback"
                                     >
-                                        {{ validation_error.location_point[0] }}
+                                        {{ validation_error.locationPoint[0] }}
                                     </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -221,19 +216,19 @@ export default {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="geo_tag">Geo Tag</label>
-                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('geo_tag') ? 'is-invalid' : ''" id="geo_tag" placeholder="google geo tag" v-model="assets.geo_tag" >
+                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('geoTag') ? 'is-invalid' : ''" id="geo_tag" placeholder="Latititude,Longitude" v-model="assets.geoTag" >
                                 <div
-                                        v-if="validation_error.hasOwnProperty('geo_tag')"
+                                        v-if="validation_error.hasOwnProperty('geoTag')"
                                         class="invalid-feedback"
                                     >
-                                        {{ validation_error.geo_tag[0] }}
+                                        {{ validation_error.geoTag[0] }}
                                     </div>
                             </div>
 
 
                             <div class="col-md-4 mb-3">
                                 <label for="no_of_room">Number Of Rooms</label>
-                                <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="assets.no_of_room" />
+                                <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="assets.noOfRoom" />
                             </div>
 
                             <div class="form-group col-md-4">

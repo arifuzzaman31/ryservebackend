@@ -194,7 +194,7 @@ export default {
     <div class="widget-header">
         <div class="row">
             <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                <h4>Create New Sub Asset Component</h4>
+                <h4>Create New Listing Type</h4>
             </div>
         </div>
 
@@ -240,9 +240,9 @@ export default {
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="business_type">Select Asset</label>
+                                    <label for="business_type">Select Branch</label>
                                     <select id="business_type" class="form-control" v-model="subassetcomp.assetId" @change="getSubAssetByAsset()">
-                                        <option value="">Choose Asset...</option>
+                                        <option value="">Choose Branch...</option>
                                         <option v-for="(asset,ind) in assets" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
                                     </select>
                                     <div v-if="validation_error.hasOwnProperty('assetId')" class="text-danger font-weight-bold">
@@ -250,9 +250,9 @@ export default {
                                     </div>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="business_type">Select Sub Asset</label>
+                                    <label for="business_type">Select Listing</label>
                                     <select id="business_type" class="form-control" v-model="subassetcomp.subAssetId">
-                                        <option value="">Choose Sub Asset Id...</option>
+                                        <option value="">Choose Listing...</option>
                                         <option v-for="(subasset,ind) in subassets" :key="ind" :value="subasset.id">floor:{{subasset.floor}},sqft:{{subasset.sqft}},{{ subasset.address }}</option>
                                     </select>
                                     <div v-if="validation_error.hasOwnProperty('subAssetId')" class="text-danger font-weight-bold">

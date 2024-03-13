@@ -14,19 +14,19 @@ export default {
         return {
             updateData : {
                 id: '',
-                business_name: '',
-                short_description: '',
-                long_description: '',
-                business_type: '',
-                service_type: '',
-                business_category: '',
+                businessName: '',
+                shortDescription: '',
+                longDescription: '',
+                businessType: '',
+                serviceType: '',
+                businessCategory: '',
                 country: '',
                 city: '',
-                location_point: '',
-                business_owner: '',
-                business_manager: '',
-                number_of_employee: '',
-                trade_licence: '',
+                locationPoint: '',
+                businessOwner: '',
+                businessManager: '',
+                numberOfEmployee: '',
+                tradeLicence: '',
                 tin: '',
                 bin: '',
                 status: 'true'
@@ -107,19 +107,19 @@ export default {
         clearForm(){
             this.updateData = {
                 id: '',
-                business_name: '',
-                short_description: '',
-                long_description: '',
-                business_type: '',
-                service_type: '',
-                business_category: '',
+                businessName: '',
+                shortDescription: '',
+                longDescription: '',
+                businessType: '',
+                serviceType: '',
+                businessCategory: '',
                 country: '',
                 city: '',
-                location_point: '',
-                business_owner: '',
-                business_manager: '',
-                number_of_employee: '',
-                trade_licence: '',
+                locationPoint: '',
+                businessOwner: '',
+                businessManager: '',
+                numberOfEmployee: '',
+                tradeLicence: '',
                 tin: '',
                 bin: '',
                 status: 'true'
@@ -128,19 +128,19 @@ export default {
         },
         async setupData(businessData){
                 this.updateData.id = businessData.id
-                this.updateData.business_name = businessData.businessName
-                this.updateData.short_description = businessData.shortDescription
-                this.updateData.long_description = businessData.longDescription
-                this.updateData.business_type = businessData.businessType
-                this.updateData.service_type = businessData.serviceType
-                this.updateData.business_category = businessData.businessCategory
+                this.updateData.businessName = businessData.businessName
+                this.updateData.shortDescription = businessData.shortDescription
+                this.updateData.longDescription = businessData.longDescription
+                this.updateData.businessType = businessData.businessType
+                this.updateData.serviceType = businessData.serviceType
+                this.updateData.businessCategory = businessData.businessCategory
                 this.updateData.country = businessData.country
                 this.updateData.city = businessData.city
-                this.updateData.location_point = businessData.locationPoint
-                this.updateData.business_owner = businessData.businessOwner
-                this.updateData.business_manager = businessData.businessManager
-                this.updateData.number_of_employee = businessData.numberOfEmployee
-                this.updateData.trade_licence = businessData.tradeLicence
+                this.updateData.locationPoint = businessData.locationPoint
+                this.updateData.businessOwner = businessData.businessOwner
+                this.updateData.businessManager = businessData.businessManager
+                this.updateData.numberOfEmployee = businessData.numberOfEmployee
+                this.updateData.tradeLicence = businessData.tradeLicence
                 this.updateData.tin = businessData.tin
                 this.updateData.bin = businessData.bin
                 this.updateData.status = businessData.status
@@ -274,17 +274,17 @@ export default {
                                             <div class="form-row">
                                                 <div class="col-md-6">
                                                     <label for="Business-name">Business name</label>
-                                                    <input type="text" class="form-control" :class="validation_error.hasOwnProperty('business_name') ? 'is-invalid' : ''" id="Business-name" placeholder="Business name" v-model="updateData.business_name" >
+                                                    <input type="text" class="form-control" :class="validation_error.hasOwnProperty('businessName') ? 'is-invalid' : ''" id="Business-name" placeholder="Business name" v-model="updateData.businessName" >
                                                         <div
-                                                            v-if="validation_error.hasOwnProperty('business_name')"
+                                                            v-if="validation_error.hasOwnProperty('businessName')"
                                                             class="invalid-feedback"
                                                         >
-                                                            {{ validation_error.business_name[0] }}
+                                                            {{ validation_error.businessName[0] }}
                                                         </div>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="business_type">Business Type</label>
-                                                    <select id="business_type" class="form-control" v-model="updateData.business_type">
+                                                    <select id="business_type" class="form-control" v-model="updateData.businessType">
                                                         <option value="">Choose Business Type...</option>
                                                         <option value="PROPIETOR">PROPIETOR</option>
                                                         <option value="PARTNERSHIP">PARTNERSHIP</option>
@@ -292,30 +292,30 @@ export default {
                                                         <option value="OTHERS">OTHERS</option>
                                                     </select>
                                                     <div
-                                                        v-if="validation_error.hasOwnProperty('business_type')"
+                                                        v-if="validation_error.hasOwnProperty('businessType')"
                                                         class="text-danger font-weight-bold"
                                                     >
-                                                        {{ validation_error.business_type[0] }}
+                                                        {{ validation_error.businessType[0] }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="service_type">Service Type</label>
-                                                    <select id="service_type" class="form-control" v-model="updateData.service_type">
+                                                    <select id="service_type" class="form-control" v-model="updateData.serviceType">
                                                         <option value="">Choose Service Type...</option>
                                                         <option value="TABLE_RESERVATION">TABLE RESERVATION</option>
                                                         <option value="ROOM_RESERVATION">ROOM RESERVATION</option>
                                                         <option value="OTHERS">OTHERS</option>
                                                     </select>
                                                     <div
-                                                        v-if="validation_error.hasOwnProperty('business_type')"
+                                                        v-if="validation_error.hasOwnProperty('serviceType')"
                                                         class="text-danger font-weight-bold"
                                                     >
-                                                        {{ validation_error.business_type[0] }}
+                                                        {{ validation_error.serviceType[0] }}
                                                     </div>
                                                 </div>
                                                 <div class="form-group col-md-6">
                                                     <label for="business_category">Business Category</label>
-                                                    <select id="business_category" class="form-control" v-model="updateData.business_category">
+                                                    <select id="business_category" class="form-control" v-model="updateData.businessCategory">
                                                         <option value="">Choose Business Category...</option>
                                                         <option value="HOTEL">HOTEL</option>
                                                         <option value="RESTAURANT">RESTAURANT</option>
@@ -325,10 +325,10 @@ export default {
                                                         <option value="OTHERS">OTHERS</option>
                                                     </select>
                                                     <div
-                                                        v-if="validation_error.hasOwnProperty('business_type')"
+                                                        v-if="validation_error.hasOwnProperty('businessCategory')"
                                                         class="text-danger font-weight-bold"
                                                     >
-                                                        {{ validation_error.business_type[0] }}
+                                                        {{ validation_error.businessCategory[0] }}
                                                     </div>
                                                 </div>
                                                 </div>
@@ -337,7 +337,7 @@ export default {
                                                     <div id="tooltips" class="col-lg-12  col-md-12">
                                                         <div class="widget-content ">
                                                             <label for="editor-container">Short Description</label>
-                                                            <QuillEditor theme="snow" v-model:content="updateData.short_description" contentType="html" />
+                                                            <QuillEditor theme="snow" v-model:content="updateData.shortDescription" contentType="html" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -345,7 +345,7 @@ export default {
                                                     <div id="tooltips" class="col-lg-12 col-md-12">
                                                         <div class="widget-content ">
                                                             <label for="editor-container">Long Description</label>
-                                                            <QuillEditor theme="snow" v-model:content="updateData.long_description" contentType="html" />
+                                                            <QuillEditor theme="snow" v-model:content="updateData.longDescription" contentType="html" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -382,39 +382,39 @@ export default {
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="location_point">Location Point</label>
-                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="updateData.location_point" >
+                                                    <label for="location_point">Location- Location link from Google Map</label>
+                                                    <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="Location link from Google Map" v-model="updateData.locationPoint" >
                                                     <div
-                                                            v-if="validation_error.hasOwnProperty('location_point')"
+                                                            v-if="validation_error.hasOwnProperty('locationPoint')"
                                                             class="invalid-feedback"
                                                         >
-                                                            {{ validation_error.location_point[0] }}
+                                                            {{ validation_error.locationPoint[0] }}
                                                         </div>
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="BusinessOwner">Business Owner</label>
-                                                    <input type="text" class="form-control form-control-sm" id="BusinessOwner" placeholder="Business Owner Info: name, phone, address" v-model="updateData.business_owner" />
+                                                    <input type="text" class="form-control form-control-sm" id="BusinessOwner" placeholder="Business Owner Info: name, phone, address" v-model="updateData.businessOwner" />
                                                 </div>
                                                 <div class="col-md-12 mb-3">
                                                     <label for="business_manager">Business Manager</label>
-                                                    <input type="text" class="form-control form-control-sm" id="business_manager" placeholder="Business Manager: name, phone, address" v-model="updateData.business_manager" />
+                                                    <input type="text" class="form-control form-control-sm" id="business_manager" placeholder="Business Manager: name, phone, address" v-model="updateData.businessManager" />
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="tin">Tin</label>
+                                                    <label for="tin">TIN</label>
                                                     <input type="text" class="form-control form-control-sm" id="tin" placeholder="TIN Number" v-model="updateData.tin" />
                                                 </div>
                                                 <div class="col-md-6 mb-3">
-                                                    <label for="bin">Bin</label>
+                                                    <label for="bin">BIN</label>
                                                     <input type="text" class="form-control form-control-sm" id="bin" placeholder="BIN Number" v-model="updateData.bin" />
                                                 </div>
                                                 <div class="col-md-4 mb-3">
-                                                    <label for="number_of_employee">Number Of Employee</label>
-                                                    <input type="number" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employee" v-model="updateData.number_of_employee" />
+                                                    <label for="number_of_employee">Number Of Employees</label>
+                                                    <input type="number" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employees" v-model="updateData.numberOfEmployee" />
                                                 </div>
 
                                                 <div class="col-md-4 mb-3">
                                                     <label for="trade_licence">Trade Licence</label>
-                                                    <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence" v-model="updateData.trade_licence" />
+                                                    <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence Number" v-model="updateData.tradeLicence" />
                                                 </div>
 
                                                 <div class="form-group col-md-4">

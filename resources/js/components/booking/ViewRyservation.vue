@@ -110,7 +110,7 @@ export default {
             this.pickslot = []
             this.tables = []
             let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(ryserve.startDate).getDay()]
-            console.log(day)
+            // console.log(day)
             let tbl = await this.subassetescomponent.find(dt => dt.id == ryserve.subAssetCompId);
             const foundData = tbl.slot.find(dayData => dayData[day]);
             if(foundData){
