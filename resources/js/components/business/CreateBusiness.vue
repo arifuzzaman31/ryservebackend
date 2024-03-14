@@ -44,10 +44,10 @@ export default {
                 }
             })
                 .then((result) => {
-                    console.log(result)
-                    this.successMessage({status:'success',message:'New Business Created Successful'})
-                    // window.location.href = baseUrl+'business'
+                    // console.log(result)
                     this.isSubmiting = false
+                    this.successMessage({status:'success',message:'New Business Created Successful'})
+                    window.location.href = baseUrl+'business'
                 })
                 .catch((errors) => {
                     console.log(errors);
