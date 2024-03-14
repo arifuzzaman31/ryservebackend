@@ -1,14 +1,14 @@
 @extends('layout.app')
-@section('title', 'Employee | Aranya')
+@section('title', 'Employee | Ryserve')
 
 @section('content')
 <div id="tableHover" class="col-lg-12 col-12 layout-spacing" style="padding: 15px 0;">
     <div class="statbox">
         <div class="widget-header">
-            <view-employee :roles="{{ $role }}" />
+            <view-role />
         </div>
     </div>
-</div>    
+</div>
 <!-- end modal -->
 @endsection
 

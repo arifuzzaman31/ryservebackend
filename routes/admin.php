@@ -51,6 +51,7 @@ Route::view('create/sub-asset-component', 'pages.subassetcomp.create_subassetcom
 Route::view('ryservation', 'pages.ryservation.booking')->name('ryservation');
 Route::view('amenities', 'pages.amenities.amenities')->name('amenities');
 Route::view('revenue-report', 'pages.report.revenue')->name('revenue-report');
+Route::view('employee', 'pages.employee.employee')->name('employee');
 
 // Route::view('business', 'pages.business.business');
 
@@ -75,7 +76,7 @@ Route::controller(CategoryController::class)
 
 Route::resources([
     'role' => RoleController::class,
-    'employee' => EmployeeController::class,
+    // 'employee' => EmployeeController::class,
     'category' => CategoryController::class,
     'colour' => ColorController::class,
     'sizes' => SizeController::class,
