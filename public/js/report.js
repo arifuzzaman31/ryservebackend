@@ -20179,8 +20179,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return Number(value).toFixed(2);
     },
     strippedContent: function strippedContent(string) {
-      return string.replace(/<\/?[^>]+>/ig, " ");
+      return string.replace(/<\/?[^>]+>/ig, " ").replace(/_/g, " ");
     },
+    // removeUnderscore: function(){
+    // },
     monthToString: function monthToString(month) {
       // pass  2020
       var newYears = new Date(month);

@@ -68,10 +68,12 @@ export default {
             return Number(value).toFixed(2);
         },
         strippedContent: function (string) {
-            return string.replace(/<\/?[^>]+>/ig, " ");
+            return string.replace(/<\/?[^>]+>/ig, " ").replace(/_/g, " ");
         },
 
+        // removeUnderscore: function(){
 
+        // },
 
         monthToString(month) {
 

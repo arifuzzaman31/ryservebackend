@@ -30,22 +30,24 @@ export default {
                 bin: '',
                 status: 'true'
             },
+            isSubmiting:false,
             validation_error: {},
         }
     },
     methods: {
-        createBusiness(){
-            const tok = localStorage.getItem('authuser')
-            const token = JSON.parse(tok)
-            axios.post(`${apiUrl}backendapi/business`, this.business, {
+        async createBusiness(){
+            this.isSubmiting = true
+            const token = await this.getUserToken()
+            await axios.post(`${apiUrl}backendapi/business`, this.business, {
                 headers: {
-                    'Authorization': `Bearer ${token.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then((result) => {
-                    // console.log(result.data)
+                    console.log(result)
                     this.successMessage({status:'success',message:'New Business Created Successful'})
-                    window.location.href = baseUrl+'business'
+                    // window.location.href = baseUrl+'business'
+                    this.isSubmiting = false
                 })
                 .catch((errors) => {
                     console.log(errors);
@@ -73,6 +75,7 @@ export default {
                 bin: '',
                 status: 'true'
             }
+            this.isSubmiting = false
             this.validation_error = {}
 
         },
@@ -95,17 +98,17 @@ export default {
                         <div class="form-row">
                             <div class="col-md-6">
                                 <label for="Business-name">Business name</label>
-                                <input type="text" class="form-control" :class="validation_error.hasOwnProperty('business_name') ? 'is-invalid' : ''" id="Business-name" placeholder="Business name" v-model="business.business_name" >
+                                <input type="text" class="form-control" :class="validation_error.hasOwnProperty('businessName') ? 'is-invalid' : ''" id="Business-name" placeholder="Business name" v-model="business.businessName" >
                                     <div
-                                        v-if="validation_error.hasOwnProperty('business_name')"
+                                        v-if="validation_error.hasOwnProperty('businessName')"
                                         class="invalid-feedback"
                                     >
-                                        {{ validation_error.business_name[0] }}
+                                        {{ validation_error.businessName[0] }}
                                     </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="business_type">Business Type</label>
-                                <select id="business_type" class="form-control" v-model="business.business_type">
+                                <select id="business_type" class="form-control" v-model="business.businessType">
                                     <option value="">Choose Business Type...</option>
                                     <option value="PROPIETOR">PROPIETOR</option>
                                     <option value="PARTNERSHIP">PARTNERSHIP</option>
@@ -113,30 +116,30 @@ export default {
                                     <option value="OTHERS">OTHERS</option>
                                 </select>
                                 <div
-                                    v-if="validation_error.hasOwnProperty('business_type')"
+                                    v-if="validation_error.hasOwnProperty('businessType')"
                                     class="text-danger font-weight-bold"
                                 >
-                                    {{ validation_error.business_type[0] }}
+                                    {{ validation_error.businessType[0] }}
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="service_type">Service Type</label>
-                                <select id="service_type" class="form-control" v-model="business.service_type">
+                                <select id="service_type" class="form-control" v-model="business.serviceType">
                                     <option value="">Choose Service Type...</option>
                                     <option value="TABLE_RESERVATION">TABLE RESERVATION</option>
                                     <option value="ROOM_RESERVATION">ROOM RESERVATION</option>
                                     <option value="OTHERS">OTHERS</option>
                                 </select>
                                 <div
-                                    v-if="validation_error.hasOwnProperty('business_type')"
+                                    v-if="validation_error.hasOwnProperty('serviceType')"
                                     class="text-danger font-weight-bold"
                                 >
-                                    {{ validation_error.business_type[0] }}
+                                    {{ validation_error.serviceType[0] }}
                                 </div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="business_category">Business Category</label>
-                                <select id="business_category" class="form-control" v-model="business.business_category">
+                                <select id="business_category" class="form-control" v-model="business.businessCategory">
                                     <option value="">Choose Business Category...</option>
                                     <option value="HOTEL">HOTEL</option>
                                     <option value="RESTAURANT">RESTAURANT</option>
@@ -146,10 +149,10 @@ export default {
                                     <option value="OTHERS">OTHERS</option>
                                 </select>
                                 <div
-                                    v-if="validation_error.hasOwnProperty('business_type')"
+                                    v-if="validation_error.hasOwnProperty('businessCategory')"
                                     class="text-danger font-weight-bold"
                                 >
-                                    {{ validation_error.business_type[0] }}
+                                    {{ validation_error.businessCategory[0] }}
                                 </div>
                             </div>
                             </div>
@@ -158,7 +161,7 @@ export default {
                                 <div id="tooltips" class="col-lg-12  col-md-12">
                                     <div class="widget-content ">
                                         <label for="editor-container">Short Description</label>
-                                        <QuillEditor theme="snow" v-model:content="business.short_description" contentType="html" />
+                                        <QuillEditor theme="snow" v-model:content="business.shortDescription" contentType="html" />
                                     </div>
                                 </div>
                             </div>
@@ -166,7 +169,7 @@ export default {
                                 <div id="tooltips" class="col-lg-12 col-md-12">
                                     <div class="widget-content ">
                                         <label for="editor-container">Long Description</label>
-                                        <QuillEditor theme="snow" v-model:content="business.long_description" contentType="html" />
+                                        <QuillEditor theme="snow" v-model:content="business.longDescription" contentType="html" />
                                     </div>
                                 </div>
                             </div>
@@ -204,21 +207,21 @@ export default {
 
                             <div class="col-md-4 mb-3">
                                 <label for="location_point">Location- Location link from Google Map.</label>
-                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="business.location_point" >
+                                <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="business.locationPoint" >
                                 <div
-                                        v-if="validation_error.hasOwnProperty('location_point')"
+                                        v-if="validation_error.hasOwnProperty('locationPoint')"
                                         class="invalid-feedback"
                                     >
-                                        {{ validation_error.location_point[0] }}
+                                        {{ validation_error.locationPoint[0] }}
                                     </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="BusinessOwner">Business Owner</label>
-                                <input type="text" class="form-control form-control-sm" id="BusinessOwner" placeholder="Business Owner Info: name, phone, address" v-model="business.business_owner" />
+                                <input type="text" class="form-control form-control-sm" id="BusinessOwner" placeholder="Business Owner Info: name, phone, address" v-model="business.businessOwner" />
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="business_manager">Business Manager</label>
-                                <input type="text" class="form-control form-control-sm" id="business_manager" placeholder="Business Manager: name, phone, address" v-model="business.business_manager" />
+                                <input type="text" class="form-control form-control-sm" id="business_manager" placeholder="Business Manager: name, phone, address" v-model="business.businessManager" />
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="tin">TIN</label>
@@ -230,12 +233,12 @@ export default {
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="number_of_employee">Number Of Employees</label>
-                                <input type="number" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employees" v-model="business.number_of_employee" />
+                                <input type="number" min="0" class="form-control form-control-sm" id="number_of_employee" placeholder="Total Employees" v-model="business.numberOfEmployee" />
                             </div>
 
                             <div class="col-md-4 mb-3">
                                 <label for="trade_licence">Trade Licence Number</label>
-                                <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence Number" v-model="business.trade_licence" />
+                                <input type="text" class="form-control form-control-sm" id="trade_licence" placeholder="Enter Trade Licence Number" v-model="business.tradeLicence" />
                             </div>
 
                             <div class="form-group col-md-4">
@@ -257,7 +260,8 @@ export default {
             </div>
         </div>
 
-        <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">
+            <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Save</button>
     </form>
 </template>
 <style scoped>

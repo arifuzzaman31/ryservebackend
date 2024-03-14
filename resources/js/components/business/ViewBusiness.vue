@@ -143,7 +143,7 @@ export default {
                 this.updateData.tradeLicence = businessData.tradeLicence
                 this.updateData.tin = businessData.tin
                 this.updateData.bin = businessData.bin
-                this.updateData.status = businessData.status
+                this.updateData.status = businessData.status.toString()
 
         },
         async editBusiness(business){
@@ -228,8 +228,8 @@ export default {
                                 <td>{{ index+1 }}</td>
                                 <td>{{ business.businessName }}</td>
                                 <td>{{ business.businessType }}</td>
-                                <td>{{ business.serviceType }}</td>
-                                <td>{{ business.businessCategory }}</td>
+                                <td>{{ strippedContent(business.serviceType) }}</td>
+                                <td>{{ strippedContent(business.businessCategory) }}</td>
                                 <td>{{ business.city }}</td>
                                 <td class="text-center">
                                     <label class="switch s-success  mb-4 mx-5">
