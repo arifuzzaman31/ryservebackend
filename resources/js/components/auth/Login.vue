@@ -26,20 +26,20 @@ export default {
                         this.form
                     )
                     .then((response) => {
-                        console.log(response)
+                        // console.log(response)
                         if (response.status == 200) {
                             const user = JSON.stringify(response.data);
                             localStorage.setItem("authuser", user);
-                            // window.axios.defaults.headers[
-                            //     "Authorization"
-                            // ] = `Bearer ${response.data.token}`;
+                            window.axios.defaults.headers[
+                                "Authorization"
+                            ] = `Bearer ${response.data.token}`;
                             this.formReset();
                             window.location.href = baseUrl+'dashboard'
                         }
                     })
                     .catch((e) => {
                         if (e.response.status == 422) {
-                            console.log(e.response);
+                            // console.log(e.response);
                             this.validation_error = e.response.data.errors;
                         }
                     });
@@ -56,16 +56,17 @@ export default {
                         this.form
                     )
                     .then((response) => {
+                        console.log(response)
                         if (response.status == 200) {
                             const user = JSON.stringify(response.data);
-                            localStorage.setItem("authuser", user);
-                            this.formReset();
-                            window.location.href = baseUrl+'dashboard'
+                            // localStorage.setItem("authuser", user);
+                            // this.formReset();
+                            // window.location.href = baseUrl+'dashboard'
                         }
                     })
                     .catch((e) => {
+                        console.log(e.response.data);
                         if (e.response.status == 422) {
-                            console.log(e.response.data);
                             this.validation_error = e.response.data.errors;
                         }
                     });
@@ -352,9 +353,7 @@ export default {
                                 />
                                 <span
                                     v-if="
-                                        validation_error.hasOwnProperty(
-                                            'phoneNumber'
-                                        )
+                                        validation_error.hasOwnProperty('phoneNumber')
                                     "
                                     class="text-danger ml-4 mb-4"
                                 >

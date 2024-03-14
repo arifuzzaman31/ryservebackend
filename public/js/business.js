@@ -21355,13 +21355,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'Authorization': "Bearer ".concat(token)
                 }
               }).then(function (result) {
-                console.log(result);
+                // console.log(result)
+                _this.isSubmiting = false;
                 _this.successMessage({
                   status: 'success',
                   message: 'New Business Created Successful'
                 });
-                // window.location.href = baseUrl+'business'
-                _this.isSubmiting = false;
+                window.location.href = baseUrl + 'business';
               })["catch"](function (errors) {
                 console.log(errors);
               });

@@ -6,10 +6,12 @@ export default {
     data(){
         return {
             form:{
+                assetId: '',
                 roleName: '',
                 rolePermissions: []
             },
             roles: [],
+            assetes: [],
             permissions: [
                 {
                     name: "Branch",
@@ -111,7 +113,27 @@ export default {
         addRole(){
             $("#createRoleModal").modal('show');
         },
-        editRole(role){
+        async getAsset(){
+            try {
+                const token = await this.getUserToken();
+                await axios
+                    .get(`${apiUrl}backendapi/asset`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        this.assetes = response.data;
+                        // console.log(response.data)
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } catch (e) {
+                console.log(e);
+            }
+        },
+        async editRole(role){
             this.form.id = role.id
             this.form.role_name = role.role_name
             this.form.role_permissions = role.role_permission.map(item => item.id)
@@ -153,6 +175,30 @@ export default {
                 }
             })
         },
+        async storeRolePermission(){
+            try{
+                const token = await this.getUserToken();
+                axios.post(`${apiUrl}backendapi/roles`,this.form, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }).then(
+                    response => {
+                        if(response.status == 201){
+                        this.successMessage({status:'success',message:'New Sub Asset Created Successful'})
+                        $("#createRoleModal").modal('show');
+                        this.getRole()
+                    }
+                    }
+                ).catch(e => {
+                    if(e.response.status == 422){
+                        this.validation_error = e.response.data.errors
+                    }
+                })
+            } catch(e){
+                this.validationError({'message':'Something went wrong!'})
+            }
+        },
         updatePermission(){
             try{
                 axios.put(baseUrl+'role/'+this.form.id,this.form).then(
@@ -176,6 +222,9 @@ export default {
                 this.validationError({'message':'Something went wrong!'})
             }
         },
+    },
+    mounted(){
+        this.getAsset()
     },
     computed: {
         // showPermission() {
@@ -244,12 +293,24 @@ export default {
                 </div>
                 <div class="modal-body">
                     <div class="widget-content widget-content-area">
-                        <form @submit.prevent="storePermission()">
+                        <form @submit.prevent="storeRolePermission()">
                             <div id="tooltips" class="mb-2">
                                 <div class="statbox widget box ">
                                     <div class="widget-content ">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-md-6 col-12">
+                                                <select id="assetId" class="form-control" v-model="form.assetId">
+                                                    <option value="">Choose Asset...</option>
+                                                    <option v-for="(asset,ind) in assetes" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
+                                                </select>
+                                                <div
+                                                    v-if="validation_error.hasOwnProperty('assetId')"
+                                                    class="text-danger font-weight-bold"
+                                                >
+                                                    {{ validation_error.assetId[0] }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
                                                 <input type="text" v-model="form.roleName" class="form-control" id="rolename" placeholder="Role Name"/>
                                                 <span
                                                     v-if="validation_error.hasOwnProperty('roleName')"
@@ -309,13 +370,13 @@ export default {
                                 <div class="statbox widget box ">
                                     <div class="widget-content ">
                                         <div class="row">
-                                            <div class="col-12">
+                                            <div class="col-md-6 col-12">
                                                 <input type="text" v-model="form.role_name" class="form-control" id="rolename" placeholder="Role Name"/>
                                                 <span
-                                                    v-if="validation_error.hasOwnProperty('role_name')"
+                                                    v-if="validation_error.hasOwnProperty('roleName')"
                                                     class="text-danger"
                                                 >
-                                                    {{ validation_error.role_name[0] }}
+                                                    {{ validation_error.roleName[0] }}
                                                 </span>
                                             </div>
                                         </div>
