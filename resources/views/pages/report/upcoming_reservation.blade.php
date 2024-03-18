@@ -1,17 +1,15 @@
 @extends('layout.app')
-@section('title', 'Role | Ryserve')
-
+@section('title', 'Upcoming Reservation | Reserve')
 @section('content')
 <div id="tableHover" class="col-lg-12 col-12 layout-spacing" style="padding: 15px 0;">
     <div class="statbox">
         <div class="widget-header">
-            <view-employee />
+            <upcoming-reserve />
         </div>
     </div>
 </div>
-<!-- end modal -->
 @endsection
 
 @push('script')
-<script src="{{ asset('js/app.js') }}"></script>
+<script src="{{ asset('js/report.js') }}"></script>
 @endpush

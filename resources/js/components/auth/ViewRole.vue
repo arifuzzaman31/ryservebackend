@@ -8,7 +8,8 @@ export default {
             form:{
                 assetId: '',
                 roleName: '',
-                rolePermissions: []
+                rolePermissions: [],
+                status: 'true'
             },
             roles: [],
             assetes: [],
@@ -99,6 +100,35 @@ export default {
                             "status": 1
                         }
                     ]
+                },
+                {
+                    name: "Reservation",
+                    permissions: [
+                        {
+                            "id": 13,
+                            "permission_name": "View Reservation",
+                            "slug": "reservation-view",
+                            "status": 1
+                        },
+                        {
+                            "id": 14,
+                            "permission_name": "Add Reservation",
+                            "slug": "add-reservation",
+                            "status": 1,
+                        },
+                        {
+                            "id": 15,
+                            "permission_name": "Edit Reservation",
+                            "slug": "edit-reservation",
+                            "status": 1
+                        },
+                        {
+                            "id": 16,
+                            "permission_name": "Delete Reservation",
+                            "slug": "delete-reservation",
+                            "status": 1
+                        }
+                    ]
                 }
             ],
             roles_permission: [],
@@ -107,8 +137,24 @@ export default {
         }
     },
     methods: {
-        getRole(){
-
+        async getRole(){
+            try {
+                const token = await this.getUserToken();
+                await axios
+                    .get(`${apiUrl}backendapi/roles?from=1&to=10`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        this.roles = response.data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            } catch (e) {
+                console.log(e);
+            }
         },
         addRole(){
             $("#createRoleModal").modal('show');
@@ -135,16 +181,21 @@ export default {
         },
         async editRole(role){
             this.form.id = role.id
-            this.form.role_name = role.role_name
-            this.form.role_permissions = role.role_permission.map(item => item.id)
+            this.form.assetId = role.assetId
+            this.form.roleName = role.roleName
+            this.form.rolePermissions = role.permissions
+            // console.log(role)
+            // this.form.role_permissions = role.role_permission.map(item => item.id)
             $("#updateRoleModal").modal('show');
         },
         formReset(){
             this.validation_error = {}
             this.form = {
                 id: '',
-                role_name: '',
-                role_permissions: []
+                assetId: '',
+                roleName: '',
+                rolePermissions: [],
+                status:'true'
             }
         },
         deleteRole(id){
@@ -177,6 +228,8 @@ export default {
         },
         async storeRolePermission(){
             try{
+                // alert('Under Development')
+                // return false;
                 const token = await this.getUserToken();
                 axios.post(`${apiUrl}backendapi/roles`,this.form, {
                         headers: {
@@ -225,6 +278,7 @@ export default {
     },
     mounted(){
         this.getAsset()
+        this.getRole()
     },
     computed: {
         // showPermission() {
@@ -252,16 +306,18 @@ export default {
                         <thead>
                             <tr>
                                 <th>SL</th>
+                                <th>Branch Name</th>
                                 <th>Role Name</th>
-                                <th>Permission</th>
+                                <th style="width: 60%;">Permission</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody v-if="roles && roles.length > 0">
                             <tr v-for="(role,index) in roles" :key="index">
                                 <td>{{ index+1 }}</td>
+                                <td>{{ role.asset.propertyName }}</td>
                                 <td>{{ role.roleName }}</td>
-                                <td>{{ role.permissions }}</td>
+                                <td style="width: 60%;">{{ role.permissions.join(', ') }}</td>
                                 <td class="text-center">
                                     <a class="btn btn-sm btn-warning" href="javascript:void(0);" @click="editRole(role)" type="button" title="Edit">Edit</a>
                                     <a class="btn btn-sm mx-1 btn-danger" href="javascript:void(0);" @click="deleteRole(role.id)" type="button" title="Delete">Delete</a>
@@ -270,7 +326,7 @@ export default {
                         </tbody>
                         <tbody v-else>
                             <tr>
-                                <td colspan="4">No Role Found</td>
+                                <td colspan="5">No Role Found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -371,7 +427,19 @@ export default {
                                     <div class="widget-content ">
                                         <div class="row">
                                             <div class="col-md-6 col-12">
-                                                <input type="text" v-model="form.role_name" class="form-control" id="rolename" placeholder="Role Name"/>
+                                                <select id="assetId" class="form-control" v-model="form.assetId">
+                                                    <option value="">Choose Asset...</option>
+                                                    <option v-for="(asset,ind) in assetes" :key="ind" :value="asset.id">{{asset.propertyName}}</option>
+                                                </select>
+                                                <div
+                                                    v-if="validation_error.hasOwnProperty('assetId')"
+                                                    class="text-danger font-weight-bold"
+                                                >
+                                                    {{ validation_error.assetId[0] }}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 col-12">
+                                                <input type="text" v-model="form.roleName" class="form-control" id="rolename" placeholder="Role Name"/>
                                                 <span
                                                     v-if="validation_error.hasOwnProperty('roleName')"
                                                     class="text-danger"
@@ -388,10 +456,10 @@ export default {
                                     <div id="tooltips" class="mb-2">
                                         <div class="statbox widget box ">
                                             <div class="widget-content d-flex-column">
-                                                <h4>{{ index }}</h4>
+                                                <h5>{{ permission.name }}</h5>
 
-                                                <div class="custom-control custom-checkbox" v-for="item in permission" :key="item.id">
-                                                    <input type="checkbox" class="custom-control-input" :id="item.id" :value="item.id" v-model="form.role_permissions">
+                                                <div class="custom-control custom-checkbox" v-for="item in permission.permissions" :key="item.id">
+                                                    <input type="checkbox" class="custom-control-input" :id="item.id" :value="item.slug" v-model="form.rolePermissions">
                                                     <label :for="item.id" class="custom-control-label">{{ item.permission_name }}</label>
                                                 </div>
                                             </div>

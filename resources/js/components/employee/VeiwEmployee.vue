@@ -1,12 +1,9 @@
 <script>
 import Mixin from '../../mixer'
-import { Bootstrap4Pagination } from 'laravel-vue-pagination';
 
 export default {
     mixins: [Mixin],
-    props: ['roles'],
     components:{
-        Bootstrap4Pagination
     },
     data(){
         return {
@@ -17,6 +14,7 @@ export default {
                 role: ''
             },
             employee: [],
+            roles: [],
             keyword: '',
             employee_id: '',
             url: baseUrl,
@@ -34,7 +32,7 @@ export default {
                 }
             ). catch(e => {
                 console.log(e.response.data)
-            })   
+            })
         },
 
         storeEmp(){
@@ -150,18 +148,13 @@ export default {
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                         <h4>Employee</h4>
-                        <button class="btn btn-primary mb-2 mr-3" v-if="showPermission.includes('employee-create')" data-toggle="modal" data-target="#emplModal" @click="formReset">Add New</button>
-                    </div>                          
-                </div>
-            </div>       
-            <div class="widget-content widget-content-area">
-                <div class="row"> 
-                    <div class="col-4 d-flex justify-content-between mb-2">
-                        <input id="search" placeholder="Search By Name" type="text" @keyup="searchKeyword()" class="form-control form-control-sm" v-model="keyword" />
-                        <button class="btn btn-danger mx-2" @click="formReset()">Clear</button>
+                        <button class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#emplModal" @click="formReset">Add New</button>
                     </div>
                 </div>
-                <div class="table-responsive">
+            </div>
+            <div class="widget-content widget-content-area">
+               <h3> Under Development</h3>
+                <!-- <div class="table-responsive">
                     <table class="table table-bordered table-hover mb-4">
                         <thead>
                             <tr>
@@ -169,7 +162,7 @@ export default {
                                 <th>Employee Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
-                                <th v-if="showPermission.includes('employee-edit') || showPermission.includes('employee-delete')">Action</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -179,28 +172,22 @@ export default {
                                     <td>{{ empl.name }}</td>
                                     <td>{{ empl.email }} </td>
                                     <td>{{ empl.role_id ? empl.role.role_name : 'No Role'}} </td>
-                                    <td v-if="showPermission.includes('employee-edit') || showPermission.includes('employee-delete')">
-                                        <button v-if="showPermission.includes('employee-edit')" type="button" class="btn btn-sm btn-info" @click="editEmp(empl)">Edit</button>
-                                        <button type="button" v-if="showPermission.includes('employee-delete')" class="btn btn-sm btn-danger ml-2" @click="deleteEmp(empl.id)">Delete</button>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-info" @click="editEmp(empl)">Edit</button>
+                                        <button type="button" class="btn btn-sm btn-danger ml-2" @click="deleteEmp(empl.id)">Delete</button>
                                     </td>
-                                </tr>					
+                                </tr>
                             </template>
                         </tbody>
                     </table>
-                        <Bootstrap4Pagination
-                            :data="employee"
-                            :limit="limit"
-                            :keep-length="keepLength"
-                            @pagination-change-page="getEmployee"
-                        />
-                </div>
+                </div> -->
 
             </div>
         </div>
     </div>
-    <div id="emplModal" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
+    <!-- <div id="emplModal" class="modal animated fadeInUp custo-fadeInUp" role="dialog">
         <div class="modal-dialog">
-            
+
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Employee</h5>
@@ -259,7 +246,7 @@ export default {
 
                             <div class="modal-footer md-button">
                                 <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="formReset"></i> Discard</button>
-        
+
                                 <button v-if="employee_id == ''" type="button" class="btn btn-primary" @click="storeEmp">Submit</button>
 
                                 <button v-else type="button" class="btn btn-primary" @click="updateEmp">Update</button>
@@ -269,7 +256,7 @@ export default {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 </template>
 <style scoped>

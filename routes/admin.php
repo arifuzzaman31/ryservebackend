@@ -50,9 +50,12 @@ Route::view('sub-asset-component', 'pages.subassetcomp.subassetcomp')->name('sub
 Route::view('create/sub-asset-component', 'pages.subassetcomp.create_subassetcomp')->name('create/sub-asset-component');
 Route::view('ryservation', 'pages.ryservation.booking')->name('ryservation');
 Route::view('amenities', 'pages.amenities.amenities')->name('amenities');
-Route::view('revenue-report', 'pages.report.revenue')->name('revenue-report');
 Route::view('employee', 'pages.employee.employee')->name('employee');
-
+Route::view('role', 'pages.auth.role')->name('role');
+//Report Start
+Route::view('revenue-report', 'pages.report.revenue')->name('revenue-report');
+Route::view('upcoming-reservation-report', 'pages.report.upcoming_reservation')->name('upcoming-reservation-report');
+//Report End
 // Route::view('business', 'pages.business.business');
 
 //Ryserve End
@@ -75,7 +78,7 @@ Route::controller(CategoryController::class)
 });
 
 Route::resources([
-    'role' => RoleController::class,
+    // 'role' => RoleController::class,
     // 'employee' => EmployeeController::class,
     'category' => CategoryController::class,
     'colour' => ColorController::class,
