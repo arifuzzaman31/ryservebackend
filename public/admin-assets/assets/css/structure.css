@@ -911,7 +911,7 @@ code {
     justify-content: space-between;
     cursor: pointer;
     font-size: 13px;
-    color: #3c5676;
+    color: #073064;
     padding: 14px 10px;
     font-weight: 600;
     transition: .600s;
@@ -941,7 +941,7 @@ code {
     position: relative;
     transition: all .2s ease-in-out; }
   #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle[aria-expanded="true"] {
-    background: #3c5676; }
+    background: #073064; }
   #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle:not([aria-expanded="true"]):hover svg:not(.feather-chevron-right), #sidebar ul.menu-categories li.menu:not(.active) > .dropdown-toggle:hover svg:not(.feather-chevron-right) {
     margin-right: 30px; }
   #sidebar ul.menu-categories li.menu > .dropdown-toggle svg.feather-chevron-right {

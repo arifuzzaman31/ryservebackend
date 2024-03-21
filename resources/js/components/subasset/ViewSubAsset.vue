@@ -178,6 +178,9 @@ export default {
 
     },
     computed: {
+        showPermission() {
+            return this.getUserPermission();
+        }
     },
     mounted(){
         this.getSubAsset()
@@ -195,7 +198,7 @@ export default {
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                             <h4>Listing</h4>
-                <a href="create/subasset"
+                <a v-if="showPermission.includes('listing-create')" href="create/subasset"
                     class="btn btn-primary mb-2 mr-3"
                 >
                     Create Listing
@@ -209,20 +212,20 @@ export default {
                     <thead>
                         <tr>
                             <th>SL</th>
-                            <th>Listing ID</th>
+                            <!-- <th>Listing ID</th> -->
                             <th>Floor</th>
                             <th>SQFT</th>
                             <th>Address</th>
                             <th>Amenities</th>
                             <th class="text-center">Status</th>
-                            <th class="text-center">Action</th>
+                            <th class="text-center" v-if="showPermission.includes('listing-edit')">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         <template v-for="(subasset,index) in subassetes" :key="subasset.id">
                             <tr>
                                 <td>{{ index+1 }}</td>
-                                <td>{{ subasset.id }}</td>
+                                <!-- <td>{{ subasset.id }}</td> -->
                                 <td>{{ subasset.floor }}</td>
                                 <td>{{ subasset.sqft }}</td>
                                 <td>{{ subasset.address }}</td>
@@ -234,9 +237,9 @@ export default {
                                 <td class="text-center">
                                     <span>{{ subasset.status == 1 ? 'Active' : 'Deactive' }}</span>
                                 </td>
-                                <td>
+                                <td v-if="showPermission.includes('listing-edit')">
                                     <ul class="table-controls d-flex justify-content-around">
-                                        <li><a href="javascript:void(0);" @click="editSubAsset(subasset)" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
+                                        <li><a v-if="showPermission.includes('listing-edit')" href="javascript:void(0);" @click="editSubAsset(subasset)" type="button" title="Edit"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg></a></li>
                                         <!-- <li><a href="javascript:void(0);"  title="View"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye text-warning"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span class="icon-name"></span>
                                                             </a></li> -->
                                         <!-- <li><a href="javascript:void(0);" title="Delete"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a></li> -->
@@ -366,7 +369,7 @@ export default {
                                                 </Multiselect>
                                             </div>
                                             <div class="form-group col-2">
-                                                <input type="number"  class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
+                                                <input type="number" min="0" class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
                                             </div>
                                             <div class="form-group form-control-sm col-md-1 text-center">
                                                 <a
@@ -392,7 +395,7 @@ export default {
                                             <div class="form-row">
                                                 <div class="col-md-4 mb-3">
                                                     <label for="floor">Floor (Level)</label>
-                                                    <input type="number" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('floor') ? 'is-invalid' : ''" id="floor" placeholder="Floor" v-model="updatesubasset.floor">
+                                                    <input type="number" min="0" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('floor') ? 'is-invalid' : ''" id="floor" placeholder="Floor" v-model="updatesubasset.floor">
                                                     <div
                                                             v-if="validation_error.hasOwnProperty('country')"
                                                             class="invalid-feedback"
@@ -403,7 +406,7 @@ export default {
 
                                                 <div class="form-group col-md-4 mb-3">
                                                     <label for="sqft">Size (sqft)</label>
-                                                    <input type="number" step="any" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('sqft') ? 'is-invalid' : ''" id="sqft" placeholder="Size" v-model="updatesubasset.sqft" >
+                                                    <input type="number" min="0" step="any" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('sqft') ? 'is-invalid' : ''" id="sqft" placeholder="Size" v-model="updatesubasset.sqft" >
                                                         <div
                                                             v-if="validation_error.hasOwnProperty('sqft')"
                                                             class="invalid-feedback"

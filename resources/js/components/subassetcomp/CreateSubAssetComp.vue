@@ -73,12 +73,11 @@ export default {
             this.subassetcomp.slot = [...transformedData]
         },
         async createSubAssetComp() {
-            const tok = localStorage.getItem('authuser')
-            const token = JSON.parse(tok)
+            const token = await this.getUserToken()
             this.prepareData()
             await axios.post(`${apiUrl}backendapi/sub-asset-component`, this.subassetcomp, {
                     headers: {
-                        'Authorization': `Bearer ${token.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 })
                 .then((result) => {
@@ -109,14 +108,13 @@ export default {
             }
         },
 
-        getSubAssetByAsset() {
+        async getSubAssetByAsset() {
             try {
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                const token = await this.getUserToken()
                 this.subassets = []
                 axios.get(`${apiUrl}backendapi/sub-asset?assetId=${this.subassetcomp.assetId}`, {
                         headers: {
-                            'Authorization': `Bearer ${token.token}`
+                            'Authorization': `Bearer ${token}`
                         }
                     })
                     .then(response => {

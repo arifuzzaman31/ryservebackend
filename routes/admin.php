@@ -52,11 +52,11 @@ Route::view('ryservation', 'pages.ryservation.booking')->name('ryservation');
 Route::view('amenities', 'pages.amenities.amenities')->name('amenities');
 Route::view('employee', 'pages.employee.employee')->name('employee');
 Route::view('role', 'pages.auth.role')->name('role');
+Route::view('vendor', 'pages.employee.vendor')->name('vendor');
 //Report Start
 Route::view('revenue-report', 'pages.report.revenue')->name('revenue-report');
 Route::view('upcoming-reservation-report', 'pages.report.upcoming_reservation')->name('upcoming-reservation-report');
 //Report End
-// Route::view('business', 'pages.business.business');
 
 //Ryserve End
 // Role Permission
@@ -65,44 +65,7 @@ Route::get('get-permission-data',[RoleController::class,'getPermissionData']);
 
 //Category Route
 // Route::resource('category',CategoryController::class);
-Route::controller(CategoryController::class)
-    ->group(function () {
-        Route::get('get-category','getCategoryData');
-        Route::get('category-subcategory-data','getCategoryByCat');
-        Route::get('add-category','getCategory')->name('add-category');
-        Route::get('edit-category','editCategory')->name('edit-category');
-        Route::get('update-category-image/{id}','updateCategoryImage')->name('update-category-image');
-        Route::post('fabric-add-category','updateCompCat');
-        Route::post('edit-category','updateCat');
 
-});
-
-Route::resources([
-    // 'role' => RoleController::class,
-    // 'employee' => EmployeeController::class,
-    'category' => CategoryController::class,
-    'colour' => ColorController::class,
-    'sizes' => SizeController::class,
-    'fabrics' => FabricController::class,
-    'vendors' => VendorController::class,
-    'brands' => BrandController::class,
-    'designers' => DesignerController::class,
-    'artist' => ArtistController::class,
-    'embellishment' => EmbellishmentController::class,
-    'making' => MakingController::class,
-    'season' => SeasonController::class,
-    'varieties' => VarietyController::class,
-    'fit' => FitController::class,
-    'ingredient' => IngredientsController::class,
-    'care' => CareController::class,
-    'country' => CountryController::class,
-    'vat-tax' => CompanyController::class,
-    'product' => ProductController::class,
-    'campaign' => CampaignController::class,
-    'consignment' => ConsignmentController::class,
-    'media-manager' => MediaManagerController::class,
-    'pickuphub' => PickuphubController::class
-]);
 // Route::get('get-cate-data/{id}',[CategoryController::class,'getCategoryImage'])->name('get-cate-data');
 // start Attributes
 Route::get('get-colour',[ColorController::class,'getColour']);

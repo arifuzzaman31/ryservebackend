@@ -232,10 +232,7 @@ export default {
                                 <td>{{ strippedContent(business.businessCategory) }}</td>
                                 <td>{{ business.city }}</td>
                                 <td class="text-center">
-                                    <label class="switch s-success  mb-4 mx-5">
-                                        <input type="checkbox" :checked="business.status == 1 ? true : false" disabled>
-                                        <span class="slider round"></span>
-                                    </label>
+                                        {{business.status == true ? 'Active' : 'Inactive'}}
                                 </td>
                                 <td>
                                     <ul class="table-controls d-flex justify-content-around">

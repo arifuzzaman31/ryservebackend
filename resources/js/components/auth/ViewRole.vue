@@ -38,7 +38,7 @@ export default {
                         {
                             "id": 4,
                             "permission_name": "Branch Create",
-                            "slug": "attribute-create",
+                            "slug": "branch-create",
                             "status": 1
                         }
                     ]
@@ -131,17 +131,19 @@ export default {
                     ]
                 }
             ],
-            roles_permission: [],
             url: baseUrl,
+            isLoading : false,
+            isSubmiting : false,
             validation_error: {}
         }
     },
     methods: {
         async getRole(){
             try {
+                this.isLoading = true
                 const token = await this.getUserToken();
                 await axios
-                    .get(`${apiUrl}backendapi/roles?from=1&to=10`, {
+                    .get(`${apiUrl}backendapi/roles?from=1&to=15`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -152,6 +154,7 @@ export default {
                     .catch((error) => {
                         console.log(error);
                     });
+                    this.isLoading = false
             } catch (e) {
                 console.log(e);
             }
@@ -198,7 +201,8 @@ export default {
                 status:'true'
             }
         },
-        deleteRole(id){
+        async deleteRole(id){
+            const token = await this.getUserToken()
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -207,14 +211,18 @@ export default {
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, Do it!'
-                }).then((result) => {
+                }).then(async (result) => {
                 if (result.isConfirmed) {
-                    axios.delete(baseUrl+`role/${id}`).then(
+                   await axios.delete(`${apiUrl}backendapi/roles?id=${id}`,{
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                   }).then(
                         response => {
-                            if(response.data.status == 'success'){
-                                this.successMessage(response.data)
+                            if (response.status == 200) {
+                                this.successMessage({ status: 'success', message: 'Role Deleted Successful' })
                                 this.formReset()
-                                window.location.reload(true)
+                                this.getRole()
                             }else{
 
                                 this.validationError(response.data)
@@ -228,8 +236,6 @@ export default {
         },
         async storeRolePermission(){
             try{
-                // alert('Under Development')
-                // return false;
                 const token = await this.getUserToken();
                 axios.post(`${apiUrl}backendapi/roles`,this.form, {
                         headers: {
@@ -238,8 +244,9 @@ export default {
                     }).then(
                     response => {
                         if(response.status == 201){
-                        this.successMessage({status:'success',message:'New Sub Asset Created Successful'})
-                        $("#createRoleModal").modal('show');
+                        this.successMessage({status:'success',message:'New Role Created Successful'})
+                        $("#createRoleModal").modal('hide');
+                        this.formReset()
                         this.getRole()
                     }
                     }
@@ -252,27 +259,34 @@ export default {
                 this.validationError({'message':'Something went wrong!'})
             }
         },
-        updatePermission(){
-            try{
-                axios.put(baseUrl+'role/'+this.form.id,this.form).then(
-                    response => {
-                        if(response.data.status == 'success'){
-                            this.successMessage(response.data)
-                            this.formReset()
-                            $("#updateRoleModal").modal('hide');
-                            window.location.reload(true)
-                        }else{
-
-                            this.validationError({'message':'Something went wrong!'})
+        async updatePermission(){
+            try {
+                this.isSubmiting = true
+                const token = await this.getUserToken()
+                    await axios.put(`${apiUrl}backendapi/roles?id=${this.form.id}`,this.form, {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
                         }
+                    }).then(
+                    response => {
+                        // console.log(response.data)
+                        if (response.status == 200) {
+                            this.successMessage({ status: 'success', message: 'Role Updated Successful' })
+                            $("#updateRoleModal").modal('hide');
+                            this.getRole()
+                        }
+                        this.formReset()
                     }
                 ).catch(e => {
-                    if(e.response.status == 422){
-                        this.validation_error = e.response.data.errors
+                    // console.log(e.response.data)
+                    if (e.response.status == 400) {
+                        this.validation_error = e.response.data;
+                        this.validationError(e.response.data);
                     }
                 })
-            } catch(e){
-                this.validationError({'message':'Something went wrong!'})
+                this.isSubmiting = false
+            } catch (e) {
+                console.log(e.response)
             }
         },
     },
@@ -294,11 +308,14 @@ export default {
         <div class="row" style="width:99%">
             <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between mx-3">
                 <h4>Role List</h4>
-                <button class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#createRoleModal">Add New</button>
+                <button class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#createRoleModal" @click="formReset()">Add New</button>
             </div>
         </div>
     </div>
-    <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
+    <div class="widget-content widget-content-area text-center" v-if="isLoading">
+        <div class="spinner-border text-success align-self-center loader-xl"></div>
+    </div>
+    <div id="tableHover" class="col-lg-12 col-12 layout-spacing" v-else>
         <div class="statbox">
             <div class="widget-content widget-content-area">
                 <div class="table-responsive">
@@ -325,7 +342,7 @@ export default {
                             </tr>
                         </tbody>
                         <tbody v-else>
-                            <tr>
+                            <tr class="text-center text-bold">
                                 <td colspan="5">No Role Found</td>
                             </tr>
                         </tbody>
@@ -467,13 +484,15 @@ export default {
                                     </div>
                                 </div>
                                 <span
-                                    v-if="validation_error.hasOwnProperty('role_permissions')"
+                                    v-if="validation_error.hasOwnProperty('rolePermissions')"
                                     class="text-danger ml-4 mb-4"
                                 >
-                                    {{ validation_error.role_permissions[0] }}
+                                    {{ validation_error.rolePermissions[0] }}
                                 </span>
                             </div>
-                            <input type="submit" name="time" class="btn btn-primary" value="Update" />
+                            <button class="btn btn-success mt-1 btn-lg" type="submit">
+                                <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>
+                                Update</button>
                         </form>
                     </div>
                 </div>
@@ -482,7 +501,9 @@ export default {
     </div>
 </template>
 
-
 <style scoped>
-
+.loader-xl {
+    width: 5rem;
+    height: 5rem;
+  }
 </style>

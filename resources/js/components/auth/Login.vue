@@ -30,9 +30,9 @@ export default {
                         if (response.status == 200) {
                             const user = JSON.stringify(response.data);
                             localStorage.setItem("authuser", user);
-                            window.axios.defaults.headers[
-                                "Authorization"
-                            ] = `Bearer ${response.data.token}`;
+                            // window.axios.defaults.headers[
+                            //     "Authorization"
+                            // ] = `Bearer ${response.data.token}`;
                             this.formReset();
                             window.location.href = baseUrl+'dashboard'
                         }
@@ -56,12 +56,11 @@ export default {
                         this.form
                     )
                     .then((response) => {
-                        console.log(response)
-                        if (response.status == 200) {
-                            const user = JSON.stringify(response.data);
-                            // localStorage.setItem("authuser", user);
-                            // this.formReset();
-                            // window.location.href = baseUrl+'dashboard'
+                        // console.log(response)
+                        if (response.status == '200') {
+                            this.successMessage({status:'success',message:'User Created Successful'})
+                            this.formReset();
+                            window.location.href = rootUrl+'login'
                         }
                     })
                     .catch((e) => {

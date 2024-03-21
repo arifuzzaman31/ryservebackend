@@ -257,7 +257,7 @@ export default {
                             </Multiselect>
                         </div>
                         <div class="form-group col-2">
-                            <input type="number"  class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
+                            <input type="number" min="0" class="form-control form-control-sm" id="price" v-model="ameni.price" placeholder="Price" required>
                         </div>
                         <div class="form-group form-control-sm col-md-1 text-center">
                             <a
@@ -283,7 +283,7 @@ export default {
                         <div class="form-row">
                             <div class="col-md-4 mb-3">
                                 <label for="floor">Floor (Level)</label>
-                                <input type="number" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('floor') ? 'is-invalid' : ''" id="floor" placeholder="Floor" v-model="subasset.floor">
+                                <input type="number" min="0" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('floor') ? 'is-invalid' : ''" id="floor" placeholder="Floor" v-model="subasset.floor">
                                 <div
                                         v-if="validation_error.hasOwnProperty('country')"
                                         class="invalid-feedback"
@@ -294,7 +294,7 @@ export default {
 
                             <div class="form-group col-md-4 mb-3">
                                 <label for="sqft">Size (sqft)</label>
-                                <input type="number" step="any" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('sqft') ? 'is-invalid' : ''" id="sqft" placeholder="Size" v-model="subasset.sqft" >
+                                <input type="number"  min="0" step="any" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('sqft') ? 'is-invalid' : ''" id="sqft" placeholder="Size" v-model="subasset.sqft" >
                                     <div
                                         v-if="validation_error.hasOwnProperty('sqft')"
                                         class="invalid-feedback"

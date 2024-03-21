@@ -322,6 +322,11 @@ export default {
             }
         }
     },
+    computed: {
+        showPermission() {
+            return this.getUserPermission();
+        }
+    },
     mounted(){
         this.getSubAssetComp()
     }
@@ -336,7 +341,7 @@ export default {
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                             <h4>Listing Type</h4>
-                <a href="create/sub-asset-component"
+                <a v-if="showPermission.includes('listing-type-create')" href="create/sub-asset-component"
                     class="btn btn-primary mb-2 mr-3"
                 >
                     Create Listing Type
@@ -355,7 +360,7 @@ export default {
                                 <th>Category</th>
                                 <th>Address</th>
                                 <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center" v-if="showPermission.includes('listing-type-edit')">Action</th>
                             </tr>
                         </thead>
                     <tbody>
@@ -369,14 +374,14 @@ export default {
                                 <td class="text-center">
                                     <span>{{ subassetcom.status == 1 ? 'Active' : 'Deactive' }}</span>
                                 </td>
-                                <td>
+                                <td  v-if="showPermission.includes('listing-type-edit')">
                                 <ul class="table-controls d-flex justify-content-around">
                                     <li><a href="javascript:void(0);" type="button" title="Add Table" @click="addATable(subassetcom)">
                                         <div class="icon-container">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg><span class="icon-name"></span>
                                         </div>
                                     </a></li>
-                                    <li><a href="javascript:void(0);" @click="editSubAssetComp(subassetcom)" type="button" title="Edit">
+                                    <li><a  v-if="showPermission.includes('listing-type-edit')" href="javascript:void(0);" @click="editSubAssetComp(subassetcom)" type="button" title="Edit">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 text-success"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path></svg>
                                     </a></li>
 

@@ -190,7 +190,7 @@ export default {
                                     <th class="text-center">Status</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody v-if="bookings && bookings.length > 0">
                                 <template v-for="(ryserve,index) in bookings" :key="ryserve.id">
                                 <tr>
                                     <td>{{ index+1 }}</td>
@@ -210,8 +210,13 @@ export default {
                                         <span v-if="ryserve.status == 'COMPLETED'" class="badge badge-info">Completed</span>
                                     </td>
                                 </tr>
-                            </template>
-                    </tbody>
+                                </template>
+                            </tbody>
+                            <tbody v-else>
+                                <tr class="text-center text-bold">
+                                    <td colspan="8">No Data Found</td>
+                                </tr>
+                            </tbody>
                 </table>
                     </div>
                     <div class="paginating-container pagination-solid">

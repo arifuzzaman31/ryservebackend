@@ -44,17 +44,20 @@ export default {
                 }
             })
                 .then((result) => {
-                    // console.log(result)
-                    this.isSubmiting = false
-                    this.successMessage({status:'success',message:'New Business Created Successful'})
-                    window.location.href = baseUrl+'business'
+                    if(result.status == 201){
+                        this.isSubmiting = false
+                        this.successMessage({status:'success',message:'New Business Created Successful'})
+                        window.location.href = baseUrl+'business'
+                    }
                 })
-                .catch((errors) => {
-                    console.log(errors);
-                });
+                .catch(e => {
+                    if(e.response.status == 422){
+                        this.validation_error = e.response.data.errors
+                    } else {
+                        this.validationError()
+                    }
+                })
         },
-
-
 
         clearForm() {
             this.business = {

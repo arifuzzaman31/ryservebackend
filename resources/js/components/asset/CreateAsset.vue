@@ -133,12 +133,12 @@ export default {
                             </div>
 
                             <div class="form-group col-md-4">
-                                <label for="service_type">Asset Type</label>
-                                <select id="service_type" class="form-control" v-model="assets.assetType">
+                                <label for="Asset_type">Asset Type</label>
+                                <select id="Asset_type" class="form-control" v-model="assets.assetType">
                                     <option value="">Choose Asset Type...</option>
-                                    <option value="APARTMENT_BUILDING">APARTMENT_BUILDING</option>
-                                    <option value="SHARED_BUILDING">SHARED_BUILDING</option>
-                                    <option value="SHARED_FLOOR">SHARED_FLOOR</option>
+                                    <option value="APARTMENT_BUILDING">APARTMENT BUILDING</option>
+                                    <option value="SHARED_BUILDING">SHARED BUILDING</option>
+                                    <option value="SHARED_FLOOR">SHARED FLOOR</option>
                                     <option value="OTHERS">OTHERS</option>
                                 </select>
                                 <div
@@ -228,7 +228,7 @@ export default {
 
                             <div class="col-md-4 mb-3">
                                 <label for="no_of_room">Number Of Rooms</label>
-                                <input type="number" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="assets.noOfRoom" />
+                                <input type="number" min="1" class="form-control form-control-sm" id="no_of_room" placeholder="Total Rooms" v-model="assets.noOfRoom" />
                             </div>
 
                             <div class="form-group col-md-4">

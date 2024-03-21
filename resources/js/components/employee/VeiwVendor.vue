@@ -15,11 +15,9 @@ export default {
                 occupation: '',
                 designation: '',
                 password: '',
-                roleId: '',
                 status: 'true'
             },
             employees: [],
-            roles: [],
             keyword: '',
             employee_id: '',
             isLoading:false,
@@ -30,33 +28,12 @@ export default {
     },
 
     methods: {
-        async getRole(){
-            try {
-                this.isLoading = true
-                const token = await this.getUserToken();
-                await axios
-                    .get(`${apiUrl}backendapi/roles?no_paginate=yes`, {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                    .then((response) => {
-                        this.roles = response.data;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-                    this.isLoading = false
-            } catch (e) {
-                console.log(e);
-            }
-        },
         async getEmployee(){
             try {
                 this.isLoading = true
                 const token = await this.getUserToken();
                 await axios
-                    .get(`${apiUrl}backendapi/employee?from=1&to=15`, {
+                    .get(`${apiUrl}backendapi/employee?from=1&to=15&vendor=yes`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                         },
@@ -194,7 +171,6 @@ export default {
                 phoneNumber: '',
                 occupation: '',
                 designation: '',
-                roleId: '',
                 status: 'true'
             }
             this.keyword = ''
@@ -206,7 +182,6 @@ export default {
     },
 
     mounted(){
-        this.getRole()
         this.getEmployee()
     },
     computed: {
@@ -224,7 +199,7 @@ export default {
             <div class="widget-header">
                 <div class="row">
                     <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                        <h4>Employee</h4>
+                        <h4>Partners</h4>
                         <button class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#emplModal" @click="formReset">Add New</button>
                     </div>
                 </div>
@@ -239,9 +214,8 @@ export default {
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Employee Name</th>
+                                <th>Partner Name</th>
                                 <th>Email</th>
-                                <th>Role</th>
                                 <th>User Type</th>
                                 <th>Action</th>
                             </tr>
@@ -252,7 +226,6 @@ export default {
                                     <td>{{ index+1 }}</td>
                                     <td>{{ empl.name }}</td>
                                     <td>{{ empl.email }} </td>
-                                    <td>{{ empl.roleId ? empl.roles.roleName : 'No Role'}} </td>
                                     <td>{{ strippedContent(empl.userType) }} </td>
                                     <td>
                                         <button type="button" class="btn btn-sm btn-info" @click="editEmp(empl)">Edit</button>
@@ -263,7 +236,7 @@ export default {
                         </tbody>
                         <tbody v-else>
                             <tr class="text-center text-bold">
-                                <td colspan="6">No Employee Found</td>
+                                <td colspan="6">No Partner Found</td>
                             </tr>
                         </tbody>
                     </table>
@@ -276,7 +249,7 @@ export default {
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Employee</h5>
+                    <h5 class="modal-title">Partner</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" @click="formReset">
                         <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
@@ -287,7 +260,7 @@ export default {
                             <div class="form-row">
                                 <div class="col-6">
                                     <label for="emp_name">Name</label>
-                                    <input type="text" class="form-control" v-model="employee.name" id="emp_name" placeholder="Employee Name" required>
+                                    <input type="text" class="form-control" v-model="employee.name" id="emp_name" placeholder="Partners Name" required>
                                     <span
                                     v-if="validation_error.hasOwnProperty('name')"
                                     class="text-danger"
@@ -308,7 +281,7 @@ export default {
                             </div>
                             <div class="col-6 mt-1">
                                 <label for="emp_email">Email</label>
-                                <input type="text" class="form-control" required v-model="employee.email" id="emp_email" placeholder="Employee Email">
+                                <input type="text" class="form-control" required v-model="employee.email" id="emp_email" placeholder="Partners Email">
                                 <span
                                     v-if="validation_error.hasOwnProperty('email')"
                                     class="text-danger"
@@ -327,25 +300,13 @@ export default {
                                     {{ validation_error.password[0] }}
                                 </span>
                             </div>
-                            <div class="col-6 mt-1">
-                            <label for="emp-role">Role</label>
-                                <select class="form-control" v-model="employee.roleId" required>
-                                    <option value="">Select Role</option>
-                                    <option :value="role.id" v-for="(role,ind) in roles" :key="ind">{{ role.roleName }}</option>
-                                </select>
-                                <span
-                                    v-if="validation_error.hasOwnProperty('roleId')"
-                                    class="text-danger"
-                                >
-                                    {{ validation_error.roleId[0] }}
-                                </span>
-                            </div>
+
                             <div class="col-6 mt-1">
                             <label for="userType">User Type</label>
                                 <select class="form-control" v-model="employee.userType" id="userType" required>
                                     <option value="">Select User Type</option>
-                                    <option value="BUSINESS_MANAGER">BUSINESS MANAGER</option>
-                                    <option value="LISTING_MANAGER">LISTING MANAGER</option>
+                                    <option value="BUSINESS_OWNER">BUSINESS OWNER</option>
+                                    <option value="CRM_EDITOR">CRM EDITOR (Author)</option>
                                 </select>
                                 <span
                                     v-if="validation_error.hasOwnProperty('userType')"

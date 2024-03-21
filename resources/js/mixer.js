@@ -16,6 +16,26 @@ export default {
         }
         return token;
     },
+    getUserPermission(){
+        let permission = null
+        const user = localStorage.getItem('authuser')
+        if(user){
+            let usr = JSON.parse(user)
+            if((usr.user.userType == 'BUSINESS_OWNER') || (usr.user.userType =='CRM_EDITOR')){
+                permission = ['branch-view','branch-edit','branch-delete','branch-create',
+                'listing-view','listing-edit','listing-delete','listing-create',
+                'listing-type-view','listing-type-edit','listing-type-delete','listing-type-create',
+                'reservation-view','add-reservation','edit-reservation','delete-reservation',
+                'role-employee-view','report-view',,'business-view'
+                ]
+                if(usr.user.userType =='CRM_EDITOR') permission.push('amenities-view','vendor-view')
+            }else{
+                permission = usr.user.roles.permissions
+            }
+            // permission = usr.roles.permissions
+        }
+        return permission;
+    },
 
     successMessage(data) {
 
