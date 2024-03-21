@@ -231,12 +231,12 @@ export default {
                                 </div>
                             </div>
                         </div>
-                        <p class="signup-link">
+                        <!-- <p class="signup-link">
                             Not registered ?
                             <a type="button" @click="toggleForm()"
                                 >Create an account</a
                             >
-                        </p>
+                        </p> -->
                     </form>
                     <form
                         class="text-left"
