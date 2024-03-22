@@ -20157,6 +20157,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     var audio = new Audio(sound_url);
     //     audio.play();
     //   },
+    getUserInfo: function getUserInfo() {
+      var user = null;
+      var tok = localStorage.getItem('authuser');
+      if (tok) {
+        var tkn = JSON.parse(tok);
+        user = tkn.user;
+      }
+      return user;
+    },
     getUserToken: function getUserToken() {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var token, tok, tkn;

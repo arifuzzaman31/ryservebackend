@@ -617,8 +617,4 @@ export default {
   width: 0.9rem;
   height: 0.9rem;
   border-width: 0.6em; }
-  .loader-xl {
-    width: 5rem; /* adjust the width as needed */
-    height: 5rem; /* adjust the height as needed */
-  }
 </style>

@@ -21,7 +21,10 @@ export default {
     computed: {
         showPermission() {
             return this.getUserPermission();
-        }
+        },
+        // showUserData() {
+        //     return this.getUserInfo();
+        // }
     },
 };
 </script>
@@ -133,4 +136,5 @@ export default {
             </div>
         </a>
     </li>
+    <!-- <p>{{ showUserData.email }}</p> -->
 </template>

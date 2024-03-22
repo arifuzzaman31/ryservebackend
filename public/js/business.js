@@ -28788,6 +28788,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     var audio = new Audio(sound_url);
     //     audio.play();
     //   },
+    getUserInfo: function getUserInfo() {
+      var user = null;
+      var tok = localStorage.getItem('authuser');
+      if (tok) {
+        var tkn = JSON.parse(tok);
+        user = tkn.user;
+      }
+      return user;
+    },
     getUserToken: function getUserToken() {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var token, tok, tkn;
@@ -30981,7 +30990,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.paginating-container[data-v-06e1ecfc] {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-bottom: 0;\n}\n.paginating-container .prev svg[data-v-06e1ecfc],\r\n.paginating-container .next svg[data-v-06e1ecfc] {\r\n    width: 18px;\r\n    height: 18px;\r\n    vertical-align: text-bottom;\n}\n.paginating-container .pagination[data-v-06e1ecfc] {\r\n    margin-bottom: 0;\n}\n.paginating-container li[data-v-06e1ecfc] {\r\n    padding: 10px 0;\r\n    font-weight: 600;\r\n    color: #3b3f5c;\r\n    border-radius: 4px;\n}\n.paginating-container li a[data-v-06e1ecfc] {\r\n    padding: 10px 15px;\r\n    font-weight: 600;\r\n    color: #3b3f5c;\n}\n.paginating-container li[data-v-06e1ecfc]:not(:last-child) {\r\n    margin-right: 4px;\n}\n.pagination-solid li[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid li:hover a[data-v-06e1ecfc] {\r\n    color: #1b55e2;\n}\n.pagination-solid li.active[data-v-06e1ecfc] {\r\n    background-color: #1b55e2 !important;\r\n    color: #fff;\n}\n.pagination-solid li a.active[data-v-06e1ecfc]:hover,\r\n.pagination-solid li.active a[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.pagination-solid .prev[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid .prev[data-v-06e1ecfc]:hover {\r\n    background-color: #1b55e2;\n}\n.pagination-solid .prev:hover a[data-v-06e1ecfc],\r\n.pagination-solid .prev:hover svg[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.pagination-solid .next[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid .next[data-v-06e1ecfc]:hover {\r\n    background-color: #1b55e2;\n}\n.pagination-solid .next:hover a[data-v-06e1ecfc],\r\n.pagination-solid .next:hover svg[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.loader-btn[data-v-06e1ecfc] {\r\n  width: 0.9rem;\r\n  height: 0.9rem;\r\n  border-width: 0.6em;\n}\n.loader-xl[data-v-06e1ecfc] {\r\n    width: 5rem; /* adjust the width as needed */\r\n    height: 5rem; /* adjust the height as needed */\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.paginating-container[data-v-06e1ecfc] {\r\n    display: flex;\r\n    justify-content: center;\r\n    margin-bottom: 0;\n}\n.paginating-container .prev svg[data-v-06e1ecfc],\r\n.paginating-container .next svg[data-v-06e1ecfc] {\r\n    width: 18px;\r\n    height: 18px;\r\n    vertical-align: text-bottom;\n}\n.paginating-container .pagination[data-v-06e1ecfc] {\r\n    margin-bottom: 0;\n}\n.paginating-container li[data-v-06e1ecfc] {\r\n    padding: 10px 0;\r\n    font-weight: 600;\r\n    color: #3b3f5c;\r\n    border-radius: 4px;\n}\n.paginating-container li a[data-v-06e1ecfc] {\r\n    padding: 10px 15px;\r\n    font-weight: 600;\r\n    color: #3b3f5c;\n}\n.paginating-container li[data-v-06e1ecfc]:not(:last-child) {\r\n    margin-right: 4px;\n}\n.pagination-solid li[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid li:hover a[data-v-06e1ecfc] {\r\n    color: #1b55e2;\n}\n.pagination-solid li.active[data-v-06e1ecfc] {\r\n    background-color: #1b55e2 !important;\r\n    color: #fff;\n}\n.pagination-solid li a.active[data-v-06e1ecfc]:hover,\r\n.pagination-solid li.active a[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.pagination-solid .prev[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid .prev[data-v-06e1ecfc]:hover {\r\n    background-color: #1b55e2;\n}\n.pagination-solid .prev:hover a[data-v-06e1ecfc],\r\n.pagination-solid .prev:hover svg[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.pagination-solid .next[data-v-06e1ecfc] {\r\n    background-color: #e0e6ed;\n}\n.pagination-solid .next[data-v-06e1ecfc]:hover {\r\n    background-color: #1b55e2;\n}\n.pagination-solid .next:hover a[data-v-06e1ecfc],\r\n.pagination-solid .next:hover svg[data-v-06e1ecfc] {\r\n    color: #fff;\n}\n.loader-btn[data-v-06e1ecfc] {\r\n  width: 0.9rem;\r\n  height: 0.9rem;\r\n  border-width: 0.6em;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

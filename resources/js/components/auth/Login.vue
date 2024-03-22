@@ -14,19 +14,21 @@ export default {
                 lastName: "",
             },
             login: true,
+            isLoading:false,
+            isSubmiting:false,
             validation_error: {},
         };
     },
     methods: {
-        attemptLogin() {
+        async attemptLogin() {
             try {
-                axios
+                this.isLoading = true
+                await axios
                     .post(
                         `${apiUrl}auth/signin?for=login-request`,
                         this.form
                     )
                     .then((response) => {
-                        // console.log(response)
                         if (response.status == 200) {
                             const user = JSON.stringify(response.data);
                             localStorage.setItem("authuser", user);
@@ -34,17 +36,18 @@ export default {
                             //     "Authorization"
                             // ] = `Bearer ${response.data.token}`;
                             this.formReset();
+                            this.isLoading = false
                             window.location.href = baseUrl+'dashboard'
                         }
                     })
                     .catch((e) => {
                         if (e.response.status == 422) {
-                            // console.log(e.response);
                             this.validation_error = e.response.data.errors;
+                            this.isLoading = false
                         }
                     });
             } catch (e) {
-                console.log(e);
+                this.isLoading = false
                 this.validationError({ message: "Something went wrong!" });
             }
         },
@@ -88,6 +91,8 @@ export default {
                 firstName: "",
                 lastName: "",
             };
+            this.isLoading = false
+            this.isSubmiting = false
         },
     },
 };
@@ -108,7 +113,9 @@ export default {
                         Already have an account?
                         <a type="button" @click="toggleForm()">Log in</a>
                     </p>
-
+                        <div class="text-center" v-if="isLoading">
+                <div class="spinner-border text-success align-self-center loader-xl"></div>
+            </div>
                     <form
                         class="text-left"
                         @submit.prevent="attemptLogin()"
@@ -547,4 +554,5 @@ export default {
     </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>

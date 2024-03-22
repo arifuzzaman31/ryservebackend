@@ -7,6 +7,15 @@ export default {
     //     audio.play();
     //   },
 
+        getUserInfo() {
+            let user = null
+            const tok = localStorage.getItem('authuser')
+            if (tok) {
+                let tkn = JSON.parse(tok)
+                user = tkn.user
+            }
+            return user;
+        },
     async getUserToken(){
         let token = null
         const tok = await localStorage.getItem('authuser')

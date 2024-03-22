@@ -19737,7 +19737,9 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     showPermission: function showPermission() {
       return this.getUserPermission();
-    }
+    } // showUserData() {
+    //     return this.getUserInfo();
+    // }
   }
 });
 
@@ -19919,7 +19921,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     "aria-expanded": "false",
     "class": "dropdown-toggle"
-  }, _hoisted_41)])], 64 /* STABLE_FRAGMENT */);
+  }, _hoisted_41)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <p>{{ showUserData.email }}</p> ")], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -19945,6 +19947,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     //     var audio = new Audio(sound_url);
     //     audio.play();
     //   },
+    getUserInfo: function getUserInfo() {
+      var user = null;
+      var tok = localStorage.getItem('authuser');
+      if (tok) {
+        var tkn = JSON.parse(tok);
+        user = tkn.user;
+      }
+      return user;
+    },
     getUserToken: function getUserToken() {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var token, tok, tkn;

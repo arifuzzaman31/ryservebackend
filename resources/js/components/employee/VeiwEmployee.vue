@@ -240,6 +240,7 @@ export default {
                             <tr>
                                 <th>ID</th>
                                 <th>Employee Name</th>
+                                <th>Branch Name</th>
                                 <th>Email</th>
                                 <th>Role</th>
                                 <th>User Type</th>
@@ -251,6 +252,7 @@ export default {
                                 <tr>
                                     <td>{{ index+1 }}</td>
                                     <td>{{ empl.name }}</td>
+                                    <td>{{ empl.roles.asset.propertyName }}</td>
                                     <td>{{ empl.email }} </td>
                                     <td>{{ empl.roleId ? empl.roles.roleName : 'No Role'}} </td>
                                     <td>{{ strippedContent(empl.userType) }} </td>
