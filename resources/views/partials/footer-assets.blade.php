@@ -12,7 +12,7 @@ var rootUrl = "{{url('/')}}" + '/';
 var baseUrl = rootUrl + 'admin/';
 // var apiUrl = "https://ryserved-api.vercel.app/api/";
 // var apiUrl = "http://localhost:3000/api/";
-var apiUrl = "http://165.22.63.108/api/";
+var apiUrl = "https://api.ryserved.com/api/";
 var clName = "diyc1dizi";
 var clPreset = "467722864351132";
 $(document).ready(function() {
