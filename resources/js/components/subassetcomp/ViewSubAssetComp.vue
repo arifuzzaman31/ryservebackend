@@ -358,7 +358,7 @@ export default {
                                 <th>Name</th>
                                 <th>Type</th>
                                 <th>Category</th>
-                                <th>Address</th>
+                                <th>Branch</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center" v-if="showPermission.includes('listing-type-edit')">Action</th>
                             </tr>
