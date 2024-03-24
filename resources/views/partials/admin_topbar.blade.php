@@ -3,8 +3,8 @@
 
         <ul class="navbar-nav theme-brand flex-row  text-center">
             <!-- <li class="nav-item theme-logo">
-                <a href="{{ url('admin/dashboard') }}">
-                    <img src="{{ asset('admin-assets/assets/img/footerLogo.png')}}" class="navbar-logo" alt="logo">
+                <a href="#">
+                    <img src="#" class="navbar-logo" alt="logo">
                 </a>
             </li> -->
             <li class="nav-item theme-text">
