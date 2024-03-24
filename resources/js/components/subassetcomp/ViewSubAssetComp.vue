@@ -66,38 +66,42 @@ export default {
             ],
             url: baseUrl,
             isSubmiting: false,
+            isLoading: false,
             validation_error: {},
         }
     },
     methods:{
         async getSubAssetComp(){
             try{
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                this.isLoading = true
+                const token = await this.getUserToken()
                 await axios.get(`${apiUrl}backendapi/sub-asset-component`,{
                     headers: {
-                        'Authorization': `Bearer ${token.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 })
                 .then(response => {
                     this.subassetescomp = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         async storeTable(){
-            const tok = localStorage.getItem('authuser')
-            const token = JSON.parse(tok)
+                this.isSubmiting = true
+                const token = await this.getUserToken()
             await axios.post(`${apiUrl}backendapi/table`, this.table, {
                 headers: {
-                    'Authorization': `Bearer ${token.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then((result) => {
                     if(result.status == 201){
+                        this.isSubmiting = false
                         this.successMessage({status:'success',message:'Table Created Successful'})
                         // window.location.href = baseUrl+'sub-asset-component'
                         $("#tableModal").modal('hide');
@@ -106,9 +110,11 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
         async getUserAsset() {
             try {
+                this.isLoading = true
                 const token = await this.getUserToken()
                 axios.get(`${apiUrl}backendapi/asset`, {
                         headers: {
@@ -117,15 +123,18 @@ export default {
                     })
                     .then(response => {
                         this.assets = response.data
+                        this.isLoading = false
                     }).catch(error => {
                         console.log(error)
                     })
             } catch (e) {
                 console.log(e)
             }
+            this.isLoading = false
         },
         async getSubAssetByAsset() {
             try {
+                this.isLoading = true
                 const token = await this.getUserToken()
                 this.subassets = []
                 axios.get(`${apiUrl}backendapi/sub-asset?assetId=${this.updateComponent.assetId}`, {
@@ -135,12 +144,14 @@ export default {
                     })
                     .then(response => {
                         this.subassets = response.data
+                        this.isLoading = false
                     }).catch(error => {
                         console.log(error)
                     })
             } catch (e) {
                 console.log(e)
             }
+            this.isLoading = false
         },
         async prepareSlotData() {
             const transformedData = this.slotdev.map(day => {
@@ -219,8 +230,8 @@ export default {
             $("#updateSubAssetCompModal").modal('show');
         },
         async updateSubAssetComp(){
-            const token = await this.getUserToken()
             this.isSubmiting = true
+            const token = await this.getUserToken()
             // return ;
             await this.prepareSlotData()
             // delete this.updatesubasset['businessId'];
@@ -240,6 +251,7 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
         async addATable(compo) {
             this.table.subAssetCompId = compo.id
@@ -363,7 +375,7 @@ export default {
                                 <th class="text-center" v-if="showPermission.includes('listing-type-edit')">Action</th>
                             </tr>
                         </thead>
-                    <tbody>
+                        <tbody v-if="subassetescomp && subassetescomp.length > 0">
                         <template v-for="(subassetcom,index) in subassetescomp" :key="subassetcom.id">
                             <tr>
                                 <td>{{ index+1 }}</td>
@@ -394,6 +406,11 @@ export default {
                             </tr>
                         </template>
                     </tbody>
+                    <tbody v-else>
+                            <tr class="text-center text-bold">
+                                <td colspan="7">No Data Found</td>
+                            </tr>
+                        </tbody>
                 </table>
                     </div>
                 </div>
@@ -470,7 +487,8 @@ export default {
                                 <div class="modal-footer md-button">
                                     <button class="btn" data-dismiss="modal"><i class="flaticon-cancel-12" @click="clearForm"></i> Discard</button>
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">
+                                        <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Submit</button>
 
                                 </div>
                             </form>

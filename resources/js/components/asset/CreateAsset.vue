@@ -26,21 +26,23 @@ export default {
                 about: '',
                 status: 'true'
             },
+            isSubmiting:false,
             businesses: [],
             validation_error: {},
         }
     },
     methods: {
-        createAsset(){
-            const tok = localStorage.getItem('authuser')
-            const token = JSON.parse(tok)
-            axios.post(`${apiUrl}backendapi/asset`, this.assets, {
+        async createAsset(){
+            this.isSubmiting = true
+            const token = await this.getUserToken()
+            await axios.post(`${apiUrl}backendapi/asset`, this.assets, {
                 headers: {
-                    'Authorization': `Bearer ${token.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then((result) => {
                     if(result.status == 201){
+                        this.isSubmiting = false
                         this.successMessage({status:'success',message:'New Asset Created Successful'})
                         window.location.href = baseUrl+'asset'
                     }
@@ -48,14 +50,14 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
-        getAssetByassetId(){
+        async getAssetByassetId(){
             try{
-                const tok = localStorage.getItem('authuser')
-                const token = JSON.parse(tok)
+                const token = await this.getUserToken()
                  axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
-                        'Authorization': `Bearer ${token.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 })
                 .then(response => {
@@ -250,7 +252,8 @@ export default {
             </div>
         </div>
 
-        <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">
+            <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Save</button>
     </form>
 </div>
 </template>

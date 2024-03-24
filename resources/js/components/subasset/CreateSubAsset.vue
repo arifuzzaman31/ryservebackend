@@ -20,6 +20,7 @@ export default {
                 amenities: [{name:'',icon:'',price:0,status:true}],
                 status: 'true'
             },
+            isSubmiting: false,
             amenities: [],
             businesses: [],
             assets: [],
@@ -27,17 +28,18 @@ export default {
         }
     },
     methods: {
-        createSubAsset(){
-            const tok = localStorage.getItem('authuser')
-            const token = JSON.parse(tok)
+        async createSubAsset(){
+            this.isSubmiting = true
+            const token = await this.getUserToken()
             axios.post(`${apiUrl}backendapi/sub-asset`, this.subasset, {
                 headers: {
-                    'Authorization': `Bearer ${token.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             })
                 .then((result) => {
                     // console.log(result.data)
                     if(result.status == 201){
+                        this.isSubmiting = false
                         this.successMessage({status:'success',message:'New Sub Asset Created Successful'})
                         window.location.href = baseUrl+'sub-asset'
                     }
@@ -45,6 +47,7 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
         getUserBusiness(){
             try{
@@ -136,6 +139,7 @@ export default {
                 address: '',
                 status: 'true'
             }
+            this.isSubmiting = false
             this.validation_error = {}
 
         },
@@ -321,7 +325,8 @@ export default {
             </div>
         </div>
 
-        <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">
+            <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Save</button>
     </form>
 </div>
 </template>

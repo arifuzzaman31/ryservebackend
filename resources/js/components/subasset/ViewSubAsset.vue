@@ -25,6 +25,7 @@ export default {
             assets: [],
             subassetes: [],
             isSubmiting: false,
+            isLoading: false,
             url: baseUrl,
             validation_error: {},
         }
@@ -32,6 +33,7 @@ export default {
     methods:{
         async getSubAsset(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                 await axios.get(`${apiUrl}backendapi/sub-asset`,{
                     headers: {
@@ -40,15 +42,18 @@ export default {
                 })
                 .then(response => {
                     this.subassetes = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         async getUserBusiness(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                  axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
@@ -57,15 +62,18 @@ export default {
                 })
                 .then(response => {
                     this.businesses = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         async getAssetByBusiness(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                 this.assets = []
                  axios.get(`${apiUrl}backendapi/asset?businessId=${this.updatesubasset.businessId}`,{
@@ -75,15 +83,18 @@ export default {
                 })
                 .then(response => {
                     this.assets = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         async getAmenities(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                 this.assets = []
                  axios.get(`${apiUrl}backendapi/amenities?status=yes`,{
@@ -93,12 +104,14 @@ export default {
                 })
                 .then(response => {
                     this.amenities = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         async editSubAsset(subasset){
             this.getUserBusiness();
@@ -117,6 +130,7 @@ export default {
             this.updatesubasset.status = subassetData.status.toString()
         },
         async updateSubAssetData(){
+            this.isSubmiting = true
             const token = await this.getUserToken()
             delete this.updatesubasset['businessId'];
             axios.put(`${apiUrl}backendapi/sub-asset?id=${this.updatesubasset.id}`, this.updatesubasset, {
@@ -127,6 +141,7 @@ export default {
                 .then((result) => {
                     if(result.status == 200){
                         $("#updateSubAssetModal").modal('hide');
+                        this.isSubmiting = false
                         this.successMessage({status:'success',message:'Sub Asset Updated Successful'})
                         this.getSubAsset()
                     }
@@ -134,6 +149,7 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
         removeCatChild(index) {
             if(index == 0) return ;
@@ -174,6 +190,10 @@ export default {
                 amenities: [{name:'',icon:'',price:0,status:true}],
                 status: 'true'
             }
+            this.isSubmiting = false
+            this.isLoading = false
+            this.url = baseUrl
+            this.validation_error = {}
         }
 
     },
@@ -206,7 +226,10 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center" v-if="isLoading">
+                    <div class="spinner-border text-success align-self-center loader-xl"></div>
+                </div>
+                <div class="widget-content widget-content-area" v-else>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
                     <thead>
@@ -221,7 +244,7 @@ export default {
                             <th class="text-center" v-if="showPermission.includes('listing-edit')">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="subassetes && subassetes.length > 0">
                         <template v-for="(subasset,index) in subassetes" :key="subasset.id">
                             <tr>
                                 <td>{{ index+1 }}</td>
@@ -249,6 +272,11 @@ export default {
                             </tr>
                         </template>
                     </tbody>
+                    <tbody v-else>
+                            <tr class="text-center text-bold">
+                                <td colspan="7">No Data Found</td>
+                            </tr>
+                        </tbody>
                 </table>
                     </div>
 
@@ -433,7 +461,8 @@ export default {
                                 </div>
                             </div>
 
-                            <button class="btn btn-success mt-1 btn-lg" type="submit">Update</button>
+                            <button class="btn btn-success mt-1 btn-lg" type="submit">
+                                <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Update</button>
                         </form>
                     </div>
                 </div>

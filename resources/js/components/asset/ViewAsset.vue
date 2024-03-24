@@ -27,12 +27,14 @@ export default {
             businesses: [],
             url: baseUrl,
             isSubmiting: false,
+            isLoading: false,
             validation_error: {},
         };
     },
     methods: {
         async getAsset() {
             try {
+                this.isLoading = true
                 const tok = localStorage.getItem("authuser");
                 const token = JSON.parse(tok);
                 await axios
@@ -43,7 +45,7 @@ export default {
                     })
                     .then((response) => {
                         this.assetes = response.data;
-                        // console.log(response.data)
+                        this.isLoading = false
                     })
                     .catch((error) => {
                         console.log(error);
@@ -51,6 +53,7 @@ export default {
             } catch (e) {
                 console.log(e);
             }
+            this.isLoading = false
         },
         async setupData(assetData){
                 this.updateAsset.id = assetData.id
@@ -104,6 +107,7 @@ export default {
         },
         async getBusiness(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                  axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
@@ -112,12 +116,14 @@ export default {
                 })
                 .then(response => {
                     this.businesses = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
         clearForm(){
             this.updateAsset = {
@@ -160,7 +166,7 @@ export default {
                         >
                             <h4>Branch</h4>
                             <a v-if="showPermission.includes('branch-create')"
-                                href="create/asset"
+                                :href="url+'create/asset'"
                                 class="btn btn-primary mb-2 mr-3"
                             >
                                 Create Branch
@@ -168,7 +174,10 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center" v-if="isLoading">
+                    <div class="spinner-border text-success align-self-center loader-xl"></div>
+                </div>
+                <div class="widget-content widget-content-area" v-else>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
                             <thead>
@@ -183,7 +192,7 @@ export default {
                                     <th class="text-center" v-if="showPermission.includes('branch-edit')" >Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody v-if="assetes && assetes.length > 0">
                                 <template
                                     v-for="(asset, index) in assetes"
                                     :key="asset.id"
@@ -212,6 +221,11 @@ export default {
                                     </tr>
                                 </template>
                             </tbody>
+                            <tbody v-else>
+                            <tr class="text-center text-bold">
+                                <td colspan="8">No Data Found</td>
+                            </tr>
+                        </tbody>
                         </table>
                     </div>
                 </div>

@@ -51,6 +51,7 @@ export default {
                 { dayname: 'thursday', value: 'Thursday' },
                 { dayname: 'friday', value: 'Friday' }
             ],
+            isSubmiting: false,
             validation_error: {},
         }
     },
@@ -73,6 +74,7 @@ export default {
             this.subassetcomp.slot = [...transformedData]
         },
         async createSubAssetComp() {
+            this.isSubmiting = true
             const token = await this.getUserToken()
             this.prepareData()
             await axios.post(`${apiUrl}backendapi/sub-asset-component`, this.subassetcomp, {
@@ -82,6 +84,7 @@ export default {
                 })
                 .then((result) => {
                     if (result.status == 201) {
+                        this.isSubmiting = false
                         this.successMessage({ status: 'success', message: 'Sub Asset Component Created Successful' })
                         window.location.href = baseUrl + 'sub-asset-component'
                     }
@@ -89,6 +92,7 @@ export default {
                 .catch((errors) => {
                     console.log(errors);
                 });
+                this.isSubmiting = false
         },
         async getUserAsset() {
             try {
@@ -612,7 +616,8 @@ export default {
             </div>
         </div>
 
-        <button class="btn btn-success mt-1 btn-lg" type="submit">Save</button>
+        <button class="btn btn-success mt-1 btn-lg" type="submit">
+            <div v-if="isSubmiting" class="spinner-grow text-white align-self-center loader-btn"></div>Save</button>
     </form>
 </div>
 </template>

@@ -34,12 +34,14 @@ export default {
             businesses: [],
             url: baseUrl,
             isSubmiting: false,
+            isLoading: false,
             validation_error: {},
         }
     },
     methods:{
         async getBusiness(){
             try{
+                this.isLoading = true
                 const token = await this.getUserToken()
                 axios.get(`${apiUrl}backendapi/business`,{
                     headers: {
@@ -48,12 +50,14 @@ export default {
                 })
                 .then(response => {
                     this.businesses = response.data
+                    this.isLoading = false
                 }).catch(error => {
                     console.log(error)
                 })
             }catch(e){
                 console.log(e)
             }
+            this.isLoading = false
         },
 
         deleteCampaign(id){
@@ -79,29 +83,6 @@ export default {
               }
           })
 
-        },
-
-        storeCampaign(){
-            try{
-                axios.post('campaign',this.form).then(
-                    response => {
-                        this.successMessage(response.data)
-                        $("#createCampModal").modal('hide');
-                        this.getCampaign()
-                    }
-                ). catch(e => {
-                    if(e.response.status == 422){
-                        this.validation_error = e.response.data.errors;
-                        this.validationError();
-                    }
-                })
-
-            }catch(e){
-                if(e.response.status == 422){
-                    errors.value = e.response.data.errors;
-                }
-                this.validationError();
-            }
         },
 
         clearForm(){
@@ -207,7 +188,10 @@ export default {
                         </div>
                     </div>
                 </div>
-                <div class="widget-content widget-content-area">
+                <div class="widget-content widget-content-area text-center" v-if="isLoading">
+                    <div class="spinner-border text-success align-self-center loader-xl"></div>
+                </div>
+                <div class="widget-content widget-content-area" v-else>
                     <div class="table-responsive">
                         <table class="table table-bordered table-hover mb-4">
                     <thead>
@@ -222,7 +206,7 @@ export default {
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody v-if="businesses && businesses.length > 0">
                         <template v-for="(business,index) in businesses" :key="business.id">
                             <tr>
                                 <td>{{ index+1 }}</td>
@@ -248,6 +232,11 @@ export default {
                             </tr>
                         </template>
                     </tbody>
+                    <tbody v-else>
+                            <tr class="text-center text-bold">
+                                <td colspan="8">No Data Found</td>
+                            </tr>
+                        </tbody>
                 </table>
                     </div>
                 </div>
