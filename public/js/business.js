@@ -22415,8 +22415,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         status: true
       }],
       days: [{
-        dayname: 'satarday',
-        value: 'Satarday'
+        dayname: 'saturday',
+        value: 'Saturday'
       }, {
         dayname: 'sunday',
         value: 'Sunday'
@@ -22854,8 +22854,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         status: true
       }],
       days: [{
-        dayname: 'satarday',
-        value: 'Satarday'
+        dayname: 'saturday',
+        value: 'Saturday'
       }, {
         dayname: 'sunday',
         value: 'Sunday'

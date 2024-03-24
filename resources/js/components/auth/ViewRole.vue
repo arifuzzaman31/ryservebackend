@@ -325,7 +325,7 @@ export default {
                                 <th>SL</th>
                                 <th>Branch Name</th>
                                 <th>Role Name</th>
-                                <th style="width: 60%;">Permission</th>
+                                <th style="width: 50%;">Permission</th>
                                 <th class="text-center">Action</th>
                             </tr>
                         </thead>
@@ -334,7 +334,7 @@ export default {
                                 <td>{{ index+1 }}</td>
                                 <td>{{ role.asset.propertyName }}</td>
                                 <td>{{ role.roleName }}</td>
-                                <td style="width: 60%;">{{ role.permissions.join(', ') }}</td>
+                                <td style="width: 50%;">{{ role.permissions.join(', ') }}</td>
                                 <td class="text-center">
                                     <a class="btn btn-sm btn-warning" href="javascript:void(0);" @click="editRole(role)" type="button" title="Edit">Edit</a>
                                     <a class="btn btn-sm mx-1 btn-danger" href="javascript:void(0);" @click="deleteRole(role.id)" type="button" title="Delete">Delete</a>

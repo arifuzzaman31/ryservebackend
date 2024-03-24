@@ -56,7 +56,7 @@ export default {
                 { slottime: '10 PM', value: '10 PM', status: true }, { slottime: '11 PM', value: '11 PM', status: true }
             ],
             days: [
-                { dayname: 'satarday', value: 'Satarday' },
+                { dayname: 'saturday', value: 'Saturday' },
                 { dayname: 'sunday', value: 'Sunday' },
                 { dayname: 'monday', value: 'Monday' },
                 { dayname: 'tuesday', value: 'Tuesday' },
