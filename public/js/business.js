@@ -29082,6 +29082,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     strippedContent: function strippedContent(string) {
       return string.replace(/<\/?[^>]+>/ig, " ").replace(/_/g, " ");
     },
+    camalizeString: function camalizeString(str) {
+      return str.toLowerCase().split('_').map(function (word) {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      }).join(' ');
+    },
     // removeUnderscore: function(){
     // },
     monthToString: function monthToString(month) {
