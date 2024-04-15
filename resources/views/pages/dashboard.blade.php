@@ -3,10 +3,10 @@
 <link href="{{ asset('admin-assets/assets/css/components/tabs-accordian/custom-tabs.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 @section('content')
-<div class="row layout-top-spacing">
+<div class="row">
     <div class="col-12 layout-spacing">
         <view-dashboard />
-    </div> 
+    </div>
 </div>
 @endsection
 @push('script')

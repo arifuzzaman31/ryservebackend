@@ -1,8 +1,13 @@
 <template>
-    <div class="layout-px-spacing" v-if="loaded">
-        <div class="row mt-3" style="display: flex; row-gap: 20px">
-
-            <div class="col-md-3 rounded" v-for="vl in ryservationData" :key="vl.status">
+    <div class="text-center" v-if="!loaded">
+        <div class="spinner-border text-success align-self-center loader-xl"></div>
+    </div>
+    <div class="" v-else>
+        <div class="row mt-3" style="display: flex; row-gap: 20px" >
+            <div class="col-12">
+                <h4>No. of Reservation</h4>
+            </div>
+            <div class="col-md-6 col-sm-6 col-lg-3 rounded" v-for="vl in ryservationData" :key="vl.status">
                 <div class="card" style="border-radius: 8px">
                     <div
                         class="card-body d-flex align-items-center"
@@ -59,61 +64,10 @@
                     </div>
                 </div>
             </div>
-
-            <div
-                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-            >
-                <div class="widget widget-chart-one">
-                    <div class="widget-heading">
-                        <ul class="tabs tab-pills">
-                            <li>
-                                <a
-                                    href="javascript:void(0);"
-                                    id="tb_1"
-                                    class="tabmenu"
-                                    >Current Status</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="widget-content">
-                        <div class="tabs tab-content">
-                            <div id="content_1" class="tabcontent">
-                                <customer-of-month :chartData="chartData" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-12">
+                <h4>No. of Guest</h4>
             </div>
-            <div
-                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
-            >
-                <div class="widget widget-chart-one">
-                    <div class="widget-heading">
-                        <ul class="tabs tab-pills">
-                            <li>
-                                <a
-                                    href="javascript:void(0);"
-                                    id="tb_1"
-                                    class="tabmenu"
-                                    >Current Status</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="widget-content">
-                        <div class="tabs tab-content">
-                            <div id="content_1" class="tabcontent">
-                                <customer-of-month :chartData="chartData" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3 rounded" v-for="vl in guestData" :key="vl.status">
+            <div class="col-md-6 col-sm-6 col-lg-3 rounded" v-for="vl in guestData" :key="vl.status">
                 <div class="card" style="border-radius: 8px">
                     <div
                         class="card-body d-flex align-items-center"
@@ -170,11 +124,60 @@
                     </div>
                 </div>
             </div>
+            <div
+                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
+            >
+                <div class="widget widget-chart-one">
+                    <div class="widget-heading">
+                        <ul class="tabs tab-pills">
+                            <li>
+                                <a
+                                    href="javascript:void(0);"
+                                    id="tb_1"
+                                    class="tabmenu"
+                                    >Current Status</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
 
+                    <div class="widget-content">
+                        <div class="tabs tab-content">
+                            <div id="content_1" class="tabcontent">
+                                <customer-of-month :chartData="chartData" />
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </div>
+            <div
+                class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 layout-spacing"
+            >
+                <div class="widget widget-chart-one">
+                    <div class="widget-heading">
+                        <ul class="tabs tab-pills">
+                            <li>
+                                <a
+                                    href="javascript:void(0);"
+                                    id="tb_1"
+                                    class="tabmenu"
+                                    >Current Status</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
 
-
+                    <div class="widget-content">
+                        <div class="tabs tab-content">
+                            <div id="content_1" class="tabcontent">
+                                <customer-of-month :chartData="chartData" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
