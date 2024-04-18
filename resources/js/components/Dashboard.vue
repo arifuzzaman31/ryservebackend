@@ -135,7 +135,7 @@
                                     href="javascript:void(0);"
                                     id="tb_1"
                                     class="tabmenu"
-                                    >Current Status</a
+                                    >Status</a
                                 >
                             </li>
                         </ul>
@@ -161,7 +161,7 @@
                                     href="javascript:void(0);"
                                     id="tb_1"
                                     class="tabmenu"
-                                    >Current Status</a
+                                    >This Year Income</a
                                 >
                             </li>
                         </ul>
@@ -170,7 +170,7 @@
                     <div class="widget-content">
                         <div class="tabs tab-content">
                             <div id="content_1" class="tabcontent">
-                                <customer-of-month :chartData="chartData" />
+                                <customer-of-month :chartData="yearData" />
                             </div>
                         </div>
                     </div>
@@ -193,6 +193,7 @@ export default {
             ryservationData: null,
             guestData: null,
             chartData: null,
+            yearData: null,
             loaded: false,
             url: apiUrl
         };
@@ -227,20 +228,20 @@ export default {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((response) => {
-                this.ryservationData = response.data
-                this.guestData = response.data.map(obj => ({
+                this.ryservationData = response.data.statusData
+                this.guestData = response.data.statusData.map(obj => ({
                         ...obj,
                         status: this.camalizeString(obj.status),
                         text: this.makeStatusText(obj.status)
                     }));
                 this.chartData = {
-                    labels: response.data.map(
+                    labels: response.data.statusData.map(
                         (item) => this.camalizeString(item.status)
                     ),
                     datasets: [
                         {
                             label: "Ryservation",
-                            data: response.data.map(
+                            data: response.data.statusData.map(
                                 (item) => item._count
                             ),
                             backgroundColor: [
@@ -254,6 +255,46 @@ export default {
                                 "rgb(255, 159, 64)",
                                 "rgb(255, 205, 86)",
                                 "rgb(75, 192, 192)"
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+
+                const mData = Object.keys(response.data.monthData)
+                this.yearData = {
+                    labels: mData,
+                    datasets: [
+                        {
+                            label: "Income",
+                            data: mData.map(v =>  response.data.monthData[v]),
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.2)",
+                                "rgba(255, 159, 64, 0.2)",
+                                "rgba(255, 205, 86, 0.2)",
+                                "rgba(75, 192, 192, 0.2)",
+                                "rgba(54, 162, 235, 0.2)",
+                                "rgba(153, 102, 255, 0.2)",
+                                "rgba(201, 203, 207, 0.2)",
+                                "rgba(255, 51, 51, 0.2)",
+                                "rgba(51, 153, 255, 0.2)",
+                                "rgba(255, 102, 255, 0.2)",
+                                "rgba(255, 229, 204, 0.2)",
+                                "rgba(102, 255, 102, 0.2)",
+                            ],
+                            borderColor: [
+                                "rgb(255, 99, 132)",
+                                "rgb(255, 159, 64)",
+                                "rgb(255, 205, 86)",
+                                "rgb(75, 192, 192)",
+                                "rgb(54, 162, 235)",
+                                "rgb(153, 102, 255)",
+                                "rgb(201, 203, 207)",
+                                "rgb(255, 51, 51)",
+                                "rgb(51, 153, 255)",
+                                "rgb(255, 102, 255)",
+                                "rgb(255, 229, 204)",
+                                "rgb(102, 255, 102)",
                             ],
                             borderWidth: 1,
                         },

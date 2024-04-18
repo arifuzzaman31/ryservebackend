@@ -156,7 +156,7 @@ export default {
                                 <div id="tooltips" class="col-lg-12 col-md-12">
                                     <div class="widget-content ">
                                         <label for="editor-container">About</label>
-                                        <QuillEditor theme="snow" v-model:content="assets.about" contentType="html" />
+                                        <QuillEditor theme="snow" v-model:content="assets.about" contentType="html" placeholder="Write Description/House Rules" />
                                     </div>
                                 </div>
                             </div>
@@ -203,7 +203,7 @@ export default {
                             </div>
 
                             <div class="col-md-6 mb-3">
-                                <label for="location_point">Location- Location link from Google Map</label>
+                                <label for="location_point">Location link from Google Map</label>
                                 <input type="text" class="form-control form-control-sm" :class="validation_error.hasOwnProperty('location_point') ? 'is-invalid' : ''" id="location_point" placeholder="google Location Link" v-model="assets.locationPoint" >
                                 <div
                                         v-if="validation_error.hasOwnProperty('locationPoint')"

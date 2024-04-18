@@ -188,6 +188,9 @@ export default {
             <li>
                 <a :href="url+'upcoming-reservation-report'"> Upcoming Reservation </a>
             </li>
+            <li>
+                <a :href="url+'completed-reservation-report'"> Completed Reservation </a>
+            </li>
         </ul>
     </li>
     <li class="menu" id="ReservationMenu" v-if="showPermission.includes('reservation-view')">

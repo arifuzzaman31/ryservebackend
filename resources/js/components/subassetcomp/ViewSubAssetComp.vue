@@ -347,7 +347,7 @@ export default {
 
 <template>
     <div class="row">
-        <div id="tableHover" class="col-lg-12 col-12 layout-spacing">
+        <div id="tableHover" class="col-lg-12 col-12">
             <div class="statbox widget box box-shadow">
                 <div class="widget-header">
                     <div class="row">
@@ -520,8 +520,8 @@ export default {
                                         <option value="">Choose Asset Type...</option>
                                         <option value="HOTEL">HOTEL</option>
                                         <option value="RESTAURANT">RESTAURANT</option>
-                                        <option value="SERVICE_APARTMENT">SERVICE_APARTMENT</option>
-                                        <option value="MOVIE_THEATER">MOVIE_THEATER</option>
+                                        <option value="SERVICE_APARTMENT">SERVICE APARTMENT</option>
+                                        <option value="MOVIE_THEATER">MOVIE THEATER</option>
                                         <option value="SPA">SPA</option>
                                         <option value="OTHERS">OTHERS</option>
                                     </select>

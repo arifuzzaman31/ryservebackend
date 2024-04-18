@@ -23861,7 +23861,7 @@ var _hoisted_43 = {
 var _hoisted_44 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "location_point"
-  }, "Location- Location link from Google Map", -1 /* HOISTED */);
+  }, "Location link from Google Map", -1 /* HOISTED */);
 });
 var _hoisted_45 = {
   key: 0,
@@ -23966,7 +23966,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:content": _cache[3] || (_cache[3] = function ($event) {
       return $data.assets.about = $event;
     }),
-    contentType: "html"
+    contentType: "html",
+    placeholder: "Write Description/House Rules"
   }, null, 8 /* PROPS */, ["content"])])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_30, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [_hoisted_35, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control form-control-sm", $data.validation_error.hasOwnProperty('country') ? 'is-invalid' : '']),
@@ -26200,7 +26201,7 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
     "class": "row"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Sub Asset")])], -1 /* HOISTED */);
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Create New Listing")])], -1 /* HOISTED */);
 });
 var _hoisted_3 = {
   "class": "row"
@@ -27059,7 +27060,7 @@ var _hoisted_8 = {
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "service_type"
 }, "Type", -1 /* HOISTED */);
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\">Choose Asset Type...</option><option value=\"HOTEL\">HOTEL</option><option value=\"RESTAURANT\">RESTAURANT</option><option value=\"SERVICE_APARTMENT\">SERVICE_APARTMENT</option><option value=\"MOVIE_THEATER\">MOVIE_THEATER</option><option value=\"SPA\">SPA</option><option value=\"OTHERS\">OTHERS</option>", 7);
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\">Choose Asset Type...</option><option value=\"HOTEL\">HOTEL</option><option value=\"RESTAURANT\">RESTAURANT</option><option value=\"SERVICE_APARTMENT\">SERVICE APARTMENT</option><option value=\"MOVIE_THEATER\">MOVIE THEATER</option><option value=\"SPA\">SPA</option><option value=\"OTHERS\">OTHERS</option>", 7);
 var _hoisted_17 = [_hoisted_10];
 var _hoisted_18 = {
   key: 0,
@@ -27782,7 +27783,7 @@ var _hoisted_1 = {
 };
 var _hoisted_2 = {
   id: "tableHover",
-  "class": "col-lg-12 col-12 layout-spacing"
+  "class": "col-lg-12 col-12"
 };
 var _hoisted_3 = {
   "class": "statbox widget box box-shadow"
@@ -28120,7 +28121,7 @@ var _hoisted_92 = /*#__PURE__*/_withScopeId(function () {
     "for": "service_type"
   }, "Type", -1 /* HOISTED */);
 });
-var _hoisted_93 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-313c7739>Choose Asset Type...</option><option value=\"HOTEL\" data-v-313c7739>HOTEL</option><option value=\"RESTAURANT\" data-v-313c7739>RESTAURANT</option><option value=\"SERVICE_APARTMENT\" data-v-313c7739>SERVICE_APARTMENT</option><option value=\"MOVIE_THEATER\" data-v-313c7739>MOVIE_THEATER</option><option value=\"SPA\" data-v-313c7739>SPA</option><option value=\"OTHERS\" data-v-313c7739>OTHERS</option>", 7);
+var _hoisted_93 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<option value=\"\" data-v-313c7739>Choose Asset Type...</option><option value=\"HOTEL\" data-v-313c7739>HOTEL</option><option value=\"RESTAURANT\" data-v-313c7739>RESTAURANT</option><option value=\"SERVICE_APARTMENT\" data-v-313c7739>SERVICE APARTMENT</option><option value=\"MOVIE_THEATER\" data-v-313c7739>MOVIE THEATER</option><option value=\"SPA\" data-v-313c7739>SPA</option><option value=\"OTHERS\" data-v-313c7739>OTHERS</option>", 7);
 var _hoisted_100 = [_hoisted_93];
 var _hoisted_101 = {
   key: 0,

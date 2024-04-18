@@ -37,7 +37,7 @@ export default {
                 startDate: '',
                 endDate: '',
                 slot: '',
-                status: 'CONFIRMED',
+                status: 'COMPLETED',
                 guestNumber: 1
             },
             slotten: '',
@@ -133,7 +133,7 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Revenue</h4>
+                            <h4>Completed Reserve</h4>
                         </div>
                     </div>
                 </div>
@@ -142,24 +142,6 @@ export default {
                 </div>
                 <div class="widget-content widget-content-area" v-else>
                     <div class="row mb-2">
-                        <!-- <div class="col-md-2 col-lg-2 col-12">
-                            <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.status">
-                                <option selected="" value="">Choose...</option>
-                                <option value="CONFIRMED">Confirmed</option>
-                                <option value="DEACTIVE">Deactive</option>
-                                <option value="ON_HOLD">On Hold</option>
-                                <option value="CANCELED">Canceled</option>
-                                <option value="COMPLETED">Completed</option>
-                            </select>
-                        </div> -->
-                        <!-- <div class="col-md-2 col-lg-2 col-12">
-                            <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.isEvent">
-                                <option selected="" value="">All</option>
-                                <option value="Regular">Regular</option>
-                                <option value="event">Event</option>
-                            </select>
-                        </div> -->
-
                         <div class="col-md-3 col-lg-3 col-12">
                             <input type="text" onfocus="(this.type='date')" v-model="filterdata.startDate" class="form-control form-control-sm" placeholder="Start Date">
                         </div>
@@ -182,11 +164,14 @@ export default {
                                     <th>Property Name</th>
                                     <th>Customer Name</th>
                                     <th>Phone</th>
-                                    <!-- <th>Guest</th> -->
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <!-- <th>Type</th> -->
-                                    <th>Total</th>
+                                    <th>Slot</th>
+                                    <th>No. of Guests</th>
+                                    <th>Assigned Table</th>
+                                    <th>Special Requests</th>
+                                    <th>Pre Order</th>
+                                    <th>Membership Type</th>
+                                    <th>Reference</th>
+                                    <th>Remarks </th>
                                     <th class="text-center">Status</th>
                                 </tr>
                             </thead>
@@ -197,11 +182,14 @@ export default {
                                     <td>{{ ryserve.subAssetComponent.listingName }}</td>
                                     <td>{{ ryserve.customerName }}</td>
                                     <td>{{ ryserve.phoneNumber }}</td>
-                                    <!-- <td class="text-center">{{ ryserve.guestNumber }}</td> -->
-                                    <td>{{ dateToString(ryserve.startDate) }}</td>
                                     <td>{{ ryserve.slot }}</td>
-                                    <!-- <td>{{ ryserve.bookingType }}</td> -->
-                                    <td>{{ ryserve.grandTotal }}</td>
+                                    <td class="text-center">{{ ryserve.guestNumber }}</td>
+                                    <td>{{ ryserve?.table?.type }} - {{ ryserve?.table?.capacity }}</td>
+                                    <td>{{ ryserve?.customerRequest }}</td>
+                                    <td></td>
+                                    <td>Regular</td>
+                                    <td>Ryserved Apps</td>
+                                    <td>{{ ryserve?.comment }}</td>
                                     <td class="text-center">
                                        <span v-if="ryserve.status == 'CONFIRMED'" class="badge badge-success">Confirmed</span>
                                         <span v-if="ryserve.status == 'DEACTIVE'" class="badge badge-warning">Deactive</span>
@@ -214,7 +202,7 @@ export default {
                             </tbody>
                             <tbody v-else>
                                 <tr class="text-center text-bold">
-                                    <td colspan="8">No Data Found</td>
+                                    <td colspan="13">No Data Found</td>
                                 </tr>
                             </tbody>
                 </table>

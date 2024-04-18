@@ -19736,6 +19736,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       ryservationData: null,
       guestData: null,
       chartData: null,
+      yearData: null,
       loaded: false,
       url: apiUrl
     };
@@ -19778,24 +19779,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'Authorization': "Bearer ".concat(token)
                 }
               }).then(function (response) {
-                _this.ryservationData = response.data;
-                _this.guestData = response.data.map(function (obj) {
+                _this.ryservationData = response.data.statusData;
+                _this.guestData = response.data.statusData.map(function (obj) {
                   return _objectSpread(_objectSpread({}, obj), {}, {
                     status: _this.camalizeString(obj.status),
                     text: _this.makeStatusText(obj.status)
                   });
                 });
                 _this.chartData = {
-                  labels: response.data.map(function (item) {
+                  labels: response.data.statusData.map(function (item) {
                     return _this.camalizeString(item.status);
                   }),
                   datasets: [{
                     label: "Ryservation",
-                    data: response.data.map(function (item) {
+                    data: response.data.statusData.map(function (item) {
                       return item._count;
                     }),
                     backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)"],
                     borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)"],
+                    borderWidth: 1
+                  }]
+                };
+                var mData = Object.keys(response.data.monthData);
+                _this.yearData = {
+                  labels: mData,
+                  datasets: [{
+                    label: "Income",
+                    data: mData.map(function (v) {
+                      return response.data.monthData[v];
+                    }),
+                    backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 51, 51, 0.2)", "rgba(51, 153, 255, 0.2)", "rgba(255, 102, 255, 0.2)", "rgba(255, 229, 204, 0.2)", "rgba(102, 255, 102, 0.2)"],
+                    borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 51, 51)", "rgb(51, 153, 255)", "rgb(255, 102, 255)", "rgb(255, 229, 204)", "rgb(102, 255, 102)"],
                     borderWidth: 1
                   }]
                 };
@@ -21166,7 +21180,7 @@ var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   href: "javascript:void(0);",
   id: "tb_1",
   "class": "tabmenu"
-}, "Current Status")])])], -1 /* HOISTED */);
+}, "Status")])])], -1 /* HOISTED */);
 var _hoisted_25 = {
   "class": "widget-content"
 };
@@ -21191,7 +21205,7 @@ var _hoisted_30 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   href: "javascript:void(0);",
   id: "tb_1",
   "class": "tabmenu"
-}, "Current Status")])])], -1 /* HOISTED */);
+}, "This Year Income")])])], -1 /* HOISTED */);
 var _hoisted_31 = {
   "class": "widget-content"
 };
@@ -21217,7 +21231,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128 /* KEYED_FRAGMENT */)), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_23, [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_25, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_27, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_customer_of_month, {
     chartData: $data.chartData
   }, null, 8 /* PROPS */, ["chartData"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_customer_of_month, {
-    chartData: $data.chartData
+    chartData: $data.yearData
   }, null, 8 /* PROPS */, ["chartData"])])])])])])])]));
 }
 
