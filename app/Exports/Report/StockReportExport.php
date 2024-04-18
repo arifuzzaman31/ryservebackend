@@ -21,26 +21,7 @@ class StockReportExport implements FromView,WithStyles
     */
     public function view(): View
     {
-        // return Inventory::all();
-        $data = Inventory::with('product.category:id,category_name','product.subcategory:id,category_name',
-        'product.product_brand:id,brand_name','product.product_fabric:id,fabric_name','colour:id,color_name',
-        'product.product_size:id,size_name','product.product_designer:id,designer_name','product.product_embellishment:id,embellishment_name',
-        'product.product_making:id,making_name','product.product_season:id,season_name','product.product_variety:id,variety_name',
-        'product.product_fit:id,fit_name','product.product_artist:id,artist_name','product.product_consignment:id,consignment_name',
-        'product.product_ingredient:id,ingredient_name')
-        ->selectRaw('order_details.product_id, sum(quantity) as sales_quantity,inventories.stock as current_stock,inventories.sku as p_sku,inventories.colour_id,inventories.size_id,inventories.created_at')
-        ->leftJoin('order_details', 'inventories.product_id', '=', 'order_details.product_id')
-        ->whereColumn('inventories.product_id', 'order_details.product_id')
-        ->whereColumn('inventories.colour_id', 'order_details.colour_id')
-        ->whereColumn('inventories.size_id', 'order_details.size_id')
-        ->groupBy('p_sku')
-        ->groupBy('order_details.product_id')
-        ->groupBy('current_stock')
-        ->groupBy('inventories.colour_id')
-        ->groupBy('inventories.size_id')
-        ->groupBy('inventories.created_at')
-        ->orderByDesc('sales_quantity')->get();
-        
+        $data = [];
         return view('pages.report.excel.stock_report',['stockdata' => $data]);
     }
 

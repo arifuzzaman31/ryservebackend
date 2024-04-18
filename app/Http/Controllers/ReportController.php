@@ -19,67 +19,37 @@ use Illuminate\Support\Facades\DB;
 
 class ReportController extends Controller
 {
-    public function stockReport(Request $request)
+    public function revenueReport(Request $request)
     {
         try {
             $from   = $request->get('date_from');
             $to   = $request->get('date_to');
-            $to = date('Y-m-d', strtotime("+1 day", strtotime($to)));
-            $category   = $request->get('category');
-            $subcategory   = $request->get('subcategory');
-            $brand   = $request->get('brand');
-            $keyword   = $request->get('keyword');
+            $token   = $request->get('token');
+            $token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmJmYjZkYzRiMWU1MTdkNDhlNjE0NCIsIm5hbWUiOiJXZWJhYmxlIERpZ2l0YWwiLCJlbWFpbCI6IndlYmFibGVAZGlnaXRhbC5jb20iLCJwaG9uZU51bWJlciI6IjAxNTg4MDc5Mzg1IiwicGxhdGZvcm0iOiJEQVNIQk9BUkRfVVNFUiIsImlhdCI6MTcxMzQxNzMxMCwiZXhwIjoxNzQ0OTUzMzEwfQ.2aw97araoiuFG4FY3ADKfLgSzPBIJC18Bdt-RzkBuVQ";
+            // $to = date('Y-m-d', strtotime("+1 day", strtotime($to)));
+            // return $token;
             if($request->excel == 'yes'){
+                $curl = curl_init();
+                curl_setopt_array($curl, array(
+                CURLOPT_URL => "http://localhost:3000/api/backendapi/report",
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                CURLOPT_HTTPHEADER => array(
+                "Authorization: Bearer $token"
+                ),
+                ));
+
+                $response = curl_exec($curl);
+                $data = json_decode($response, true);
+                curl_close($curl);
+                return response()->json(['dt' => $data]);
                 return \Excel::download(new StockReportExport($from,$to),'stock_report.xlsx');
             }
-            $dataQty = $request->get('per_page') ? $request->get('per_page') : 12;
-
-            $data = Inventory::with('product.category:id,category_name','product.subcategory:id,category_name',
-                'product.product_brand:id,brand_name','product.product_fabric:id,fabric_name','colour:id,color_name',
-                'product.product_size:id,size_name','product.product_designer:id,designer_name','product.product_embellishment:id,embellishment_name',
-                'product.product_making:id,making_name','product.product_season:id,season_name','product.product_variety:id,variety_name',
-                'product.product_fit:id,fit_name','product.product_artist:id,artist_name','product.product_consignment:id,consignment_name',
-                'product.product_ingredient:id,ingredient_name')
-                ->selectRaw('order_details.product_id, sum(quantity) as sales_quantity,inventories.stock as current_stock,inventories.sku as p_sku,
-                inventories.colour_id,inventories.size_id')
-                ->leftJoin('order_details', 'inventories.product_id', '=', 'order_details.product_id')
-                ->whereColumn('inventories.product_id', 'order_details.product_id')
-                ->whereColumn('inventories.colour_id', 'order_details.colour_id')
-                ->whereColumn('inventories.size_id', 'order_details.size_id')
-                ->groupBy('p_sku')
-                ->groupBy('order_details.product_id')
-                ->groupBy('current_stock')
-                ->groupBy('inventories.colour_id')
-                ->groupBy('inventories.size_id')
-                //->groupBy('inventories.created_at')
-                ->orderByDesc('sales_quantity');
-                if($category != '' ){
-                    $data = $data->whereHas('product', function ($q) use ($category,$subcategory) {
-                        $q->where('category_id',$category)
-                        ->where('sub_category_id',$subcategory);
-
-                    });
-                }
-                if($brand != ''){
-                    $data = $data->whereHas('product', function ($q) use ($brand) {
-                        $q->whereHas('product_brand', function ($q) use ($brand){
-                            $q->where('brand_id',$brand);
-                        });
-                    });
-                }
-                if($keyword != ''){
-                    $data = $data->where('sku','like','%'.$keyword.'%')
-                    ->orWhereHas('product', function ($q) use ($keyword) {
-                        $q->where('design_code','like','%'.$keyword.'%');
-                    });
-                }
-                if($from != '' && $to != ''){
-                    $data->whereBetween('order_details.created_at', [$from,$to]);
-                }
-                $data = $data->paginate($dataQty);
-
-
-            return response()->json($data);
 
         } catch (\Throwable $th) {
             // return $th;

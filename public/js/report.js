@@ -20086,13 +20086,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[0, 10]]);
       }))();
     },
-    filterClear: function filterClear() {
+    loadExcel: function loadExcel() {
       var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var token, hit;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this4.filterdata = {
+              _context4.next = 2;
+              return _this4.getUserToken();
+            case 2:
+              token = _context4.sent;
+              _context4.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(_this4.url, "revenue/report?token=").concat(token, "&startDate=").concat(_this4.filterdata.startDate, "&endDate=").concat(_this4.filterdata.endDate));
+            case 5:
+              hit = _context4.sent;
+              console.log(hit.data);
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    filterClear: function filterClear() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _this5.filterdata = {
                 startDate: '',
                 endDate: '',
                 slot: '',
@@ -20100,38 +20123,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 isEvent: '',
                 search: ''
               };
-              _this4.getBooking();
+              _this5.getBooking();
             case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }))();
-    },
-    filterSubmit: function filterSubmit() {
-      var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              _this5.currentPage = 1;
-              _this5.perPage = 10;
-              _context5.next = 4;
-              return _this5.getBooking();
-            case 4:
             case "end":
               return _context5.stop();
           }
         }, _callee5);
       }))();
     },
-    clearForm: function clearForm() {
+    filterSubmit: function filterSubmit() {
       var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _this6.filterdata = {
+              _this6.currentPage = 1;
+              _this6.perPage = 10;
+              _context6.next = 4;
+              return _this6.getBooking();
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    clearForm: function clearForm() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this7.filterdata = {
                 startDate: '',
                 endDate: '',
                 slot: '',
@@ -20141,9 +20164,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               };
             case 1:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     }
   },
@@ -20736,7 +20759,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.nextData();
     })
-  }, "Next")])])])]))])])]);
+  }, "Next")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex justify-content-end\">\n                        <button @click.prevent=\"loadExcel()\" type=\"button\" class=\"btn btn-primary\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-download\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"7 10 12 15 17 10\"></polyline><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"></line></svg>  Excel</button>\n                    </div> ")]))])])]);
 }
 
 /***/ }),

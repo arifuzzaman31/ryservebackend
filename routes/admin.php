@@ -158,8 +158,8 @@ Route::view('order-report', 'pages.report.order_report')->name('order.report');
 
 Route::controller(ReportController::class)->group(function(){
     Route::get('pdf-report', 'makePdf')->name('pdf-report'); //for demo pdf
+    Route::get('revenue/report', 'revenueReport');
     Route::view('stock-report', 'pages.report.stock_report')->name('stock.report');
-    Route::get('get-stock-report', 'stockReport');
     Route::view('payment-report', 'pages.report.payment_report')->name('payment.report');
     Route::get('get-payment-report', 'individualCustomerReport');
     Route::view('individual-customer', 'pages.report.individual_customer')->name('individual-customer.report');
