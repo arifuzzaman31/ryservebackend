@@ -93,8 +93,21 @@ export default {
         },
         async loadExcel(){
             const token = await this.getUserToken()
-            const hit = await axios.get(`${this.url}revenue/report?token=${token}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}`)
-            console.log(hit.data)
+            const hit = await axios.get(`${apiUrl}backendapi/report?excel=yes&from=revenue&status=COMPLETED&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}`,{
+                responseType: 'blob',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            // console.log(hit.data)
+            // Create a URL for the blob data
+            const url = window.URL.createObjectURL(new Blob([hit.data]));
+            // Create a link and click it to trigger download
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'report.xlsx');
+            document.body.appendChild(link);
+            link.click();
         },
         async filterClear(){
             this.filterdata = {
@@ -229,9 +242,9 @@ export default {
                             <li class="next"><a href="javascript:void(0);" type="button" @click="nextData()">Next</a></li>
                         </ul>
                     </div>
-                    <!-- <div class="d-flex justify-content-end">
+                    <div class="d-flex justify-content-end">
                         <button @click.prevent="loadExcel()" type="button" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>  Excel</button>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>

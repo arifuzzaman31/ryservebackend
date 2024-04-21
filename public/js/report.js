@@ -19860,13 +19860,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee3, null, [[0, 10]]);
       }))();
     },
-    filterClear: function filterClear() {
+    loadExcel: function loadExcel() {
       var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var token, hit, url, link;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
-              _this4.filterdata = {
+              _context4.next = 2;
+              return _this4.getUserToken();
+            case 2:
+              token = _context4.sent;
+              _context4.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/report?excel=yes&from=completed&status=COMPLETED&startDate=").concat(_this4.filterdata.startDate, "&endDate=").concat(_this4.filterdata.endDate), {
+                responseType: 'blob',
+                headers: {
+                  'Authorization': "Bearer ".concat(token)
+                }
+              });
+            case 5:
+              hit = _context4.sent;
+              url = window.URL.createObjectURL(new Blob([hit.data]));
+              link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'report.xlsx');
+              document.body.appendChild(link);
+              link.click();
+            case 12:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    filterClear: function filterClear() {
+      var _this5 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _this5.filterdata = {
                 startDate: '',
                 endDate: '',
                 slot: '',
@@ -19874,38 +19907,38 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 isEvent: '',
                 search: ''
               };
-              _this4.getBooking();
+              _this5.getBooking();
             case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }, _callee4);
-      }))();
-    },
-    filterSubmit: function filterSubmit() {
-      var _this5 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
-        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-          while (1) switch (_context5.prev = _context5.next) {
-            case 0:
-              _this5.currentPage = 1;
-              _this5.perPage = 10;
-              _context5.next = 4;
-              return _this5.getBooking();
-            case 4:
             case "end":
               return _context5.stop();
           }
         }, _callee5);
       }))();
     },
-    clearForm: function clearForm() {
+    filterSubmit: function filterSubmit() {
       var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _this6.filterdata = {
+              _this6.currentPage = 1;
+              _this6.perPage = 10;
+              _context6.next = 4;
+              return _this6.getBooking();
+            case 4:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    clearForm: function clearForm() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this7.filterdata = {
                 startDate: '',
                 endDate: '',
                 slot: '',
@@ -19915,9 +19948,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               };
             case 1:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     }
   },
@@ -20089,7 +20122,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     loadExcel: function loadExcel() {
       var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
-        var token, hit;
+        var token, hit, url, link;
         return _regeneratorRuntime().wrap(function _callee4$(_context4) {
           while (1) switch (_context4.prev = _context4.next) {
             case 0:
@@ -20098,11 +20131,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               token = _context4.sent;
               _context4.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(_this4.url, "revenue/report?token=").concat(token, "&startDate=").concat(_this4.filterdata.startDate, "&endDate=").concat(_this4.filterdata.endDate));
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/report?excel=yes&from=revenue&status=COMPLETED&startDate=").concat(_this4.filterdata.startDate, "&endDate=").concat(_this4.filterdata.endDate), {
+                responseType: 'blob',
+                headers: {
+                  'Authorization': "Bearer ".concat(token)
+                }
+              });
             case 5:
               hit = _context4.sent;
-              console.log(hit.data);
-            case 7:
+              // console.log(hit.data)
+              // Create a URL for the blob data
+              url = window.URL.createObjectURL(new Blob([hit.data])); // Create a link and click it to trigger download
+              link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'report.xlsx');
+              document.body.appendChild(link);
+              link.click();
+            case 12:
             case "end":
               return _context4.stop();
           }
@@ -20374,13 +20419,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee5);
       }))();
     },
-    clearForm: function clearForm() {
+    loadExcel: function loadExcel() {
       var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var token, hit, url, link;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
-              _this6.filterdata = {
+              _context6.next = 2;
+              return _this6.getUserToken();
+            case 2:
+              token = _context6.sent;
+              _context6.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_0___default().get("".concat(apiUrl, "backendapi/report?excel=yes&from=upcomming&status=CONFIRMED&startDate=").concat(_this6.filterdata.startDate, "&endDate=").concat(_this6.filterdata.endDate), {
+                responseType: 'blob',
+                headers: {
+                  'Authorization': "Bearer ".concat(token)
+                }
+              });
+            case 5:
+              hit = _context6.sent;
+              url = window.URL.createObjectURL(new Blob([hit.data]));
+              link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'report.xlsx');
+              document.body.appendChild(link);
+              link.click();
+            case 12:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    clearForm: function clearForm() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this7.filterdata = {
                 startDate: '',
                 endDate: '',
                 slot: '',
@@ -20390,9 +20468,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               };
             case 1:
             case "end":
-              return _context6.stop();
+              return _context7.stop();
           }
-        }, _callee6);
+        }, _callee7);
       }))();
     }
   },
@@ -20539,6 +20617,33 @@ var _hoisted_33 = {
 var _hoisted_34 = {
   "class": "next"
 };
+var _hoisted_35 = {
+  "class": "d-flex justify-content-end"
+};
+var _hoisted_36 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "2",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+    "class": "feather feather-download"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+    d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("polyline", {
+    points: "7 10 12 15 17 10"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("line", {
+    x1: "12",
+    y1: "15",
+    x2: "12",
+    y2: "3"
+  })], -1 /* HOISTED */);
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -20585,7 +20690,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.nextData();
     })
-  }, "Next")])])])]))])])]);
+  }, "Next")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $options.loadExcel();
+    }, ["prevent"])),
+    type: "button",
+    "class": "btn btn-primary"
+  }, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Excel")])])]))])])]);
 }
 
 /***/ }),
@@ -20714,6 +20825,33 @@ var _hoisted_29 = {
 var _hoisted_30 = {
   "class": "next"
 };
+var _hoisted_31 = {
+  "class": "d-flex justify-content-end"
+};
+var _hoisted_32 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "2",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+    "class": "feather feather-download"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+    d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("polyline", {
+    points: "7 10 12 15 17 10"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("line", {
+    x1: "12",
+    y1: "15",
+    x2: "12",
+    y2: "3"
+  })], -1 /* HOISTED */);
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-md-2 col-lg-2 col-12\">\n                            <select id=\"product-camp\" class=\"form-control  form-control-sm\" v-model=\"filterdata.status\">\n                                <option selected=\"\" value=\"\">Choose...</option>\n                                <option value=\"CONFIRMED\">Confirmed</option>\n                                <option value=\"DEACTIVE\">Deactive</option>\n                                <option value=\"ON_HOLD\">On Hold</option>\n                                <option value=\"CANCELED\">Canceled</option>\n                                <option value=\"COMPLETED\">Completed</option>\n                            </select>\n                        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"col-md-2 col-lg-2 col-12\">\n                            <select id=\"product-camp\" class=\"form-control  form-control-sm\" v-model=\"filterdata.isEvent\">\n                                <option selected=\"\" value=\"\">All</option>\n                                <option value=\"Regular\">Regular</option>\n                                <option value=\"event\">Event</option>\n                            </select>\n                        </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -20759,7 +20897,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.nextData();
     })
-  }, "Next")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"d-flex justify-content-end\">\n                        <button @click.prevent=\"loadExcel()\" type=\"button\" class=\"btn btn-primary\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"feather feather-download\"><path d=\"M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4\"></path><polyline points=\"7 10 12 15 17 10\"></polyline><line x1=\"12\" y1=\"15\" x2=\"12\" y2=\"3\"></line></svg>  Excel</button>\n                    </div> ")]))])])]);
+  }, "Next")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $options.loadExcel();
+    }, ["prevent"])),
+    type: "button",
+    "class": "btn btn-primary"
+  }, [_hoisted_32, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Excel")])])]))])])]);
 }
 
 /***/ }),
@@ -20900,6 +21044,33 @@ var _hoisted_33 = {
 var _hoisted_34 = {
   "class": "next"
 };
+var _hoisted_35 = {
+  "class": "d-flex justify-content-end"
+};
+var _hoisted_36 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    "stroke-width": "2",
+    "stroke-linecap": "round",
+    "stroke-linejoin": "round",
+    "class": "feather feather-download"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("path", {
+    d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("polyline", {
+    points: "7 10 12 15 17 10"
+  }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("line", {
+    x1: "12",
+    y1: "15",
+    x2: "12",
+    y2: "3"
+  })], -1 /* HOISTED */);
+});
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, $data.isLoading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, _hoisted_7)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -20946,7 +21117,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[5] || (_cache[5] = function ($event) {
       return $options.nextData();
     })
-  }, "Next")])])])]))])])]);
+  }, "Next")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $options.loadExcel();
+    }, ["prevent"])),
+    type: "button",
+    "class": "btn btn-primary"
+  }, [_hoisted_36, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Excel")])])]))])])]);
 }
 
 /***/ }),
