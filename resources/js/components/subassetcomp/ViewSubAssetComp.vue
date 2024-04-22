@@ -33,6 +33,7 @@ export default {
                     eventIcon:'',
                     slot:''
                 },
+                cuisines: [],
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
                 pricing: [{ id:'', itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm',
@@ -47,6 +48,8 @@ export default {
             subassetescomp: [],
             assets: [],
             subassets: [],
+            cuisineList : [{name:"American",value:"American"},{name:"Chinese",value:"Chinese"},{name:"Italian",value:"Italian"},
+            {name:"Spanish",value:"Spanish"},{name:"French",value:"French"},{name:"Indian",value:"Indian"},{name:"Bengali",value:"Bengali"}],
             slotdev: [{ dayname: '', sl: [] }],
             makeSlot: [{ slottime: '6 AM', value: '6 AM', status: true },{ slottime: '7 AM', value: '7 AM', status: true }, { slottime: '8 AM', value: '8 AM', status: true }, { slottime: '9 AM', value: '9 AM', status: true },
                 { slottime: '10 AM', value: '10 AM', status: true }, { slottime: '11 AM', value: '11 AM', status: true }, { slottime: '12 PM', value: '12 PM', status: true },
@@ -186,6 +189,8 @@ export default {
                 }
             }
             // slot: [],
+            this.updateComponent.cuisines = compdata.cuisines
+
             this.slotdev = compdata.slot.map((item) => {
                 for (const [key, value] of Object.entries(item)) {
                     let dt = value.map(v => v.slottime)
@@ -839,7 +844,44 @@ export default {
                 </div>
             </div>
         </div>
-
+        <div class="row">
+            <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
+                <div class="statbox widget box ">
+                    <div class="widget-content ">
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <h5 class="mb-2">Cuisine</h5>
+                                <Multiselect v-model="updateComponent.cuisines" mode="tags" placeholder="Select Cuisine" track-by="name" label="name" :close-on-select="false" :search="true" :options="cuisineList" :searchable="true">
+                                        <template v-slot:tag="{ option, handleTagRemove, disabled }">
+                                        <div
+                                            class="multiselect-tag is-user"
+                                            :class="{
+                                            'is-disabled': disabled
+                                            }"
+                                        >
+                                            {{ option.name }}
+                                            <span
+                                            v-if="!disabled"
+                                            class="multiselect-tag-remove"
+                                            @mousedown.prevent="handleTagRemove(option, $event)"
+                                            >
+                                            <span class="multiselect-tag-remove-icon"></span>
+                                            </span>
+                                        </div>
+                                        </template>
+                                    </Multiselect>
+                                <div
+                                    v-if="validation_error.hasOwnProperty('cuisine')"
+                                    class="text-danger font-weight-bold"
+                                >
+                                    {{ validation_error.cuisine[0] }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
                 <div class="statbox widget box ">
