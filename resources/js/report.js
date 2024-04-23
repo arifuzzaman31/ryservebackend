@@ -5,6 +5,7 @@ import { createApp } from 'vue';
 import RevenueReport from './components/report/RevenueReport.vue';
 import UpcomingReserve from './components/report/UpcomingReserve.vue';
 import CompletedReserve from './components/report/CompletedReserve.vue';
+import CanceledReserve from './components/report/CanceledReserve.vue';
 
 const app = createApp({})
 
@@ -12,5 +13,6 @@ const app = createApp({})
 app.component('revenue-report', RevenueReport)
 app.component('upcoming-reserve', UpcomingReserve)
 app.component('completed-reserve', CompletedReserve)
+app.component('cancel-reserve', CanceledReserve)
 
 app.mount('#app')

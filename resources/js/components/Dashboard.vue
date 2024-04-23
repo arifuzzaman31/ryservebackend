@@ -53,7 +53,7 @@
                             </span>
                         </div>
                         <div class="icons-content">
-                            <h6 class="mb-1 card-title">{{ camalizeString(vl.status) }}</h6>
+                            <h6 class="mb-1 card-title">{{ camalizeString(vl.text) }}</h6>
                             <span>{{ vl._count }}</span> <br />
                             <span class="text-sm">
                                 Count Total {{ camalizeString(vl.status) }}
@@ -200,20 +200,20 @@ export default {
     },
 
     methods: {
-        makeStatusText(status){
+        makeStatusText(status,from){
             let text;
             switch (status) {
                 case "ON_HOLD":
                     text = "Upcoming"
                     break;
                 case "CONFIRMED":
-                text = "Waitlist"
+                    text = "Waitlist"
                     break;
                 case "CANCELED":
-                text = "Canceled"
+                    text = "Canceled"
                     break;
                 case "COMPLETED":
-                text = "Visited"
+                    text = from == 'ryservationData' ? "Completed" : "Visited"
                     break;
 
                 default:
@@ -228,11 +228,14 @@ export default {
                     'Authorization': `Bearer ${token}`
                 }
             }).then((response) => {
-                this.ryservationData = response.data.statusData
+                this.ryservationData = response.data.statusData.map(obj => ({
+                        ...obj,
+                        text: this.makeStatusText(obj.status,'ryservationData')
+                    }));
                 this.guestData = response.data.statusData.map(obj => ({
                         ...obj,
                         status: this.camalizeString(obj.status),
-                        text: this.makeStatusText(obj.status)
+                        text: this.makeStatusText(obj.status,'guestData')
                     }));
                 this.chartData = {
                     labels: response.data.statusData.map(

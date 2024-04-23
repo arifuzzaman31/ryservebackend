@@ -19742,7 +19742,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   methods: {
-    makeStatusText: function makeStatusText(status) {
+    makeStatusText: function makeStatusText(status, from) {
       var text;
       switch (status) {
         case "ON_HOLD":
@@ -19755,7 +19755,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           text = "Canceled";
           break;
         case "COMPLETED":
-          text = "Visited";
+          text = from == 'ryservationData' ? "Completed" : "Visited";
           break;
         default:
           break;
@@ -19779,11 +19779,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   'Authorization': "Bearer ".concat(token)
                 }
               }).then(function (response) {
-                _this.ryservationData = response.data.statusData;
+                _this.ryservationData = response.data.statusData.map(function (obj) {
+                  return _objectSpread(_objectSpread({}, obj), {}, {
+                    text: _this.makeStatusText(obj.status, 'ryservationData')
+                  });
+                });
                 _this.guestData = response.data.statusData.map(function (obj) {
                   return _objectSpread(_objectSpread({}, obj), {}, {
                     status: _this.camalizeString(obj.status),
-                    text: _this.makeStatusText(obj.status)
+                    text: _this.makeStatusText(obj.status, 'guestData')
                   });
                 });
                 _this.chartData = {
@@ -20076,6 +20080,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           "id": 16,
           "permission_name": "Delete Reservation",
           "slug": "delete-reservation",
+          "status": 1
+        }]
+      }, {
+        name: "Report",
+        permissions: [{
+          "id": 17,
+          "permission_name": "Revenue Report",
+          "slug": "revenue-report",
+          "status": 1
+        }, {
+          "id": 18,
+          "permission_name": "Upcoming Report",
+          "slug": "upcoming-report",
+          "status": 1
+        }, {
+          "id": 19,
+          "permission_name": "Complete Report",
+          "slug": "complete-report",
+          "status": 1
+        }, {
+          "id": 20,
+          "permission_name": "Cancel Report",
+          "slug": "cancel-report",
           "status": 1
         }]
       }],
@@ -21222,7 +21249,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "col-md-6 col-sm-6 col-lg-3 rounded",
       key: vl.status
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.camalizeString(vl.status)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(vl._count), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, " Count Total " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.camalizeString(vl.status)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a> ")])])]);
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.camalizeString(vl.text)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(vl._count), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(), _hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_13, " Count Total " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.camalizeString(vl.status)), 1 /* TEXT */)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" class=\"btn btn-primary\">Go somewhere</a> ")])])]);
   }), 128 /* KEYED_FRAGMENT */)), _hoisted_14, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.guestData, function (vl) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "col-md-6 col-sm-6 col-lg-3 rounded",
@@ -22859,7 +22886,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (user) {
         var usr = JSON.parse(user);
         if (usr.user.userType == 'BUSINESS_OWNER' || usr.user.userType == 'CRM_EDITOR') {
-          permission = ['branch-view', 'branch-edit', 'branch-delete', 'branch-create', 'listing-view', 'listing-edit', 'listing-delete', 'listing-create', 'listing-type-view', 'listing-type-edit', 'listing-type-delete', 'listing-type-create', 'reservation-view', 'add-reservation', 'edit-reservation', 'delete-reservation', 'role-employee-view', 'report-view',, 'business-view'];
+          permission = ['branch-view', 'branch-edit', 'branch-delete', 'branch-create', 'listing-view', 'listing-edit', 'listing-delete', 'listing-create', 'listing-type-view', 'listing-type-edit', 'listing-type-delete', 'listing-type-create', 'reservation-view', 'add-reservation', 'edit-reservation', 'delete-reservation', 'role-employee-view', 'business-view', 'revenue-report', 'upcoming-report', 'complete-report', 'cancel-report'];
           if (usr.user.userType == 'CRM_EDITOR') permission.push('amenities-view', 'vendor-view');
         } else {
           permission = usr.user.roles.permissions;

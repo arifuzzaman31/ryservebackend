@@ -35,7 +35,7 @@ export default {
                 'listing-view','listing-edit','listing-delete','listing-create',
                 'listing-type-view','listing-type-edit','listing-type-delete','listing-type-create',
                 'reservation-view','add-reservation','edit-reservation','delete-reservation',
-                'role-employee-view','report-view',,'business-view'
+                'role-employee-view','business-view','revenue-report','upcoming-report','complete-report','cancel-report'
                 ]
                 if(usr.user.userType =='CRM_EDITOR') permission.push('amenities-view','vendor-view')
             }else{

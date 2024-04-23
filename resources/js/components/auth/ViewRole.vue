@@ -129,6 +129,35 @@ export default {
                             "status": 1
                         }
                     ]
+                },
+                {
+                    name: "Report",
+                    permissions: [
+                        {
+                            "id": 17,
+                            "permission_name": "Revenue Report",
+                            "slug": "revenue-report",
+                            "status": 1
+                        },
+                        {
+                            "id": 18,
+                            "permission_name": "Upcoming Report",
+                            "slug": "upcoming-report",
+                            "status": 1,
+                        },
+                        {
+                            "id": 19,
+                            "permission_name": "Complete Report",
+                            "slug": "complete-report",
+                            "status": 1
+                        },
+                        {
+                            "id": 20,
+                            "permission_name": "Cancel Report",
+                            "slug": "cancel-report",
+                            "status": 1
+                        }
+                    ]
                 }
             ],
             url: baseUrl,

@@ -29201,7 +29201,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       if (user) {
         var usr = JSON.parse(user);
         if (usr.user.userType == 'BUSINESS_OWNER' || usr.user.userType == 'CRM_EDITOR') {
-          permission = ['branch-view', 'branch-edit', 'branch-delete', 'branch-create', 'listing-view', 'listing-edit', 'listing-delete', 'listing-create', 'listing-type-view', 'listing-type-edit', 'listing-type-delete', 'listing-type-create', 'reservation-view', 'add-reservation', 'edit-reservation', 'delete-reservation', 'role-employee-view', 'report-view',, 'business-view'];
+          permission = ['branch-view', 'branch-edit', 'branch-delete', 'branch-create', 'listing-view', 'listing-edit', 'listing-delete', 'listing-create', 'listing-type-view', 'listing-type-edit', 'listing-type-delete', 'listing-type-create', 'reservation-view', 'add-reservation', 'edit-reservation', 'delete-reservation', 'role-employee-view', 'business-view', 'revenue-report', 'upcoming-report', 'complete-report', 'cancel-report'];
           if (usr.user.userType == 'CRM_EDITOR') permission.push('amenities-view', 'vendor-view');
         } else {
           permission = usr.user.roles.permissions;

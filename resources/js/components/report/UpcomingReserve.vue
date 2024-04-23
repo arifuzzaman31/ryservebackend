@@ -148,7 +148,7 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Upcomming Reserve</h4>
+                            <h4>Upcoming Reservation</h4>
                         </div>
                     </div>
                 </div>
@@ -207,10 +207,7 @@ export default {
                                     <td>{{ ryserve?.comment }}</td>
                                     <td class="text-center">
                                        <span v-if="ryserve.status == 'CONFIRMED'" class="badge badge-success">Confirmed</span>
-                                        <span v-if="ryserve.status == 'DEACTIVE'" class="badge badge-warning">Deactive</span>
-                                        <span v-if="ryserve.status == 'ON_HOLD'" class="badge badge-light">On Hold</span>
-                                        <span v-if="ryserve.status == 'CANCELED'" class="badge badge-danger">Canceled</span>
-                                        <span v-if="ryserve.status == 'COMPLETED'" class="badge badge-info">Completed</span>
+                                        <span v-else class="badge badge-warning">Deactive</span>
                                     </td>
                                 </tr>
                                 </template>

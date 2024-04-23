@@ -37,7 +37,7 @@ export default {
                 startDate: '',
                 endDate: '',
                 slot: '',
-                status: 'COMPLETED',
+                status: 'CANCELED',
                 guestNumber: 1
             },
             slotten: '',
@@ -74,7 +74,7 @@ export default {
             try {
                 this.isLoading = true
                 const token = await this.getUserToken()
-                await axios.get(`${apiUrl}backendapi/report?skiped=${this.currentPage}&status=COMPLETED&event=${this.filterdata.isEvent}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}&per_page=${this.perPage}`, {
+                await axios.get(`${apiUrl}backendapi/report?skiped=${this.currentPage}&status=CANCELED&event=${this.filterdata.isEvent}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}&per_page=${this.perPage}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
@@ -93,7 +93,7 @@ export default {
         },
         async loadExcel(){
             const token = await this.getUserToken()
-            const hit = await axios.get(`${apiUrl}backendapi/report?excel=yes&from=completed&status=COMPLETED&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}`,{
+            const hit = await axios.get(`${apiUrl}backendapi/report?excel=yes&from=canceled&status=CANCELED&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}`,{
                 responseType: 'blob',
                 headers: {
                     'Authorization': `Bearer ${token}`
@@ -147,7 +147,7 @@ export default {
                 <div class="widget-header">
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
-                            <h4>Completed Reservation</h4>
+                            <h4>Canceled Reservation</h4>
                         </div>
                     </div>
                 </div>
@@ -205,8 +205,8 @@ export default {
                                     <td>Ryserved Apps</td>
                                     <td>{{ ryserve?.comment }}</td>
                                     <td class="text-center">
-                                        <span v-if="ryserve.status == 'COMPLETED'" class="badge badge-info">Completed</span>
-                                        <span v-else class="badge badge-danger">Other</span>
+                                        <span v-if="ryserve.status == 'CANCELED'" class="badge badge-danger">Canceled</span>
+                                        <span v-else class="badge badge-info">Other</span>
                                     </td>
                                 </tr>
                                 </template>

@@ -57,6 +57,7 @@ Route::view('vendor', 'pages.employee.vendor')->name('vendor');
 Route::view('revenue-report', 'pages.report.revenue')->name('revenue-report');
 Route::view('upcoming-reservation-report', 'pages.report.upcoming_reservation')->name('upcoming-reservation-report');
 Route::view('completed-reservation-report', 'pages.report.completed_reservation')->name('completed-reservation-report');
+Route::view('cancel-reservation-report', 'pages.report.cancel_reservation')->name('cancel-reservation-report');
 //Report End
 
 //Ryserve End
