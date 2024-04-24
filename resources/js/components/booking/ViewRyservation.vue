@@ -1,11 +1,12 @@
 <script>
 import axios from 'axios';
 import Mixin from '../../mixer'
+import Multiselect from '@vueform/multiselect'
 
 export default {
     mixins: [Mixin],
     components:{
-
+        Multiselect
     },
     data() {
         return {
@@ -48,11 +49,13 @@ export default {
             filterdata : {
                 startDate: '',
                 endDate: '',
+                subAssetCompId: '',
                 slot: '',
                 status: '',
                 isEvent: '',
                 search: ''
             },
+            options: [],
             url: baseUrl,
             isLoading: false,
             isSubmiting: false,
@@ -74,7 +77,7 @@ export default {
             try {
                 this.isLoading = true
                 const token = await this.getUserToken()
-                await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&status=${this.filterdata.status}&event=${this.filterdata.isEvent}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}&per_page=${this.perPage}`, {
+                await axios.get(`${apiUrl}backendapi/booking?skiped=${this.currentPage}&status=${this.filterdata.status}&event=${this.filterdata.isEvent}&startDate=${this.filterdata.startDate}&endDate=${this.filterdata.endDate}&per_page=${this.perPage}&subAssetCompId=${this.filterdata.subAssetCompId}`, {
                         headers: {
                             'Authorization': `Bearer ${token}`
                         }
@@ -224,6 +227,7 @@ export default {
             this.filterdata = {
                 startDate: '',
                 endDate: '',
+                subAssetCompId: '',
                 slot: '',
                 status: '',
                 isEvent: '',
@@ -231,10 +235,33 @@ export default {
             }
             this.getBooking()
         },
+        async openCreateBookingModal(){
+            $("#createBookingModal").modal('show');
+            if(this.subassetescomponent.length == 0) await this.getSubAssetComp()
+        },
+
         async filterSubmit(){
             this.currentPage = 1,
             this.perPage = 10,
             await this.getBooking()
+        },
+        async fetchSubAssetComp(query){
+            if(query.length == 0) return false
+            const token = await this.getUserToken()
+            // console.log(token)
+            await axios.get(`${apiUrl}backendapi/sub-asset-component?keyword=${query}`,{
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => {
+                this.options = response.data.map(dt => ({
+                    value: dt.id,
+                    name: dt.listingName
+                }))
+            }).catch(error => {
+                console.log(error)
+            })
         },
         async clearForm() {
             this.bookingData = {
@@ -271,6 +298,7 @@ export default {
             this.filterdata = {
                 startDate: '',
                 endDate: '',
+                subAssetCompId: '',
                 slot: '',
                 status: '',
                 isEvent: '',
@@ -286,7 +314,6 @@ export default {
     },
     mounted() {
         this.getBooking()
-        this.getSubAssetComp()
     }
 }
 </script>
@@ -299,7 +326,7 @@ export default {
                     <div class="row">
                         <div class="col-xl-12 col-md-12 col-sm-12 col-12 d-flex justify-content-between">
                             <h4>Reservation</h4>
-                            <button v-if="showPermission.includes('add-reservation')" class="btn btn-primary mb-2 mr-3" data-toggle="modal" data-target="#createBookingModal">Add New</button>
+                            <button v-if="showPermission.includes('add-reservation')" class="btn btn-primary mb-2 mr-3" @click="openCreateBookingModal">Add New</button>
                         </div>
                     </div>
                 </div>
@@ -308,7 +335,7 @@ export default {
                 </div>
                 <div class="widget-content widget-content-area" v-else>
                     <div class="row mb-2">
-                        <div class="col-md-2 col-lg-2 col-12">
+                        <div class="col-md-3 col-lg-3 col-12">
                             <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.status">
                                 <option selected="" value="">Choose...</option>
                                 <option value="CONFIRMED">Confirmed</option>
@@ -318,7 +345,7 @@ export default {
                                 <option value="COMPLETED">Completed</option>
                             </select>
                         </div>
-                        <div class="col-md-2 col-lg-2 col-12">
+                        <div class="col-md-3 col-lg-3 col-12">
                             <select id="product-camp" class="form-control  form-control-sm" v-model="filterdata.isEvent">
                                 <option selected="" value="">All</option>
                                 <option value="Regular">Regular</option>
@@ -329,14 +356,28 @@ export default {
                         <div class="col-md-3 col-lg-3 col-12">
                             <input type="text" onfocus="(this.type='date')" v-model="filterdata.startDate" class="form-control form-control-sm" placeholder="Start Date">
                         </div>
+
                         <div class="col-md-3 col-lg-3 col-12">
                             <input type="text" onfocus="(this.type='date')" v-model="filterdata.endDate" class="form-control form-control-sm" placeholder="End Date">
                         </div>
-
-                        <div class="col-md-2 col-lg-1 col-12">
+                        <div class="col-md-3 col-lg-3 col-12 mt-2">
+                           <Multiselect
+                                v-model="filterdata.subAssetCompId"
+                                placeholder="Search by Property"
+                                :options="options"
+                                :filter-results="false"
+                                :resolve-on-load="false"
+                                :delay="1"
+                                track-by="value"
+                                label="name"
+                                :searchable="true"
+                                @search-change="fetchSubAssetComp"
+                            />
+                        </div>
+                        <div class="col-md-2 col-lg-1 col-12  mt-2">
                             <button type="button" class="btn btn-info" @click.prevent="filterSubmit()">Filter</button>
                         </div>
-                        <div class="col-md-2 col-lg-1 col-12">
+                        <div class="col-md-2 col-lg-1 col-12  mt-2">
                             <button type="button" class="btn btn-danger" @click.prevent="filterClear()">CLEAR</button>
                         </div>
                     </div>
@@ -503,6 +544,19 @@ export default {
                                     <option value="">Choose Restaurant</option>
                                     <option v-for="value in subassetescomponent" :value="value" :key="value.id">{{ value.listingName }}</option>
                                 </select>
+                                <!-- <Multiselect
+                                    v-model="slotten"
+                                    @input="setData()"
+                                    placeholder="Search by Property"
+                                    :options="options"
+                                    :filter-results="false"
+                                    :resolve-on-load="false"
+                                    :delay="1"
+                                    track-by="value"
+                                    label="name"
+                                    :searchable="true"
+                                    @search-change="fetchSubAssetComp"
+                                /> -->
                             </div>
                             <div class="col-6 mt-3">
                                 <label for="table-rest">Select Table</label>
