@@ -176,6 +176,40 @@
                     </div>
                 </div>
             </div>
+            <div
+                class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing"
+            >
+            <div class="widget widget-chart-one">
+                <div class="widget-heading d-flex">
+                        <div style="">
+                            <select class="form-control" @change="getDataStatus()" v-model="slotStatus">
+                                <option value="ON_HOLD">On Hold</option>
+                                <option value="COMPLETED">Completed</option>
+                                <option value="CONFIRMED">Confirmed</option>
+                                <option value="CANCELED">Canceled</option>
+                            </select>
+                        </div>
+                        <ul class="tabs tab-pills">
+                            <li>
+                                <a
+                                    href="javascript:void(0);"
+                                    id="tb_1"
+                                    class="tabmenu"
+                                    >Last 30 days Slot Performance</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="widget-content">
+                        <div class="tabs tab-content">
+                            <div id="content_2" class="tabcontent">
+                                <customer-of-month :chartData="slotData" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -194,6 +228,8 @@ export default {
             guestData: null,
             chartData: null,
             yearData: null,
+            slotData: null,
+            slotStatus: 'CONFIRMED',
             loaded: false,
             url: apiUrl
         };
@@ -223,7 +259,7 @@ export default {
         },
         async getDataStatus() {
             const token = await this.getUserToken()
-            await axios.get(`${apiUrl}backendapi/dashboard`, {
+            await axios.get(`${apiUrl}backendapi/dashboard?slotStatus=${this.slotStatus}`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
@@ -272,8 +308,8 @@ export default {
                             label: "Income",
                             data: mData.map(v =>  response.data.monthData[v]),
                             backgroundColor: [
-                                "rgba(255, 99, 132, 0.2)",
                                 "rgba(255, 159, 64, 0.2)",
+                                "rgba(255, 99, 132, 0.2)",
                                 "rgba(255, 205, 86, 0.2)",
                                 "rgba(75, 192, 192, 0.2)",
                                 "rgba(54, 162, 235, 0.2)",
@@ -286,8 +322,8 @@ export default {
                                 "rgba(102, 255, 102, 0.2)",
                             ],
                             borderColor: [
-                                "rgb(255, 99, 132)",
                                 "rgb(255, 159, 64)",
+                                "rgb(255, 99, 132)",
                                 "rgb(255, 205, 86)",
                                 "rgb(75, 192, 192)",
                                 "rgb(54, 162, 235)",
@@ -298,6 +334,50 @@ export default {
                                 "rgb(255, 102, 255)",
                                 "rgb(255, 229, 204)",
                                 "rgb(102, 255, 102)",
+                            ],
+                            borderWidth: 1,
+                        },
+                    ],
+                };
+                const slData = response.data.slotPerformance.map(
+                        (item) => item.slot
+                    )
+
+                this.slotData = {
+                    labels: slData,
+                    datasets: [
+                        {
+                            label: "Slot Performance",
+                            data: response.data.slotPerformance.map(
+                                (item) => item._count
+                            ),
+                            backgroundColor: [
+                                "rgba(75, 192, 192, 0.2)",
+                                "rgba(54, 162, 235, 0.2)",
+                                "rgba(153, 102, 255, 0.2)",
+                                "rgba(201, 203, 207, 0.2)",
+                                "rgba(255, 51, 51, 0.2)",
+                                "rgba(51, 153, 255, 0.2)",
+                                "rgba(255, 102, 255, 0.2)",
+                                "rgba(255, 229, 204, 0.2)",
+                                "rgba(102, 255, 102, 0.2)",
+                                "rgba(255, 99, 132, 0.2)",
+                                "rgba(255, 159, 64, 0.2)",
+                                "rgba(255, 205, 86, 0.2)",
+                            ],
+                            borderColor: [
+                                "rgb(75, 192, 192)",
+                                "rgb(54, 162, 235)",
+                                "rgb(153, 102, 255)",
+                                "rgb(201, 203, 207)",
+                                "rgb(255, 51, 51)",
+                                "rgb(51, 153, 255)",
+                                "rgb(255, 102, 255)",
+                                "rgb(255, 229, 204)",
+                                "rgb(102, 255, 102)",
+                                "rgb(255, 99, 132)",
+                                "rgb(255, 159, 64)",
+                                "rgb(255, 205, 86)",
                             ],
                             borderWidth: 1,
                         },

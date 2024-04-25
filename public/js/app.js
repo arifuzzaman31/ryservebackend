@@ -19737,6 +19737,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       guestData: null,
       chartData: null,
       yearData: null,
+      slotData: null,
+      slotStatus: 'CONFIRMED',
       loaded: false,
       url: apiUrl
     };
@@ -19774,7 +19776,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             case 2:
               token = _context.sent;
               _context.next = 5;
-              return axios.get("".concat(apiUrl, "backendapi/dashboard"), {
+              return axios.get("".concat(apiUrl, "backendapi/dashboard?slotStatus=").concat(_this.slotStatus), {
                 headers: {
                   'Authorization': "Bearer ".concat(token)
                 }
@@ -19812,8 +19814,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     data: mData.map(function (v) {
                       return response.data.monthData[v];
                     }),
-                    backgroundColor: ["rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 51, 51, 0.2)", "rgba(51, 153, 255, 0.2)", "rgba(255, 102, 255, 0.2)", "rgba(255, 229, 204, 0.2)", "rgba(102, 255, 102, 0.2)"],
-                    borderColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 51, 51)", "rgb(51, 153, 255)", "rgb(255, 102, 255)", "rgb(255, 229, 204)", "rgb(102, 255, 102)"],
+                    backgroundColor: ["rgba(255, 159, 64, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 205, 86, 0.2)", "rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 51, 51, 0.2)", "rgba(51, 153, 255, 0.2)", "rgba(255, 102, 255, 0.2)", "rgba(255, 229, 204, 0.2)", "rgba(102, 255, 102, 0.2)"],
+                    borderColor: ["rgb(255, 159, 64)", "rgb(255, 99, 132)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 51, 51)", "rgb(51, 153, 255)", "rgb(255, 102, 255)", "rgb(255, 229, 204)", "rgb(102, 255, 102)"],
+                    borderWidth: 1
+                  }]
+                };
+                var slData = response.data.slotPerformance.map(function (item) {
+                  return item.slot;
+                });
+                _this.slotData = {
+                  labels: slData,
+                  datasets: [{
+                    label: "Slot Performance",
+                    data: response.data.slotPerformance.map(function (item) {
+                      return item._count;
+                    }),
+                    backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(54, 162, 235, 0.2)", "rgba(153, 102, 255, 0.2)", "rgba(201, 203, 207, 0.2)", "rgba(255, 51, 51, 0.2)", "rgba(51, 153, 255, 0.2)", "rgba(255, 102, 255, 0.2)", "rgba(255, 229, 204, 0.2)", "rgba(102, 255, 102, 0.2)", "rgba(255, 99, 132, 0.2)", "rgba(255, 159, 64, 0.2)", "rgba(255, 205, 86, 0.2)"],
+                    borderColor: ["rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)", "rgb(255, 51, 51)", "rgb(51, 153, 255)", "rgb(255, 102, 255)", "rgb(255, 229, 204)", "rgb(102, 255, 102)", "rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)"],
                     borderWidth: 1
                   }]
                 };
@@ -21243,6 +21260,48 @@ var _hoisted_33 = {
   id: "content_1",
   "class": "tabcontent"
 };
+var _hoisted_34 = {
+  "class": "col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 layout-spacing"
+};
+var _hoisted_35 = {
+  "class": "widget widget-chart-one"
+};
+var _hoisted_36 = {
+  "class": "widget-heading d-flex"
+};
+var _hoisted_37 = {
+  style: {}
+};
+var _hoisted_38 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "ON_HOLD"
+}, "On Hold", -1 /* HOISTED */);
+var _hoisted_39 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "COMPLETED"
+}, "Completed", -1 /* HOISTED */);
+var _hoisted_40 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "CONFIRMED"
+}, "Confirmed", -1 /* HOISTED */);
+var _hoisted_41 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: "CANCELED"
+}, "Canceled", -1 /* HOISTED */);
+var _hoisted_42 = [_hoisted_38, _hoisted_39, _hoisted_40, _hoisted_41];
+var _hoisted_43 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
+  "class": "tabs tab-pills"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "javascript:void(0);",
+  id: "tb_1",
+  "class": "tabmenu"
+}, "Last 30 days Slot Performance")])], -1 /* HOISTED */);
+var _hoisted_44 = {
+  "class": "widget-content"
+};
+var _hoisted_45 = {
+  "class": "tabs tab-content"
+};
+var _hoisted_46 = {
+  id: "content_2",
+  "class": "tabcontent"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_customer_of_month = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("customer-of-month");
   return !$data.loaded ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, _hoisted_3)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.ryservationData, function (vl) {
@@ -21259,6 +21318,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     chartData: $data.chartData
   }, null, 8 /* PROPS */, ["chartData"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_28, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_29, [_hoisted_30, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_customer_of_month, {
     chartData: $data.yearData
+  }, null, 8 /* PROPS */, ["chartData"])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_34, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_35, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_36, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_37, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+    "class": "form-control",
+    onChange: _cache[0] || (_cache[0] = function ($event) {
+      return $options.getDataStatus();
+    }),
+    "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+      return $data.slotStatus = $event;
+    })
+  }, _hoisted_42, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.slotStatus]])]), _hoisted_43]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_46, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_customer_of_month, {
+    chartData: $data.slotData
   }, null, 8 /* PROPS */, ["chartData"])])])])])])])]));
 }
 
