@@ -24,6 +24,8 @@ export default {
                 id: '',
                 assetId: '',
                 subAssetId: '',
+                pricingId: '',
+                pricingId: '',
                 listingName: '',
                 type: '',
                 isEvent: false,
@@ -36,7 +38,7 @@ export default {
                 cuisines: [],
                 slot: [],
                 offday: [{ dayname: '', from: '', to: '' }],
-                pricing: [{ id:'', itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm',
+                pricing: [{itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm',
                 price:0,description:'Here is demo description.'}],
                 description: '',
                 terms: '',
@@ -210,8 +212,9 @@ export default {
                         link: item.link, precedence: item.precedence
                     }
             })
+            this.updateComponent.pricingId = compdata.prices[0].id
             this.updateComponent.pricing = compdata.prices[0].pricing.map(item => {
-                return {id:compdata.prices[0].id, itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
+                return {itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
                 price:0,description:'Here is demo description.'}
             })
 
@@ -248,9 +251,9 @@ export default {
                 .then((result) => {
                     if(result.status == 200){
                         this.isSubmiting = false
-                        $("#updateSubAssetCompModal").modal('hide');
-                        this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
-                        this.getSubAssetComp()
+                        // $("#updateSubAssetCompModal").modal('hide');
+                        // this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
+                        // this.getSubAssetComp()
                     }
                 })
                 .catch((errors) => {
@@ -268,6 +271,13 @@ export default {
         removeImageChild(index) {
             if (index == 0) return;
             this.updateComponent.image.splice(index, 1);
+        },
+        addMoreMenu(){
+            this.updateComponent.pricing.push({id:'', itemName: 'Demo', image: '',qty: 1, size: '120 cm', weight: '250 gm', price:0,description:'Here is demo description.'})
+        },
+        removeMenuChild(index) {
+            if (index == 0) return;
+            this.updateComponent.pricing.splice(index, 1);
         },
         addMoreSlot() {
             if(this.slotdev.length == 7) return ;
@@ -831,18 +841,40 @@ export default {
                         <div class="form-row">
                             <div class="form-group col-md-12">
                                 <h5 class="mb-2">Menu Link</h5>
-                                <input type="text" class="form-control form-control-sm" id="menu-Link" placeholder="Update Menu Link" v-model="updateComponent.pricing[0].image" >
-                                <div
-                                    v-if="validation_error.hasOwnProperty('pricing')"
-                                    class="text-danger font-weight-bold"
-                                >
-                                    {{ validation_error.pricing[0] }}
-                                </div>
+                                    <div class="widget-content ">
+                                        <div class="row text-center my-1">
+                                            <div class="col-10  text-success">
+                                                <b>Image Link</b>
+                                            </div>
+
+                                            <div class="col-2  text-danger">
+                                                <b>Remove</b>
+                                            </div>
+                                        </div>
+                                        <div class="row" v-for="(price,ind) in updateComponent.pricing" :key="ind">
+                                            <div class="form-group col-md-10">
+                                                <input type="text" class="form-control form-control-sm" :id="ind" v-model="price.image" placeholder="Menu Image URL" required>
+                                            </div>
+                                        <div class="form-group form-control-sm col-md-2 text-center">
+                                                <a
+                                                href="javascript:void(0)"
+                                                @click.prevent="removeMenuChild(ind)"
+                                                class="mt-5"
+                                                ><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 text-danger"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                                            </div>
+                                    </div>
+                                        <a
+                                        href="javascript:void(0)"
+                                        @click.prevent="addMoreMenu()"
+                                        class="btn btn-warning"
+                                    >Add More
+                                    </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="row">
             <div id="tooltips" class="col-lg-12 layout-spacing col-md-12">
