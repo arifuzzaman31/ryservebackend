@@ -23261,6 +23261,8 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
     preperData: function preperData(compdata) {
       var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var _compdata$prices$0$id, _compdata$prices$;
+        var _compdata$prices$2;
         return _regeneratorRuntime().wrap(function _callee6$(_context6) {
           while (1) switch (_context6.prev = _context6.next) {
             case 0:
@@ -23307,30 +23309,34 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
                   precedence: item.precedence
                 };
               });
-              _this6.updateComponent.pricingId = compdata.prices[0].id;
-              _this6.updateComponent.pricing = compdata.prices[0].pricing.map(function (item) {
-                return {
-                  itemName: 'Demo',
-                  image: item.image,
-                  qty: 1,
-                  size: '120 cm',
-                  weight: '250 gm',
-                  price: 0,
-                  description: 'Here is demo description.'
-                };
-              });
-              _this6.updateComponent.table = compdata.tables.map(function (item) {
-                return {
-                  id: item.id,
-                  capacity: item.capacity,
-                  type: item.type,
-                  position: item.position,
-                  size: item.size,
-                  ryservable: item.ryservable.toString(),
-                  splitable: item.splitable.toString(),
-                  status: item.status.toString()
-                };
-              });
+              _this6.updateComponent.pricingId = (_compdata$prices$0$id = (_compdata$prices$ = compdata.prices[0]) === null || _compdata$prices$ === void 0 ? void 0 : _compdata$prices$.id) !== null && _compdata$prices$0$id !== void 0 ? _compdata$prices$0$id : '';
+              if (compdata.prices && compdata.prices.length > 0) {
+                _this6.updateComponent.pricing = (_compdata$prices$2 = compdata.prices[0]) === null || _compdata$prices$2 === void 0 ? void 0 : _compdata$prices$2.pricing.map(function (item) {
+                  return {
+                    itemName: 'Demo',
+                    image: item.image,
+                    qty: 1,
+                    size: '120 cm',
+                    weight: '250 gm',
+                    price: 0,
+                    description: 'Here is demo description.'
+                  };
+                });
+              }
+              if (compdata.tables && compdata.tables.length > 0) {
+                _this6.updateComponent.table = compdata.tables.map(function (item) {
+                  return {
+                    id: item.id,
+                    capacity: item.capacity,
+                    type: item.type,
+                    position: item.position,
+                    size: item.size,
+                    ryservable: item.ryservable.toString(),
+                    splitable: item.splitable.toString(),
+                    status: item.status.toString()
+                  };
+                });
+              }
               _this6.updateComponent.description = compdata.description;
               _this6.updateComponent.terms = compdata.terms;
               _this6.updateComponent.reservationCategory = compdata.reservationCategory;
@@ -23388,9 +23394,12 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               }).then(function (result) {
                 if (result.status == 200) {
                   _this8.isSubmiting = false;
-                  // $("#updateSubAssetCompModal").modal('hide');
-                  // this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
-                  // this.getSubAssetComp()
+                  $("#updateSubAssetCompModal").modal('hide');
+                  _this8.successMessage({
+                    status: 'success',
+                    message: 'Sub Asset Component Updated Successful'
+                  });
+                  _this8.getSubAssetComp();
                 }
               })["catch"](function (errors) {
                 console.log(errors);

@@ -212,18 +212,22 @@ export default {
                         link: item.link, precedence: item.precedence
                     }
             })
-            this.updateComponent.pricingId = compdata.prices[0].id
-            this.updateComponent.pricing = compdata.prices[0].pricing.map(item => {
-                return {itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
-                price:0,description:'Here is demo description.'}
-            })
+            this.updateComponent.pricingId = compdata.prices[0]?.id ?? ''
+            if(compdata.prices && compdata.prices.length > 0){
+                this.updateComponent.pricing = compdata.prices[0]?.pricing.map(item => {
+                    return {itemName: 'Demo', image: item.image, qty: 1, size: '120 cm', weight: '250 gm',
+                    price:0,description:'Here is demo description.'}
+                })
+            }
 
-            this.updateComponent.table = compdata.tables.map(item => {
-                return {
-                    id:item.id,capacity: item.capacity, type: item.type, position: item.position, size: item.size,
-                    ryservable: item.ryservable.toString(),splitable: item.splitable.toString(), status: item.status.toString()
-                }
-            })
+            if(compdata.tables && compdata.tables.length > 0){
+                this.updateComponent.table = compdata.tables.map(item => {
+                    return {
+                        id:item.id,capacity: item.capacity, type: item.type, position: item.position, size: item.size,
+                        ryservable: item.ryservable.toString(),splitable: item.splitable.toString(), status: item.status.toString()
+                    }
+                })
+            }
             this.updateComponent.description = compdata.description
             this.updateComponent.terms = compdata.terms
             this.updateComponent.reservationCategory = compdata.reservationCategory
@@ -251,9 +255,9 @@ export default {
                 .then((result) => {
                     if(result.status == 200){
                         this.isSubmiting = false
-                        // $("#updateSubAssetCompModal").modal('hide');
-                        // this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
-                        // this.getSubAssetComp()
+                        $("#updateSubAssetCompModal").modal('hide');
+                        this.successMessage({status:'success',message:'Sub Asset Component Updated Successful'})
+                        this.getSubAssetComp()
                     }
                 })
                 .catch((errors) => {
