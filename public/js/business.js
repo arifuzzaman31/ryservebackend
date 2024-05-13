@@ -21032,22 +21032,29 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         return _regeneratorRuntime().wrap(function _callee5$(_context5) {
           while (1) switch (_context5.prev = _context5.next) {
             case 0:
+              if (!(_this5.subassetescomponent.length == 0)) {
+                _context5.next = 3;
+                break;
+              }
+              _context5.next = 3;
+              return _this5.getSubAssetComp();
+            case 3:
               _this5.pickslot = [];
               _this5.tables = [];
-              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()]; // console.log(day)
-              _context5.next = 5;
+              day = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"][new Date(ryserve.startDate).getDay()];
+              _context5.next = 8;
               return _this5.subassetescomponent.find(function (dt) {
                 return dt.id == ryserve.subAssetCompId;
               });
-            case 5:
+            case 8:
               tbl = _context5.sent;
-              foundData = tbl.slot.find(function (dayData) {
+              foundData = tbl === null || tbl === void 0 ? void 0 : tbl.slot.find(function (dayData) {
                 return dayData[day];
               });
               if (foundData) {
                 _this5.pickslot = _toConsumableArray(foundData[day]);
               }
-              _this5.tables = (_tbl$tables = tbl.tables) !== null && _tbl$tables !== void 0 ? _tbl$tables : [];
+              _this5.tables = (_tbl$tables = tbl === null || tbl === void 0 ? void 0 : tbl.tables) !== null && _tbl$tables !== void 0 ? _tbl$tables : [];
               _this5.modify.id = ryserve.id;
               _this5.modify.comment = ryserve.comment;
               _this5.modify.slot = ryserve.slot;
@@ -21056,7 +21063,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _this5.modify.amount = ryserve.amount;
               _this5.modify.status = ryserve.status;
               $("#updateBooking").modal('show');
-            case 17:
+            case 20:
             case "end":
               return _context5.stop();
           }

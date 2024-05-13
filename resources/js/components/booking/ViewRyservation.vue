@@ -110,16 +110,16 @@ export default {
                 )
         },
         async updateStatus(ryserve) {
+            if(this.subassetescomponent.length == 0) await this.getSubAssetComp()
             this.pickslot = []
             this.tables = []
             let day = ["sunday","monday","tuesday","wednesday","thursday","friday","saturday"][new Date(ryserve.startDate).getDay()]
-            // console.log(day)
             let tbl = await this.subassetescomponent.find(dt => dt.id == ryserve.subAssetCompId);
-            const foundData = tbl.slot.find(dayData => dayData[day]);
+            const foundData = tbl?.slot.find(dayData => dayData[day]);
             if(foundData){
                 this.pickslot = [...foundData[day]];
             }
-            this.tables = tbl.tables ?? []
+            this.tables = tbl?.tables ?? []
             this.modify.id = ryserve.id
             this.modify.comment = ryserve.comment
             this.modify.slot = ryserve.slot
